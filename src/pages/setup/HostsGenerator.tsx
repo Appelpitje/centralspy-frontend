@@ -13,15 +13,13 @@ import { GAMES, SupportedGameSlug } from '../../types/game';
 import { Card } from '../../components/common/Card';
 import { Button } from '../../components/common/Button';
 import { cn } from '../../utils/cn';
+import { resolveMasterServerInfo, isIpv4Address } from '../../utils/masterServer';
 
 export const HostsGenerator: React.FC = () => {
-  // Default IP based on browser location hostname or 127.0.0.1
-  const defaultHost =
-    typeof window !== 'undefined' &&
-    window.location.hostname &&
-    window.location.hostname !== 'localhost'
-      ? window.location.hostname
-      : '127.0.0.1';
+  const masterInfo = useMemo(() => resolveMasterServerInfo(), []);
+
+  // Default server IP: prefer IPv4 for hosts file compatibility (e.g. 178.105.150.25 or 127.0.0.1)
+  const defaultHost = masterInfo.ip || masterInfo.host || '127.0.0.1';
 
   const [serverIp, setServerIp] = useState<string>(defaultHost);
   const [selectedGames, setSelectedGames] = useState<Record<SupportedGameSlug, boolean>>({
@@ -52,7 +50,9 @@ export const HostsGenerator: React.FC = () => {
     const lines: string[] = [
       '# =========================================================',
       '# CentralSpy Emulated Network Hosts Configuration',
-      `# Target CentralSpy Server IP: ${ip}`,
+      `# Target CentralSpy Master Server: ${ip}`,
+      '# Note: Web Portal = portal.appelpitje.dev',
+      '# Master Server (FESL & Theater) = centralspy.appelpitje.dev',
       `# Generated: ${new Date().toISOString()}`,
       '# =========================================================',
       '',
@@ -112,10 +112,31 @@ export const HostsGenerator: React.FC = () => {
         accent="cyan"
       >
         <div className="space-y-6 font-mono text-xs">
+          {/* Master Server vs Web Portal Notice */}
+          <div className="p-3 bg-carbon-950/90 border border-carbon-800 rounded-sm space-y-1.5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2 text-cyan-400 font-bold uppercase tracking-wider text-[11px]">
+                <Globe className="w-3.5 h-3.5 text-cyan-400" />
+                <span>CENTRALSPY MASTER SERVER VS WEB PORTAL</span>
+              </div>
+              <span className="text-[10px] text-emerald-400 bg-emerald-950/50 border border-emerald-800/60 px-1.5 py-0.5 rounded">
+                ACTIVE CLUSTER
+              </span>
+            </div>
+            <p className="text-gray-300 text-[11px] leading-relaxed">
+              This web portal runs on <code className="text-cyan-300">{typeof window !== 'undefined' ? window.location.hostname : 'portal.appelpitje.dev'}</code> (web UI).
+              The CentralSpy Master Server (FESL authentication &amp; Theater matchmaking) is located on{' '}
+              <strong className="text-emerald-400">{masterInfo.host}</strong> (IPv4: <strong className="text-emerald-400">{masterInfo.ip}</strong>).
+            </p>
+            <p className="text-amber-400/90 text-[10px]">
+              ⚠️ Game client hosts redirects (<code className="text-amber-300">fesl.ea.com</code>, <code className="text-amber-300">theater.ea.com</code>) must route to the masterserver (<code className="text-emerald-300">{masterInfo.ip}</code> / <code className="text-emerald-300">{masterInfo.host}</code>), <strong>never</strong> to the frontend portal!
+            </p>
+          </div>
+
           {/* Server IP Input */}
           <div className="space-y-2">
             <label className="block text-gray-300 font-semibold tracking-wider uppercase text-[11px]">
-              1. CentralSpy Server IPv4 Address or Hostname
+              1. CentralSpy Master Server IPv4 Address or Hostname
             </label>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
               <div className="relative flex-1">
@@ -124,32 +145,66 @@ export const HostsGenerator: React.FC = () => {
                   type="text"
                   value={serverIp}
                   onChange={(e) => setServerIp(e.target.value)}
-                  placeholder="e.g. 127.0.0.1 or 192.168.1.100 or play.centralspy.net"
+                  placeholder="e.g. 178.105.150.25 or centralspy.appelpitje.dev"
                   className="w-full bg-carbon-900 border border-carbon-700 text-cyan-300 placeholder-gray-500 rounded-sm text-xs font-mono pl-9 pr-3 py-2 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/40"
                 />
               </div>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-wrap items-center gap-1.5">
+                {masterInfo.ip && masterInfo.ip !== '127.0.0.1' && (
+                  <Button
+                    variant={serverIp === masterInfo.ip ? 'primary' : 'secondary'}
+                    size="sm"
+                    onClick={() => setServerIp(masterInfo.ip)}
+                  >
+                    Master IP ({masterInfo.ip})
+                  </Button>
+                )}
+                {masterInfo.host && masterInfo.host !== masterInfo.ip && (
+                  <Button
+                    variant={serverIp === masterInfo.host ? 'primary' : 'secondary'}
+                    size="sm"
+                    onClick={() => setServerIp(masterInfo.host)}
+                  >
+                    Master Host ({masterInfo.host})
+                  </Button>
+                )}
                 <Button
-                  variant="secondary"
+                  variant={serverIp === '127.0.0.1' ? 'primary' : 'secondary'}
                   size="sm"
                   onClick={() => setServerIp('127.0.0.1')}
                 >
                   Localhost (127.0.0.1)
                 </Button>
-                {typeof window !== 'undefined' && window.location.hostname && (
+              </div>
+            </div>
+
+            {/* Non-IPv4 Warning Callout */}
+            {!isIpv4Address(serverIp) && (
+              <div className="p-2.5 bg-amber-950/40 border border-amber-800/60 rounded text-[11px] text-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span className="font-bold text-amber-300">💡 Hosts File Format Requirement:</span> Operating system hosts files (<code className="text-white font-mono">/etc/hosts</code> or Windows <code className="text-white font-mono">drivers\etc\hosts</code>) require a numeric <strong>IPv4 address</strong> on the left column, not a domain name.
+                  {masterInfo.ip && (
+                    <span className="block mt-0.5 text-amber-300/90">
+                      The master server domain <code className="text-white font-bold">{masterInfo.host}</code> resolves to IP <code className="text-white font-bold">{masterInfo.ip}</code>.
+                    </span>
+                  )}
+                </div>
+                {masterInfo.ip && serverIp !== masterInfo.ip && (
                   <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => setServerIp(window.location.hostname)}
+                    variant="outline"
+                    size="xs"
+                    className="shrink-0 text-amber-300 border-amber-600 hover:bg-amber-900/50"
+                    onClick={() => setServerIp(masterInfo.ip)}
                   >
-                    Current Host
+                    Use IPv4: {masterInfo.ip}
                   </Button>
                 )}
               </div>
-            </div>
+            )}
+
             <p className="text-[10px] text-gray-500">
-              Use <code className="text-cyan-400">127.0.0.1</code> if CentralSpy is running locally on your PC, or your LAN/WAN server IP if connecting to a remote CentralSpy instance.
+              Use <code className="text-emerald-400">{masterInfo.ip}</code> (<code className="text-cyan-400">{masterInfo.host}</code>) for the official CentralSpy master server, or <code className="text-cyan-400">127.0.0.1</code> if running a local test instance.
             </p>
           </div>
 

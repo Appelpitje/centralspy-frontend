@@ -36,7 +36,7 @@ export const TroubleshootingFaq: React.FC = () => {
       symptom: 'Game hangs at login screen, then throws error dialog "Failed to connect to EA Online. (errorCode=122)".',
       rootCause: 'The game client cannot establish a TCP connection to FESL on port 18270 at the IP address specified in your hosts file.',
       solution: [
-        'Verify your system hosts file (C:\\Windows\\System32\\drivers\\etc\\hosts or /etc/hosts) has correct redirection lines.',
+        'Verify your system hosts file (C:\\Windows\\System32\\drivers\\etc\\hosts or /etc/hosts) points to the Master Server (178.105.150.25 / centralspy.appelpitje.dev), NOT the web portal (portal.appelpitje.dev).',
         'Flush your DNS resolver cache by running `ipconfig /flushdns` in an elevated terminal.',
         'Ensure the CentralSpy server instance is actively running and listening on port 18270 (FESL) and 18275 (Theater).',
         'Verify that Windows Defender Firewall or antivirus software is not blocking outbound TCP traffic on port 18270.',
@@ -67,7 +67,7 @@ export const TroubleshootingFaq: React.FC = () => {
       solution: [
         'Confirm port 18275 (both TCP and UDP) is reachable and open on both client and server firewalls.',
         'If hosting servers behind a home NAT router, enable NAT Loopback / Hairpinning or forward port 18275.',
-        'Check that your game client hosts file redirect includes `${gameSlug}.theater.ea.com`.',
+        'Check that your game client hosts file redirect includes `${gameSlug}.theater.ea.com` pointing to the Master Server (178.105.150.25 / centralspy.appelpitje.dev).',
       ],
     },
     {

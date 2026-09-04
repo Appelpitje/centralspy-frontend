@@ -38,7 +38,7 @@ export const DedicatedServerGuide: React.FC = () => {
                 <span>1. HOSTS REDIRECTION</span>
               </div>
               <p className="text-[11px] text-gray-400">
-                Ensure the server machine has the CentralSpy hosts entries applied so Theater registration connects to CentralSpy instead of offline EA servers.
+                Ensure the server machine has hosts entries pointing to the Master Server (<code className="text-emerald-300">178.105.150.25</code> / <code className="text-emerald-300">centralspy.appelpitje.dev</code>), not the web portal (<code className="text-gray-400">portal.appelpitje.dev</code>).
               </p>
             </div>
 

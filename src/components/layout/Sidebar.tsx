@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   Users,
@@ -29,6 +29,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onCloseMobile,
 }) => {
   const { isAdmin } = useAuthStore();
+  const location = useLocation();
 
   const navItems = [
     {
@@ -97,28 +98,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <Activity className="w-3.5 h-3.5 text-cyan-400 opacity-60" />
           </div>
 
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              onClick={onCloseMobile}
-              className={({ isActive }) =>
-                cn(
-                  'group flex items-center space-x-3 px-3 py-2.5 rounded-sm font-mono text-xs transition-all duration-150',
-                  isActive
-                    ? 'bg-cyan-950/70 text-cyan-300 border border-cyan-500/40 shadow-glow-cyan font-bold'
-                    : 'text-gray-400 hover:text-gray-100 hover:bg-carbon-800/70 border border-transparent'
-                )
-              }
-              title={isCollapsed ? item.label : undefined}
-            >
-              <span className="text-cyan-400 transition-transform group-hover:scale-110">
-                {item.icon}
-              </span>
-              {!isCollapsed && <span className="truncate">{item.label}</span>}
-            </NavLink>
-          ))}
+          {navItems.map((item) => {
+            const isDashboard = item.to === '/';
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                onClick={onCloseMobile}
+                className={({ isActive }) => {
+                  const active = isActive || (isDashboard && location.pathname === '/dashboard');
+                  return cn(
+                    'group flex items-center space-x-3 px-3 py-2.5 rounded-sm font-mono text-xs transition-all duration-150',
+                    active
+                      ? 'bg-cyan-950/70 text-cyan-300 border border-cyan-500/40 shadow-glow-cyan font-bold'
+                      : 'text-gray-400 hover:text-gray-100 hover:bg-carbon-800/70 border border-transparent'
+                  );
+                }}
+                title={isCollapsed ? item.label : undefined}
+              >
+                <span className="text-cyan-400 transition-transform group-hover:scale-110">
+                  {item.icon}
+                </span>
+                {!isCollapsed && <span className="truncate">{item.label}</span>}
+              </NavLink>
+            );
+          })}
         </div>
 
         {/* Footer & Collapse Toggle */}
