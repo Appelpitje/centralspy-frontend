@@ -16,6 +16,7 @@ import { TlsPatcherGuide } from './TlsPatcherGuide';
 import { DedicatedServerGuide } from './DedicatedServerGuide';
 import { TroubleshootingFaq } from './TroubleshootingFaq';
 import { cn } from '../../utils/cn';
+import { resolveMasterServerInfo } from '../../utils/masterServer';
 
 export const DownloadGuides: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -27,6 +28,7 @@ export const DownloadGuides: React.FC = () => {
     : 'hosts';
 
   const activeConfig = getActiveGameConfig();
+  const masterInfo = resolveMasterServerInfo();
 
   const handleTabChange = (id: string) => {
     const newParams = new URLSearchParams(searchParams);
@@ -76,6 +78,22 @@ export const DownloadGuides: React.FC = () => {
         <div className="flex items-center space-x-2">
           <Badge variant="ONLINE">MOHPA THEATER READY</Badge>
         </div>
+      </div>
+
+      {/* Network Infrastructure Architecture Banner */}
+      <div className="p-3.5 bg-carbon-950/90 border border-cyan-900/60 rounded-sm space-y-1.5 font-mono text-xs border-l-4 border-l-cyan-500">
+        <div className="flex items-center space-x-2 text-cyan-400 font-bold uppercase tracking-wider text-[11px]">
+          <Server className="w-3.5 h-3.5 text-cyan-400" />
+          <span>NETWORK INFRASTRUCTURE ARCHITECTURE</span>
+        </div>
+        <p className="text-gray-300 text-[11px] leading-relaxed">
+          The CentralSpy Master Server (FESL authentication &amp; Theater matchmaking) runs on{' '}
+          <strong className="text-emerald-400">{masterInfo.host}</strong> (IPv4: <strong className="text-emerald-400">{masterInfo.ip}</strong>).
+          This web application (<code className="text-cyan-300">{typeof window !== 'undefined' ? window.location.hostname : 'portal.appelpitje.dev'}</code>) is exclusively the frontend management portal.
+        </p>
+        <p className="text-amber-400/90 text-[10px]">
+          ⚠️ Always redirect your game client / dedicated server hosts file to the master server (<code className="text-emerald-300">{masterInfo.ip}</code> / <code className="text-emerald-300">{masterInfo.host}</code>), <strong>not</strong> the web portal domain.
+        </p>
       </div>
 
       {/* Game Quick Bar */}

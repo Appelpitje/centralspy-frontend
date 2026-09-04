@@ -442,13 +442,55 @@ describe('Module 7: Setup & Download Guides Components', () => {
     expect(screen.getByText(/INTERACTIVE HOSTS FILE GENERATOR/i)).toBeInTheDocument();
 
     // Default contains fesl.ea.com
-    expect(screen.getByText(/fesl\.ea\.com/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/fesl\.ea\.com/i).length).toBeGreaterThanOrEqual(1);
 
     // Change server IP
-    const ipInput = screen.getByPlaceholderText(/e\.g\. 127\.0\.0\.1/i);
+    const ipInput = screen.getByPlaceholderText(/178\.105\.150\.25/i);
     fireEvent.change(ipInput, { target: { value: '192.168.1.150' } });
 
     expect(screen.getByText(/192\.168\.1\.150\s+fesl\.ea\.com/i)).toBeInTheDocument();
+  });
+
+  it('HostsGenerator resolves centralspy.appelpitje.dev when accessed on portal.appelpitje.dev', () => {
+    // Mock window.location.hostname as portal.appelpitje.dev
+    const originalLocation = window.location;
+    delete (window as any).location;
+    window.location = { ...originalLocation, hostname: 'portal.appelpitje.dev' } as any;
+
+    try {
+      render(
+        <MemoryRouter>
+          <HostsGenerator />
+        </MemoryRouter>
+      );
+
+      // Verify the notice mentions web portal vs master server
+      expect(screen.getByText(/CENTRALSPY MASTER SERVER VS WEB PORTAL/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/portal\.appelpitje\.dev/i).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByText(/centralspy\.appelpitje\.dev/i).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByText(/178\.105\.150\.25/i).length).toBeGreaterThanOrEqual(1);
+
+      // Verify default generated output routes to master server IP (178.105.150.25)
+      expect(screen.getByText(/178\.105\.150\.25\s+fesl\.ea\.com/i)).toBeInTheDocument();
+      expect(screen.getByText(/178\.105\.150\.25\s+theater\.ea\.com/i)).toBeInTheDocument();
+
+      // Ensure it does NOT use portal.appelpitje.dev in the hosts file
+      expect(screen.queryByText(/portal\.appelpitje\.dev\s+fesl\.ea\.com/i)).toBeNull();
+
+      // Click Master Host button to switch to centralspy.appelpitje.dev FQDN
+      const hostBtn = screen.getByRole('button', { name: /Master Host \(centralspy\.appelpitje\.dev\)/i });
+      fireEvent.click(hostBtn);
+
+      expect(screen.getByText(/centralspy\.appelpitje\.dev\s+fesl\.ea\.com/i)).toBeInTheDocument();
+      expect(screen.getByText(/💡 Hosts File Format Requirement/i)).toBeInTheDocument();
+
+      // Click "Use IPv4: 178.105.150.25" to switch back to IP
+      const useIpBtn = screen.getByRole('button', { name: /Use IPv4: 178\.105\.150\.25/i });
+      fireEvent.click(useIpBtn);
+      expect(screen.getByText(/178\.105\.150\.25\s+fesl\.ea\.com/i)).toBeInTheDocument();
+    } finally {
+      window.location = originalLocation;
+    }
   });
 
   it('TroubleshootingFaq renders error codes and filters by search query', () => {
@@ -476,6 +518,7 @@ describe('Module 7: Setup & Download Guides Components', () => {
     );
 
     expect(screen.getByText(/GAME SETUP & CLIENT CONNECTION CENTER/i)).toBeInTheDocument();
+    expect(screen.getByText(/NETWORK INFRASTRUCTURE ARCHITECTURE/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Quick Setup \(Hosts File\)/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Client Patches & SSL/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Dedicated Server Setup/i })).toBeInTheDocument();
