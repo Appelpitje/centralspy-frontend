@@ -489,7 +489,7 @@ describe('Module 7: Setup & Download Guides Components', () => {
       fireEvent.click(useIpBtn);
       expect(screen.getByText(/178\.105\.150\.25\s+fesl\.ea\.com/i)).toBeInTheDocument();
     } finally {
-      window.location = originalLocation;
+      (window as any).location = originalLocation;
     }
   });
 
