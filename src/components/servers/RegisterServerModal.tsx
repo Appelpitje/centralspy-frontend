@@ -103,13 +103,41 @@ export const RegisterServerModal: React.FC<RegisterServerModalProps> = ({
     >
       {registrationResult ? (
         <div className="space-y-4 font-mono text-xs animate-fade-in">
-          <div className="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-sm text-emerald-300">
+          <div className="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-sm text-emerald-300 space-y-2">
             <h4 className="font-hud font-bold text-sm uppercase text-emerald-400 mb-1">
               NODE ENROLLMENT SUCCESSFUL
             </h4>
             <p className="text-[11px] text-gray-300 leading-relaxed">
-              Your server <b>{registrationResult.server.name}</b> has been registered. Use the secret key below in your server configuration (or <code>X-Server-Secret</code> HTTP header) to broadcast heartbeat telemetry.
+              Your server <b>{registrationResult.server.name}</b> has been registered. The backend queried the node via UDP.
             </p>
+
+            {/* Live Query Telemetry Summary */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-emerald-500/30 text-[11px]">
+              <div className="bg-carbon-950/60 p-2 rounded border border-emerald-500/20">
+                <span className="text-gray-400 block text-[10px] uppercase">STATUS</span>
+                <span className={registrationResult.server.isOnline ? 'text-emerald-400 font-bold' : 'text-crimson-400 font-bold'}>
+                  {registrationResult.server.isOnline ? 'ONLINE' : 'OFFLINE'}
+                </span>
+              </div>
+              <div className="bg-carbon-950/60 p-2 rounded border border-emerald-500/20">
+                <span className="text-gray-400 block text-[10px] uppercase">MAP</span>
+                <span className="text-cyan-300 font-bold truncate block">
+                  {registrationResult.server.mapName || 'None'}
+                </span>
+              </div>
+              <div className="bg-carbon-950/60 p-2 rounded border border-emerald-500/20">
+                <span className="text-gray-400 block text-[10px] uppercase">MODE</span>
+                <span className="text-cyan-300 font-bold truncate block">
+                  {registrationResult.server.gameMode || 'None'}
+                </span>
+              </div>
+              <div className="bg-carbon-950/60 p-2 rounded border border-emerald-500/20">
+                <span className="text-gray-400 block text-[10px] uppercase">PLAYERS</span>
+                <span className="text-cyan-300 font-bold">
+                  {registrationResult.server.currentPlayers || 0} / {registrationResult.server.maxPlayers || 64}
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className="space-y-1.5">

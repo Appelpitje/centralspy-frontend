@@ -42,6 +42,14 @@ export const serverService = {
     const response = await apiClient.post<RegisterServerResponse>('/servers/register', data);
     return response.data;
   },
+
+  /**
+   * Probes and updates server status on-demand via UDP query
+   */
+  async queryServer(id: string): Promise<any> {
+    const response = await apiClient.post(`/servers/${id}/query`);
+    return response.data;
+  },
 };
 
 export default serverService;
