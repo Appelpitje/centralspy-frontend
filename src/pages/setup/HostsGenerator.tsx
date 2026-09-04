@@ -71,6 +71,7 @@ export const HostsGenerator: React.FC = () => {
         `${ip.padEnd(16)} mohpa-server.theater.ea.com`,
         `${ip.padEnd(16)} medalofhonor.ea.com`,
         `${ip.padEnd(16)} mohpa.ea.com`,
+        `${ip.padEnd(16)} demangler.ea.com`,
         ''
       );
     }
