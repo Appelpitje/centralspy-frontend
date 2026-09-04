@@ -301,7 +301,7 @@ export const PlayerProfile: React.FC = () => {
                 </span>
                 <span className="text-carbon-600">•</span>
                 <span className="font-mono text-[10px] text-gray-400 bg-carbon-950 px-1.5 py-0.5 rounded border border-carbon-800">
-                  ID: {persona.id.slice(0, 8)}...
+                  ID: {persona.id ? `${persona.id.slice(0, 8)}...` : 'N/A'}
                 </span>
               </div>
             </div>

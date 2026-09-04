@@ -21,7 +21,18 @@ export const statsService = {
         offset,
       },
     });
-    return res.data;
+    const data = res.data;
+    if (data?.leaderboard && Array.isArray(data.leaderboard)) {
+      data.leaderboard = data.leaderboard.map((entry: any) => {
+        const soldierName = entry.name || entry.personaName || 'Unknown';
+        return {
+          ...entry,
+          name: soldierName,
+          personaName: soldierName,
+        };
+      });
+    }
+    return data;
   },
 
   /**
