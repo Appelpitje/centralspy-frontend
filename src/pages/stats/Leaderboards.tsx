@@ -56,9 +56,10 @@ export const Leaderboards: React.FC = () => {
   const filteredLeaderboard = useMemo(() => {
     if (!searchFilter.trim()) return rawLeaderboard;
     const q = searchFilter.toLowerCase().trim();
-    return rawLeaderboard.filter((entry) =>
-      entry.name.toLowerCase().includes(q)
-    );
+    return rawLeaderboard.filter((entry) => {
+      const name = entry.name || entry.personaName || '';
+      return name.toLowerCase().includes(q);
+    });
   }, [rawLeaderboard, searchFilter]);
 
   // Paginated records
@@ -164,7 +165,7 @@ export const Leaderboards: React.FC = () => {
               TOP SCORING OPERATIVE
             </span>
             <div className="font-hud font-bold text-lg text-amber-300 truncate mt-0.5">
-              {topScorer ? topScorer.name : '—'}
+              {topScorer ? (topScorer.name || topScorer.personaName || '—') : '—'}
             </div>
             <span className="text-[11px] font-mono text-gray-400">
               {topScorer ? `${topScorer.score.toLocaleString()} PTS` : 'Awaiting data'}
@@ -181,7 +182,7 @@ export const Leaderboards: React.FC = () => {
               TOP SECTOR FRAGGER
             </span>
             <div className="font-hud font-bold text-lg text-crimson-300 truncate mt-0.5">
-              {topFragger ? topFragger.name : '—'}
+              {topFragger ? (topFragger.name || topFragger.personaName || '—') : '—'}
             </div>
             <span className="text-[11px] font-mono text-gray-400">
               {topFragger ? `${topFragger.kills.toLocaleString()} KILLS` : 'Awaiting data'}
@@ -198,7 +199,7 @@ export const Leaderboards: React.FC = () => {
               MOST COMBAT VICTORIES
             </span>
             <div className="font-hud font-bold text-lg text-emerald-300 truncate mt-0.5">
-              {mostWins ? mostWins.name : '—'}
+              {mostWins ? (mostWins.name || mostWins.personaName || '—') : '—'}
             </div>
             <span className="text-[11px] font-mono text-gray-400">
               {mostWins ? `${mostWins.wins.toLocaleString()} WINS` : 'Awaiting data'}
@@ -346,9 +347,11 @@ export const Leaderboards: React.FC = () => {
                   const isSilver = absoluteRank === 2;
                   const isBronze = absoluteRank === 3;
 
+                  const entryName = entry.name || entry.personaName || 'Unknown';
+
                   return (
                     <tr
-                      key={entry.personaId || `${entry.name}-${index}`}
+                      key={entry.personaId || `${entryName}-${index}`}
                       className={cn(
                         'transition-colors duration-100 group hover:bg-carbon-900/60',
                         isGold ? 'bg-amber-950/20' : isSilver ? 'bg-slate-900/20' : isBronze ? 'bg-amber-900/10' : index % 2 === 0 ? 'bg-carbon-950/40' : 'bg-carbon-900/20'
@@ -379,14 +382,14 @@ export const Leaderboards: React.FC = () => {
                       {/* Persona Callsign */}
                       <td className="px-4 py-3">
                         <Link
-                          to={`/stats/player/${encodeURIComponent(entry.name)}?game=${selectedGame}`}
+                          to={`/stats/player/${encodeURIComponent(entryName)}?game=${selectedGame}`}
                           className="flex items-center space-x-2 text-gray-100 hover:text-cyan-300 group-hover:translate-x-0.5 transition-transform"
                         >
                           <div className="w-5 h-5 rounded-xs bg-carbon-800 border border-carbon-700 flex items-center justify-center text-[10px] font-bold text-cyan-400">
-                            {entry.name.slice(0, 1).toUpperCase()}
+                            {(entryName || '?').slice(0, 1).toUpperCase()}
                           </div>
                           <span className="font-semibold text-gray-200 group-hover:text-cyan-300">
-                            {entry.name}
+                            {entryName}
                           </span>
                           <ExternalLink className="w-3 h-3 text-gray-600 group-hover:text-cyan-400 transition-colors opacity-0 group-hover:opacity-100" />
                         </Link>

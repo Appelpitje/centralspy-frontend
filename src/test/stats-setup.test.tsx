@@ -81,6 +81,41 @@ describe('Module 5: Stats & Leaderboard Service', () => {
     expect(res.leaderboard[0].name).toBe('CommanderVance');
   });
 
+  it('statsService.getLeaderboard normalizes entries when API provides personaName instead of name', async () => {
+    const mockResponse = {
+      data: {
+        gameSlug: 'mohpa',
+        gameName: 'Medal of Honor: Pacific Assault',
+        sortBy: 'score',
+        limit: 50,
+        offset: 0,
+        count: 1,
+        leaderboard: [
+          {
+            personaId: 'c3bbbd6c-a433-4c0f-9389-9732bc8f4876',
+            score: 500,
+            kills: 10,
+            deaths: 2,
+            wins: 1,
+            losses: 0,
+            timePlayedSeconds: 300,
+            customStats: {},
+            personaName: 'Appelpitje',
+            userId: '3def9fef-e0b7-43dc-9f96-129e8a69a353',
+            gameSlug: 'mohpa',
+          },
+        ],
+      },
+    };
+
+    (apiClient.get as any).mockResolvedValueOnce(mockResponse);
+
+    const res = await statsService.getLeaderboard('mohpa', 'score', 50, 0);
+
+    expect(res.leaderboard[0].name).toBe('Appelpitje');
+    expect(res.leaderboard[0].personaName).toBe('Appelpitje');
+  });
+
   it('statsService.getPlayerProfile calls GET /stats/players/:name with game_slug', async () => {
     const mockProfile = {
       data: {
@@ -293,6 +328,50 @@ describe('Module 5: Leaderboards Component', () => {
 
     expect(screen.getAllByText('AlphaDog').length).toBeGreaterThanOrEqual(1);
     expect(screen.queryByText('BravoEcho')).not.toBeInTheDocument();
+  });
+
+  it('renders leaderboard safely when entries only have personaName (avoids slice undefined crash)', async () => {
+    const mockLeaderboard = {
+      gameSlug: 'mohpa',
+      gameName: 'Medal of Honor: Pacific Assault',
+      sortBy: 'score' as const,
+      limit: 50,
+      offset: 0,
+      count: 1,
+      leaderboard: [
+        {
+          personaId: 'p-prod-1',
+          personaName: 'Appelpitje',
+          // name is intentionally omitted or undefined
+          userId: 'u-prod-1',
+          gameSlug: 'mohpa',
+          score: 12000,
+          kills: 85,
+          deaths: 20,
+          wins: 5,
+          losses: 1,
+          timePlayedSeconds: 3600,
+        },
+      ],
+    };
+
+    vi.spyOn(statsService, 'getLeaderboard').mockResolvedValue(mockLeaderboard as any);
+
+    const queryClient = createTestQueryClient();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={['/stats?game=mohpa']}>
+          <Leaderboards />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+
+    await waitFor(() => {
+      expect(screen.getAllByText('Appelpitje').length).toBeGreaterThanOrEqual(1);
+      // Verify avatar initial 'A' is rendered without error
+      expect(screen.getByText('A')).toBeInTheDocument();
+    });
   });
 });
 

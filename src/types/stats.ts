@@ -3,6 +3,7 @@ import { Persona, PersonaStats } from './persona';
 export interface LeaderboardEntry {
   personaId: string;
   name: string;
+  personaName?: string;
   userId: string;
   gameSlug: string;
   score: number;
