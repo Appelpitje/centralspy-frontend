@@ -23,15 +23,17 @@ export const TlsPatcherGuide: React.FC = () => {
   const patchDirectives: PatchDirective[] = [
     {
       gameTitle: 'Medal of Honor: Pacific Assault',
-      engine: 'MOHPA Engine (id Tech 3 / EA FESL)',
+      engine: 'MOHPA Engine (id Tech 3 / EA DirtySDK / Jabba FESL)',
       targetBinary: 'mohpa.exe / mohpa_server.exe',
-      offsetHex: 'FESL SSL Certificate Verification Hook',
-      originalBytes: '74 12 (JE condition)',
-      patchedBytes: 'EB 12 (JMP unconditional) / ea_ssl_patch.exe',
+      offsetHex: 'Offset 0x6F70BF (mohpa.exe) / 0x668BFF (mohpa_server.exe)',
+      originalBytes: '85 C0 7D 0C C7 86 18 01 (JGE +0xC check EA CA)',
+      patchedBytes: '85 C0 EB 0C C7 86 18 01 (JMP +0xC bypass EA CA)',
       instructions: [
-        'Place the aluigi patcher executable (ea_ssl_patch.exe) or proxy DLL into your Medal of Honor: Pacific Assault root directory.',
-        'Run ea_ssl_patch.exe on mohpa.exe (and mohpa_server.exe for dedicated hosting) to disable hardcoded EA SSL certificate validation.',
-        'Ensure mohpa.fesl.ea.com redirects to CentralSpy on port 18020 / 18270 in your hosts configuration.',
+        'Run the CentralSpy / OpenSpy patcher (Patch-MOHPA.bat or python patcher.py) in your game directory.',
+        'The patcher will automatically apply the DirtySDK SSL jump patch (7D 0C -> EB 0C) allowing MOHPA to connect to CentralSpy TLS.',
+        'Ensure main/autoexec.cfg has seta ui_logged_in "0" so the in-game login screen (mp_account_login) appears on startup.',
+        'Add the CentralSpy host entries (mohpa.fesl.ea.com, fesl.ea.com, theater.ea.com) to your Windows hosts file.',
+        'Launch MOHPA, click Multiplayer, enter your CentralSpy credentials, and click Login to authenticate.',
       ],
     },
   ];
