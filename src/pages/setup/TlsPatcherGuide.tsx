@@ -33,11 +33,10 @@ export const TlsPatcherGuide: React.FC = () => {
       originalBytes: '85 C0 7D 0C C7 86 18 01 (JGE +0xC check EA CA)',
       patchedBytes: '85 C0 EB 0C C7 86 18 01 (JMP +0xC bypass EA CA)',
       instructions: [
-        'Download CentralSpy-MOHPA-Patch.zip (the whole archive — not only Patch-MOHPA.bat). Extract it into the folder that contains mohpa.exe.',
-        'Double-click Patch-MOHPA.bat. It launches Patch-MOHPA.ps1 in the same folder (Python is not required). That applies DirtySDK SSL bypass, peerchat port 18270, IsStatsConnected, GameSpy hostnames, and MOTD URLs.',
-        'Merge the generated centralspy-hosts.txt into your OS or Wine hosts file (mohpa.fesl.ea.com, fesl.ea.com, theater.ea.com, plus GameSpy aliases).',
-        'Keep the in-game login screen (mp_account_login). Do not use the OpenSpy bypass that jumps straight to the server browser.',
-        'Fully quit the game, relaunch, open Multiplayer, and log in with a CentralSpy account.',
+        'Extract the zip into the folder that contains mohpa.exe.',
+        'Run Patch-MOHPA.bat.',
+        'Merge centralspy-hosts.txt into C:\\Windows\\System32\\drivers\\etc\\hosts (Notepad as Administrator).',
+        'Fully quit the game, relaunch, and log in.',
       ],
     },
   ];
@@ -52,23 +51,37 @@ export const TlsPatcherGuide: React.FC = () => {
         accent="amber"
       >
         <div className="space-y-4 font-mono text-xs text-gray-300">
-          <div className="p-3 bg-cyan-950/30 border border-cyan-800/50 rounded-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <div>
-              <h4 className="text-cyan-300 font-bold uppercase tracking-wider">
-                MOHPA client patch (full zip)
-              </h4>
-              <p className="text-gray-400 text-[11px] mt-1">
-                Contains Patch-MOHPA.bat, Patch-MOHPA.ps1, Restore-Original.bat, patcher.py, and README.
-                Extract next to mohpa.exe, then run the .bat.
-              </p>
+          <div className="p-4 bg-cyan-950/40 border border-cyan-800/60 rounded-sm space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <h4 className="text-cyan-300 font-bold uppercase tracking-wider">
+                  MOHPA client patch (full zip)
+                </h4>
+                <p className="text-gray-400 text-[11px] mt-1">
+                  Download CentralSpy-MOHPA-Patch.zip (contains Patch-MOHPA.bat, Patch-MOHPA.ps1, Restore-Original.bat, patcher.py, centralspy-hosts.txt, and README).
+                </p>
+              </div>
+              <a
+                href={MOHPA_PATCH_ZIP_URL}
+                download="CentralSpy-MOHPA-Patch.zip"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-sm font-mono text-xs font-bold uppercase tracking-wider bg-cyan-600 text-white hover:bg-cyan-500 border border-cyan-400/40 shrink-0"
+              >
+                <Download className="w-3.5 h-3.5" />
+                Download CentralSpy MOHPA Patch (.zip)
+              </a>
             </div>
-            <a
-              href={MOHPA_PATCH_ZIP_URL}
-              className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-sm font-mono text-xs font-bold uppercase tracking-wider bg-cyan-600 text-white hover:bg-cyan-500 border border-cyan-400/40 shrink-0"
-            >
-              <Download className="w-3.5 h-3.5" />
-              Download CentralSpy MOHPA Patch (.zip)
-            </a>
+
+            <div className="pt-2.5 border-t border-cyan-900/50">
+              <h5 className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-1.5">
+                Instructions:
+              </h5>
+              <ol className="list-decimal list-inside space-y-1 text-gray-200 text-[11px]">
+                <li>Extract the zip into the folder that contains <code className="text-cyan-300">mohpa.exe</code>.</li>
+                <li>Run <code className="text-cyan-300">Patch-MOHPA.bat</code>.</li>
+                <li>Merge <code className="text-cyan-300">centralspy-hosts.txt</code> into <code className="text-cyan-300">C:\Windows\System32\drivers\etc\hosts</code> (Notepad as Administrator).</li>
+                <li>Fully quit the game, relaunch, and log in.</li>
+              </ol>
+            </div>
           </div>
 
           <div className="p-3 bg-amber-950/30 border border-amber-800/50 rounded-sm flex items-start space-x-3">
