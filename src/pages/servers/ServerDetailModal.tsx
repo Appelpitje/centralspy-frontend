@@ -19,7 +19,8 @@ import {
 } from 'lucide-react';
 import { GameServer, ScoreboardPlayer } from '../../types/server';
 import serverService from '../../services/serverService';
-import { getFaction, getRegionInfo, GAME_METADATA } from '../../utils/gameMaps';
+import { getFaction, getRegionInfo, GAME_METADATA, formatMapName, formatGameMode } from '../../utils/gameMaps';
+import { useAuthStore } from '../../store/authStore';
 import { Modal } from '../../components/common/Modal';
 import { Button } from '../../components/common/Button';
 import { Badge } from '../../components/common/Badge';
@@ -65,13 +66,30 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
   const scoreboard: ScoreboardPlayer[] = detailsData?.scoreboard || server.details?.players || [];
   const rules: Record<string, any> = detailsData?.rules || server.details?.rules || {};
 
+  const { user } = useAuthStore();
   const gameMeta = GAME_METADATA[server.gameSlug];
   const team1Faction = getFaction(server.gameSlug, 1);
   const team2Faction = getFaction(server.gameSlug, 2);
-  const region = getRegionInfo(server.region || (server.details?.region as string) || 'iad');
+  const region = getRegionInfo(
+    server.region || server.details?.region || server.countryCode || server.details?.countryCode,
+    server.ipAddress
+  );
+
+  const ping = server.ping ?? server.details?.ping ?? region.estimatedPing;
+  const pingColor = ping < 50 ? 'text-emerald-400' : ping < 110 ? 'text-amber-400' : 'text-crimson-400';
+  const tickRate =
+    server.tickRate ||
+    server.details?.tickRate ||
+    (rules.sv_fps ? Number(rules.sv_fps) : undefined) ||
+    (rules.tickrate ? Number(rules.tickrate) : undefined) ||
+    (rules.fps ? Number(rules.fps) : undefined) ||
+    30;
 
   const targetAddress = `${server.ipAddress}:${server.port}`;
-  const joinArg = `+joinServer ${targetAddress} +playerName "CentralSpyPlayer"`;
+  const effectiveSoldier = user?.username || 'CentralSpyPlayer';
+  const joinArg = `+joinServer ${targetAddress} +playerName "${effectiveSoldier}"`;
+  const formattedMap = formatMapName(server.mapName, server.gameSlug);
+  const formattedMode = formatGameMode(server.gameMode, server.gameSlug);
 
   const curPlayers = server.currentPlayers ?? scoreboard.length;
   const maxPlayers = server.maxPlayers ?? 64;
@@ -260,14 +278,14 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
               {/* Region */}
               <div className="flex items-center space-x-1.5 text-gray-300">
                 <span>{region.flag}</span>
-                <span className="text-gray-400 uppercase">{region.code}</span>
-                <span className="text-[10px] text-gray-500">({region.estimatedPing}ms)</span>
+                <span className="text-gray-400 uppercase">{region.code.toUpperCase()}</span>
+                <span className={cn('text-[11px] font-mono font-semibold', pingColor)}>({ping}ms)</span>
               </div>
 
               {/* Tick rate */}
               <div className="flex items-center space-x-1.5 text-gray-400">
                 <Activity className="w-3.5 h-3.5 text-cyan-400" />
-                <span>{server.tickRate || server.details?.tickRate || 30} Hz Tick</span>
+                <span>{tickRate} Hz Tick</span>
               </div>
             </div>
 
@@ -303,17 +321,17 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                   <MapPin className="w-3.5 h-3.5 text-cyan-400" />
                   THEATER SECTOR
                 </span>
-                <Badge variant="DEFAULT" size="sm">
-                  {server.subState || server.details?.subState || 'IN_PROGRESS'}
+                <Badge variant={server.isOnline ? "DEFAULT" : "CRIMSON"} size="sm">
+                  {server.isOnline ? (server.subState || server.details?.subState || 'IN_PROGRESS') : 'OFFLINE'}
                 </Badge>
               </div>
 
               <div>
-                <h4 className="font-hud font-bold text-lg text-gray-100 uppercase tracking-wide">
-                  {server.mapName || 'Suez Canal 2142'}
+                <h4 className="font-hud font-bold text-lg text-gray-100 uppercase tracking-wide truncate" title={formattedMap}>
+                  {formattedMap}
                 </h4>
                 <p className="text-[11px] text-cyan-400 mt-0.5 uppercase tracking-wider">
-                  {server.gameMode || 'Titan / Conquest'}
+                  {formattedMode}
                 </p>
               </div>
 

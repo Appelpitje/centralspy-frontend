@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { GameServer, ServerFilter } from '../../types/server';
 import serverService from '../../services/serverService';
-import { getRegionInfo, GAME_METADATA } from '../../utils/gameMaps';
+import { getRegionInfo, GAME_METADATA, formatMapName, formatGameMode } from '../../utils/gameMaps';
 import { Card } from '../../components/common/Card';
 import { Button } from '../../components/common/Button';
 import { Badge } from '../../components/common/Badge';
@@ -202,7 +202,10 @@ export const ServerBrowser: React.FC = () => {
       header: 'SERVER NAME & NODE',
       sortable: true,
       render: (srv) => {
-        const region = getRegionInfo(srv.region || srv.details?.region);
+        const region = getRegionInfo(
+          srv.region || srv.details?.region || srv.countryCode || srv.details?.countryCode,
+          srv.ipAddress
+        );
         return (
           <div className="flex flex-col space-y-0.5 py-0.5 group">
             <div className="flex items-center space-x-1.5 font-semibold text-gray-100 group-hover:text-cyan-300 transition-colors">
@@ -223,9 +226,9 @@ export const ServerBrowser: React.FC = () => {
                 {srv.ipAddress}:{srv.port}
               </span>
               <span>•</span>
-              <span className="flex items-center space-x-1 text-gray-400">
+              <span className="flex items-center space-x-1 text-gray-400" title={region.name}>
                 <span>{region.flag}</span>
-                <span className="uppercase">{region.code}</span>
+                <span className="uppercase">{region.code.toUpperCase()}</span>
               </span>
             </div>
           </div>
@@ -239,7 +242,9 @@ export const ServerBrowser: React.FC = () => {
       render: (srv) => (
         <div className="flex items-center space-x-1.5 text-gray-200">
           <MapPin className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-          <span className="truncate max-w-[130px]">{srv.mapName || 'Suez Canal 2142'}</span>
+          <span className="truncate max-w-[130px]" title={formatMapName(srv.mapName, srv.gameSlug)}>
+            {formatMapName(srv.mapName, srv.gameSlug)}
+          </span>
         </div>
       ),
     },
@@ -248,8 +253,8 @@ export const ServerBrowser: React.FC = () => {
       header: 'GAME MODE',
       sortable: true,
       render: (srv) => (
-        <span className="text-gray-300 font-mono text-[11px] uppercase truncate block max-w-[110px]">
-          {srv.gameMode || 'Titan / Conquest'}
+        <span className="text-gray-300 font-mono text-[11px] uppercase truncate block max-w-[110px]" title={formatGameMode(srv.gameMode, srv.gameSlug)}>
+          {formatGameMode(srv.gameMode, srv.gameSlug)}
         </span>
       ),
     },
@@ -290,15 +295,18 @@ export const ServerBrowser: React.FC = () => {
       header: 'REGION / PING',
       width: '110px',
       sortable: true,
-      sortValue: (srv) => srv.ping || 30,
+      sortValue: (srv) => srv.ping || srv.details?.ping || 30,
       render: (srv) => {
-        const region = getRegionInfo(srv.region || srv.details?.region);
-        const ping = srv.ping || region.estimatedPing;
+        const region = getRegionInfo(
+          srv.region || srv.details?.region || srv.countryCode || srv.details?.countryCode,
+          srv.ipAddress
+        );
+        const ping = srv.ping ?? srv.details?.ping ?? region.estimatedPing;
         const pingColor =
           ping < 50 ? 'text-emerald-400' : ping < 110 ? 'text-amber-400' : 'text-crimson-400';
 
         return (
-          <div className="flex items-center space-x-1.5 font-mono text-[11px]">
+          <div className="flex items-center space-x-1.5 font-mono text-[11px]" title={`${region.name} (${ping}ms)`}>
             <span>{region.flag}</span>
             <span className={cn('font-bold', pingColor)}>{ping}ms</span>
           </div>

@@ -608,5 +608,11 @@ describe('Module 7: Setup & Download Guides Components', () => {
     fireEvent.click(patchesTab);
 
     expect(screen.getByText(/TLS & SSL CERTIFICATE BYPASS ARCHITECTURE/i)).toBeInTheDocument();
+
+    const zipLink = screen.getByRole('link', { name: /Download CentralSpy MOHPA Patch/i });
+    expect(zipLink).toHaveAttribute(
+      'href',
+      'https://centralspy.appelpitje.dev/downloads/CentralSpy-MOHPA-Patch.zip'
+    );
   });
 });
