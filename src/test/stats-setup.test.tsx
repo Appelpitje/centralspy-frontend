@@ -614,5 +614,14 @@ describe('Module 7: Setup & Download Guides Components', () => {
       'href',
       'https://centralspy.appelpitje.dev/downloads/CentralSpy-MOHPA-Patch.zip'
     );
+    expect(zipLink).toHaveAttribute('download', 'CentralSpy-MOHPA-Patch.zip');
+    expect(zipLink.getAttribute('href')).not.toContain('(1)');
+    expect(zipLink.textContent).not.toContain('(1)');
+
+    // Verify all 4 instructions are present
+    expect(screen.getAllByText(/Extract the zip into the folder that contains/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Run Patch-MOHPA\.bat/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Merge centralspy-hosts\.txt into C:\\Windows\\System32\\drivers\\etc\\hosts \(Notepad as Administrator\)/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Fully quit the game, relaunch, and log in/i).length).toBeGreaterThan(0);
   });
 });
