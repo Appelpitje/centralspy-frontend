@@ -430,4 +430,70 @@ describe('Module 4: DirectConnectModal & ServerDetailModal', () => {
       expect(screen.getByText('120')).toBeInTheDocument();
     });
   });
+
+  it('correctly resolves 178.105.150.25 to Germany (DE/FRA) and renders accurate telemetry in ServerDetailModal', async () => {
+    const germanServer: GameServer = {
+      id: 'srv-hetzner',
+      name: 'MOHPA is back!',
+      gameSlug: 'mohpa',
+      ipAddress: '178.105.150.25',
+      port: 13200,
+      queryPort: 13300,
+      isRanked: true,
+      isOnline: true,
+      lastHeartbeat: new Date().toISOString(),
+      maxPlayers: 16,
+      currentPlayers: 0,
+      mapName: 'mp_airfield_inv',
+      gameMode: 'Invader',
+      ping: 92,
+      tickRate: 30,
+      details: {
+        ping: 92,
+        tickRate: 30,
+        players: [],
+        rules: {
+          gamever: '1.2',
+          dedicated: '1',
+        },
+      },
+    };
+
+    vi.spyOn(apiClient, 'get').mockResolvedValueOnce({
+      data: {
+        server: germanServer,
+        scoreboard: [],
+        rules: germanServer.details?.rules,
+      },
+    });
+
+    renderWithProviders(
+      <ServerDetailModal
+        isOpen={true}
+        onClose={vi.fn()}
+        server={germanServer}
+      />
+    );
+
+    // Verify Germany flag and Frankfurt region (NOT USA or IAD)
+    expect(screen.getByText('🇩🇪')).toBeInTheDocument();
+    expect(screen.queryByText('🇺🇸')).not.toBeInTheDocument();
+    expect(screen.getByText('FRA')).toBeInTheDocument();
+    expect(screen.queryByText('IAD')).not.toBeInTheDocument();
+
+    // Verify live measured ping (92ms) is displayed instead of hardcoded 28ms
+    expect(screen.getByText('(92ms)')).toBeInTheDocument();
+    expect(screen.queryByText('(28ms)')).not.toBeInTheDocument();
+
+    // Verify human-readable MOHPA map name and mode
+    expect(screen.getByText('Henderson Airfield (Invader)')).toBeInTheDocument();
+    expect(screen.queryByText('Suez Canal 2142')).not.toBeInTheDocument();
+    expect(screen.getByText('Invader')).toBeInTheDocument();
+    expect(screen.queryByText('Titan / Conquest')).not.toBeInTheDocument();
+
+    // Verify target address & tick rate
+    expect(screen.getByText('178.105.150.25:13200')).toBeInTheDocument();
+    expect(screen.getByText('30 Hz Tick')).toBeInTheDocument();
+  });
 });
+

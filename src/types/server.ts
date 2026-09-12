@@ -29,6 +29,9 @@ export interface GameServer {
   gameMode?: string;
   subState?: string;
   region?: string;
+  country?: string;
+  countryCode?: string;
+  city?: string;
   ping?: number;
   tickRate?: number;
   details?: {
@@ -37,6 +40,10 @@ export interface GameServer {
     tickRate?: number;
     subState?: string;
     region?: string;
+    country?: string;
+    countryCode?: string;
+    city?: string;
+    ping?: number;
     isOfficial?: boolean;
     [key: string]: any;
   };
