@@ -22,10 +22,10 @@ export const DownloadGuides: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { activeGame, setActiveGame, getActiveGameConfig } = useGameStore();
 
-  const tabParam = searchParams.get('tab') || 'hosts';
-  const activeTab = ['hosts', 'patches', 'dedicated', 'faq'].includes(tabParam)
+  const tabParam = searchParams.get('tab') || 'patches';
+  const activeTab = ['patches', 'dedicated', 'faq', 'hosts'].includes(tabParam)
     ? tabParam
-    : 'hosts';
+    : 'patches';
 
   const activeConfig = getActiveGameConfig();
   const masterInfo = resolveMasterServerInfo();
@@ -38,13 +38,8 @@ export const DownloadGuides: React.FC = () => {
 
   const tabs = [
     {
-      id: 'hosts',
-      label: 'Quick Setup (Hosts File)',
-      icon: <Terminal className="w-3.5 h-3.5" />,
-    },
-    {
       id: 'patches',
-      label: 'Client Patches & SSL',
+      label: 'Quick Setup (Client Patch)',
       icon: <ShieldAlert className="w-3.5 h-3.5" />,
     },
     {
@@ -56,6 +51,11 @@ export const DownloadGuides: React.FC = () => {
       id: 'faq',
       label: 'Troubleshooting FAQ',
       icon: <HelpCircle className="w-3.5 h-3.5" />,
+    },
+    {
+      id: 'hosts',
+      label: 'Manual / Legacy Hosts (Optional)',
+      icon: <Terminal className="w-3.5 h-3.5" />,
     },
   ];
 
@@ -71,7 +71,7 @@ export const DownloadGuides: React.FC = () => {
             <Badge variant="CYAN">{activeConfig.name}</Badge>
           </div>
           <p className="text-xs font-mono text-gray-400 mt-1">
-            Tactical directives, DNS configuration, and binary patches to connect your legacy client to CentralSpy.
+            Tactical directives, automated client patcher, and setup instructions to connect your legacy client to CentralSpy.
           </p>
         </div>
 
@@ -91,8 +91,8 @@ export const DownloadGuides: React.FC = () => {
           <strong className="text-emerald-400">{masterInfo.host}</strong> (IPv4: <strong className="text-emerald-400">{masterInfo.ip}</strong>).
           This web application (<code className="text-cyan-300">{typeof window !== 'undefined' ? window.location.hostname : 'portal.appelpitje.dev'}</code>) is exclusively the frontend management portal.
         </p>
-        <p className="text-amber-400/90 text-[10px]">
-          ⚠️ Always redirect your game client / dedicated server hosts file to the master server (<code className="text-emerald-300">{masterInfo.ip}</code> / <code className="text-emerald-300">{masterInfo.host}</code>), <strong>not</strong> the web portal domain.
+        <p className="text-emerald-400/90 text-[10px]">
+          ✨ No hosts-file edits needed! The CentralSpy MOHPA patcher hooks DNS resolution directly in the game client, routing automatically to the master server (<code className="text-emerald-300">{masterInfo.ip}</code> / <code className="text-emerald-300">{masterInfo.host}</code>).
         </p>
       </div>
 

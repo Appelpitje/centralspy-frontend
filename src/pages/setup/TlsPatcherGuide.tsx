@@ -3,6 +3,7 @@ import {
   ShieldAlert,
   AlertTriangle,
   Download,
+  CheckCircle2,
 } from 'lucide-react';
 import { Card } from '../../components/common/Card';
 import { Badge } from '../../components/common/Badge';
@@ -33,10 +34,10 @@ export const TlsPatcherGuide: React.FC = () => {
       originalBytes: '85 C0 7D 0C C7 86 18 01 (JGE +0xC check EA CA)',
       patchedBytes: '85 C0 EB 0C C7 86 18 01 (JMP +0xC bypass EA CA)',
       instructions: [
-        'Extract the zip into the folder that contains mohpa.exe.',
-        'Run Patch-MOHPA.bat.',
-        'Merge centralspy-hosts.txt into C:\\Windows\\System32\\drivers\\etc\\hosts (Notepad as Administrator).',
-        'Fully quit the game, relaunch, and log in.',
+        'Confirm you have official MOHPA v1.2 (GOG, Origin/EA App, or retail disc + EA 1.2 patch).',
+        'Extract the zip contents directly into your game folder containing mohpa.exe.',
+        'Run Patch-MOHPA.bat (creates mohpa.exe.bak and patches mohpa.exe automatically).',
+        'Fully quit the game (and Wine), relaunch mohpa.exe, and log in under Multiplayer with your CentralSpy account.',
       ],
     },
   ];
@@ -58,7 +59,7 @@ export const TlsPatcherGuide: React.FC = () => {
                   MOHPA client patch (full zip)
                 </h4>
                 <p className="text-gray-400 text-[11px] mt-1">
-                  Download CentralSpy-MOHPA-Patch.zip (contains Patch-MOHPA.bat, Patch-MOHPA.ps1, Restore-Original.bat, patcher.py, centralspy-hosts.txt, and README).
+                  Download CentralSpy-MOHPA-Patch.zip (contains Patch-MOHPA.bat, Patch-MOHPA.ps1, Restore-Original.bat, patcher.py, and README).
                 </p>
               </div>
               <a
@@ -75,12 +76,27 @@ export const TlsPatcherGuide: React.FC = () => {
               <h5 className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-1.5">
                 Instructions:
               </h5>
-              <ol className="list-decimal list-inside space-y-1 text-gray-200 text-[11px]">
-                <li>Extract the zip into the folder that contains <code className="text-cyan-300">mohpa.exe</code>.</li>
-                <li>Run <code className="text-cyan-300">Patch-MOHPA.bat</code>.</li>
-                <li>Merge <code className="text-cyan-300">centralspy-hosts.txt</code> into <code className="text-cyan-300">C:\Windows\System32\drivers\etc\hosts</code> (Notepad as Administrator).</li>
-                <li>Fully quit the game, relaunch, and log in.</li>
+              <ol className="list-decimal list-inside space-y-1.5 text-gray-200 text-[11px]">
+                <li>Confirm you have official <strong className="text-cyan-300">v1.2</strong> (GOG, Origin/EA App, or retail disc + EA 1.2 patch).</li>
+                <li>Extract the zip contents directly into your game folder containing <code className="text-cyan-300">mohpa.exe</code>.</li>
+                <li>Run <code className="text-cyan-300">Patch-MOHPA.bat</code> (creates <code className="text-gray-400">mohpa.exe.bak</code>, then applies the patch).</li>
+                <li>Fully quit the game (check Task Manager), relaunch <code className="text-cyan-300">mohpa.exe</code>, and log in under <strong>Multiplayer</strong> with your CentralSpy account.</li>
               </ol>
+            </div>
+          </div>
+
+          <div className="p-3.5 bg-emerald-950/40 border border-emerald-800/60 rounded-sm flex items-start space-x-3">
+            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <h4 className="text-emerald-300 font-bold uppercase tracking-wider text-[11px]">
+                No Hosts-File Edits Required
+              </h4>
+              <p className="text-gray-300 text-[11px] leading-relaxed">
+                The patcher rewrites hardcoded GameSpy and EA host strings to CentralSpy and hooks <code className="text-emerald-400">gethostbyname</code> directly inside the game binary. Residual domains (<code className="text-cyan-300">fesl.ea.com</code>, <code className="text-cyan-300">theater.ea.com</code>, etc.) resolve directly to CentralSpy at runtime without editing system files. If you previously added CentralSpy entries to your hosts file, you can safely delete them.
+              </p>
+              <p className="text-gray-400 text-[10px]">
+                To restore stock: double-click <code className="text-amber-400">Restore-Original.bat</code> or rename <code className="text-amber-400">mohpa.exe.bak</code> back to <code className="text-amber-400">mohpa.exe</code>.
+              </p>
             </div>
           </div>
 

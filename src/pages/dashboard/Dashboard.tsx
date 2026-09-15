@@ -483,29 +483,34 @@ export const Dashboard: React.FC = () => {
 
           {/* Connection Directives Mini Card */}
           <Card
-            title="PROTOCOL DIRECTIVES"
-            subtitle="CentralSpy Legacy FESL DNS Specs"
-            icon={<Activity className="w-4 h-4" />}
+            title="CLIENT CONNECTION"
+            subtitle="CentralSpy MOHPA Patcher (No Hosts Edit)"
+            icon={<Activity className="w-4 h-4 text-cyan-400" />}
           >
             <div className="space-y-3 font-mono text-xs text-gray-300">
               <p className="text-[11px] text-gray-400">
-                Ensure client resolution points to this host in your system{' '}
-                <code className="bg-carbon-950 px-1 py-0.5 rounded text-cyan-400 border border-carbon-800">
-                  hosts
-                </code>{' '}
-                file:
+                Connect legacy MOHPA v1.2 clients directly to CentralSpy using the automated patcher:
               </p>
 
-              <div className="p-2.5 bg-carbon-950 rounded-sm border border-carbon-800 text-[11px] text-gray-300 select-all space-y-0.5">
-                <div>127.0.0.1  fesl.ea.com</div>
-                <div>127.0.0.1  theater.ea.com</div>
-                <div>127.0.0.1  mohpa.fesl.ea.com</div>
+              <div className="p-2.5 bg-carbon-950 rounded-sm border border-carbon-800 text-[11px] space-y-1">
+                <div className="text-emerald-400 font-semibold flex items-center space-x-1.5">
+                  <span>✓</span>
+                  <span>Automated DNS Hook (no hosts edit)</span>
+                </div>
+                <div className="text-emerald-400 font-semibold flex items-center space-x-1.5">
+                  <span>✓</span>
+                  <span>DirtySDK SSL 2.0 Bypass</span>
+                </div>
+                <div className="text-emerald-400 font-semibold flex items-center space-x-1.5">
+                  <span>✓</span>
+                  <span>Live Server Browser Bridge</span>
+                </div>
               </div>
 
               <div className="pt-1 flex items-center justify-between text-[11px]">
                 <span className="text-gray-500">Partition: {activeConfig.domainPartition}</span>
                 <Link to="/setup" className="text-cyan-400 hover:underline">
-                  Full Guide →
+                  Setup Instructions →
                 </Link>
               </div>
             </div>

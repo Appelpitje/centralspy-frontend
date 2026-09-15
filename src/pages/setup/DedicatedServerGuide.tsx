@@ -28,17 +28,17 @@ export const DedicatedServerGuide: React.FC = () => {
       >
         <div className="space-y-4 font-mono text-xs text-gray-300">
           <p className="text-gray-400">
-            Dedicated servers register automatically with CentralSpy's Theater matchmaking service. Once started with valid hosts file redirection, your server will instantly appear in the live Server Browser.
+            Dedicated servers register automatically with CentralSpy's Theater matchmaking service. Once patched or connected to the cluster, your server will instantly appear in the live Server Browser.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
             <div className="p-3.5 bg-carbon-950/80 border border-carbon-800 rounded-sm space-y-1.5">
               <div className="flex items-center space-x-2 text-cyan-300 font-bold">
                 <Network className="w-4 h-4" />
-                <span>1. HOSTS REDIRECTION</span>
+                <span>1. SERVER BINARY PATCH</span>
               </div>
               <p className="text-[11px] text-gray-400">
-                Ensure the server machine has hosts entries pointing to the Master Server (<code className="text-emerald-300">178.105.150.25</code> / <code className="text-emerald-300">centralspy.appelpitje.dev</code>), not the web portal (<code className="text-gray-400">portal.appelpitje.dev</code>).
+                Run <code className="text-cyan-300">Patch-MOHPA.bat</code> in your server directory. It automatically patches <code className="text-cyan-300">mohpa_server.exe</code> with the CentralSpy DNS hook and SSL bypass—no hosts file edits needed!
               </p>
             </div>
 

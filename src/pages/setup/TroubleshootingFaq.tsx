@@ -34,9 +34,10 @@ export const TroubleshootingFaq: React.FC = () => {
       severity: 'CRITICAL',
       title: 'Connection Refused / FESL Service Unreachable',
       symptom: 'Game hangs at login screen, then throws error dialog "Failed to connect to EA Online. (errorCode=122)".',
-      rootCause: 'The game client cannot establish a TCP connection to FESL on port 18270 at the IP address specified in your hosts file.',
+      rootCause: 'The game client cannot establish a TCP connection to CentralSpy FESL on port 18020/18270.',
       solution: [
-        'Verify your system hosts file (C:\\Windows\\System32\\drivers\\etc\\hosts or /etc/hosts) points to the Master Server (178.105.150.25 / centralspy.appelpitje.dev), NOT the web portal (portal.appelpitje.dev).',
+        'Ensure you ran Patch-MOHPA.bat from CentralSpy-MOHPA-Patch.zip. The patcher hooks DNS resolution directly in the binary so hosts-file edits are not required.',
+        'If you previously modified your system hosts file, ensure there are no outdated or conflicting entries (or remove them).',
         'Flush your DNS resolver cache by running `ipconfig /flushdns` in an elevated terminal.',
         'Ensure the CentralSpy server instance is actively running and listening on port 18270 (FESL) and 18275 (Theater).',
         'Verify that Windows Defender Firewall or antivirus software is not blocking outbound TCP traffic on port 18270.',
@@ -63,11 +64,11 @@ export const TroubleshootingFaq: React.FC = () => {
       severity: 'WARNING',
       title: 'Theater Lobby / Server Browser Disconnection',
       symptom: 'Successfully logs into soldier persona, but server list stays empty or throws "Theater connection timed out".',
-      rootCause: 'The Theater service (port 18275) handles matchmaking packets. If UDP port 18275 is blocked by router NAT or firewall, lobby synchronization drops.',
+      rootCause: 'The Theater service (port 18275) handles matchmaking packets. If UDP port 18275 is blocked by router NAT/firewall or the DNS hook is missing, lobby synchronization drops.',
       solution: [
+        'Verify you patched mohpa.exe with CentralSpy-MOHPA-Patch.zip (Patch-MOHPA.bat). The patcher hooks DNS resolution directly to CentralSpy.',
         'Confirm port 18275 (both TCP and UDP) is reachable and open on both client and server firewalls.',
         'If hosting servers behind a home NAT router, enable NAT Loopback / Hairpinning or forward port 18275.',
-        'Check that your game client hosts file redirect includes `${gameSlug}.theater.ea.com` pointing to the Master Server (178.105.150.25 / centralspy.appelpitje.dev).',
       ],
     },
     {

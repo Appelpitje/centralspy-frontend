@@ -598,15 +598,12 @@ describe('Module 7: Setup & Download Guides Components', () => {
 
     expect(screen.getByText(/GAME SETUP & CLIENT CONNECTION CENTER/i)).toBeInTheDocument();
     expect(screen.getByText(/NETWORK INFRASTRUCTURE ARCHITECTURE/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Quick Setup \(Hosts File\)/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Client Patches & SSL/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Quick Setup \(Client Patch\)/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Dedicated Server Setup/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Troubleshooting FAQ/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Manual \/ Legacy Hosts/i })).toBeInTheDocument();
 
-    // Click on Client Patches & SSL tab
-    const patchesTab = screen.getByRole('button', { name: /Client Patches & SSL/i });
-    fireEvent.click(patchesTab);
-
+    // Default tab is Quick Setup (Client Patch)
     expect(screen.getByText(/TLS & SSL CERTIFICATE BYPASS ARCHITECTURE/i)).toBeInTheDocument();
 
     const zipLink = screen.getByRole('link', { name: /Download CentralSpy MOHPA Patch/i });
@@ -618,10 +615,15 @@ describe('Module 7: Setup & Download Guides Components', () => {
     expect(zipLink.getAttribute('href')).not.toContain('(1)');
     expect(zipLink.textContent).not.toContain('(1)');
 
-    // Verify all 4 instructions are present
-    expect(screen.getAllByText(/Extract the zip into the folder that contains/i).length).toBeGreaterThan(0);
+    // Verify all 4 instructions and no hosts edit callout are present
+    expect(screen.getAllByText(/Extract the zip contents directly into your game folder/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Run Patch-MOHPA\.bat/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Merge centralspy-hosts\.txt into C:\\Windows\\System32\\drivers\\etc\\hosts \(Notepad as Administrator\)/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Fully quit the game, relaunch, and log in/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/No Hosts-File Edits Required/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Fully quit the game/i).length).toBeGreaterThan(0);
+
+    // Switch to Manual / Legacy Hosts tab
+    const hostsTab = screen.getByRole('button', { name: /Manual \/ Legacy Hosts/i });
+    fireEvent.click(hostsTab);
+    expect(screen.getByText(/INTERACTIVE HOSTS FILE GENERATOR/i)).toBeInTheDocument();
   });
 });
