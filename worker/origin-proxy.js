@@ -1,4 +1,4 @@
-const ORIGIN = 'https://centralspy.appelpitje.dev';
+const ORIGIN = 'https://backend.mohpa.net';
 
 export default {
   async fetch(request) {
