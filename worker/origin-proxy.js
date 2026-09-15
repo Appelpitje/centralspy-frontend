@@ -1,12 +1,14 @@
-const ORIGIN = 'http://178.105.150.25';
+const ORIGIN = 'https://centralspy.appelpitje.dev';
 
 export default {
   async fetch(request) {
     const incoming = new URL(request.url);
     const target = `${ORIGIN}${incoming.pathname}${incoming.search}`;
+    const headers = new Headers(request.headers);
+    headers.delete('Host');
     return fetch(target, {
       method: request.method,
-      headers: request.headers,
+      headers,
       body: request.method === 'GET' || request.method === 'HEAD' ? undefined : request.body,
       redirect: 'manual',
     });
