@@ -89,7 +89,7 @@ export const DownloadGuides: React.FC = () => {
         <p className="text-gray-300 text-[11px] leading-relaxed">
           The CentralSpy Master Server (FESL authentication &amp; Theater matchmaking) runs on{' '}
           <strong className="text-emerald-400">{masterInfo.host}</strong> (IPv4: <strong className="text-emerald-400">{masterInfo.ip}</strong>).
-          This web application (<code className="text-cyan-300">{typeof window !== 'undefined' ? window.location.hostname : 'portal.appelpitje.dev'}</code>) is exclusively the frontend management portal.
+          This web application (<code className="text-cyan-300">{typeof window !== 'undefined' ? window.location.hostname : 'portal.mohpa.net'}</code>) is exclusively the frontend management portal.
         </p>
         <p className="text-emerald-400/90 text-[10px]">
           ✨ No hosts-file edits needed! The CentralSpy MOHPA patcher hooks DNS resolution directly in the game client, routing automatically to the master server (<code className="text-emerald-300">{masterInfo.ip}</code> / <code className="text-emerald-300">{masterInfo.host}</code>).

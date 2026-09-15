@@ -51,8 +51,8 @@ export const HostsGenerator: React.FC = () => {
       '# =========================================================',
       '# CentralSpy Emulated Network Hosts Configuration',
       `# Target CentralSpy Master Server: ${ip}`,
-      '# Note: Web Portal = portal.appelpitje.dev',
-      '# Master Server (FESL & Theater) = centralspy.appelpitje.dev',
+      '# Note: Web Portal = portal.mohpa.net',
+      '# Master Server (FESL & Theater) = 178.105.150.25',
       `# Generated: ${new Date().toISOString()}`,
       '# =========================================================',
       '',
@@ -154,7 +154,7 @@ export const HostsGenerator: React.FC = () => {
               </span>
             </div>
             <p className="text-gray-300 text-[11px] leading-relaxed">
-              This web portal runs on <code className="text-cyan-300">{typeof window !== 'undefined' ? window.location.hostname : 'portal.appelpitje.dev'}</code> (web UI).
+              This web portal runs on <code className="text-cyan-300">{typeof window !== 'undefined' ? window.location.hostname : 'portal.mohpa.net'}</code> (web UI).
               The CentralSpy Master Server (FESL authentication &amp; Theater matchmaking) is located on{' '}
               <strong className="text-emerald-400">{masterInfo.host}</strong> (IPv4: <strong className="text-emerald-400">{masterInfo.ip}</strong>).
             </p>
@@ -175,7 +175,7 @@ export const HostsGenerator: React.FC = () => {
                   type="text"
                   value={serverIp}
                   onChange={(e) => setServerIp(e.target.value)}
-                  placeholder="e.g. 178.105.150.25 or centralspy.appelpitje.dev"
+                  placeholder="e.g. 178.105.150.25"
                   className="w-full bg-carbon-900 border border-carbon-700 text-cyan-300 placeholder-gray-500 rounded-sm text-xs font-mono pl-9 pr-3 py-2 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/40"
                 />
               </div>

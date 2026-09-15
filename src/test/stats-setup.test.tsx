@@ -530,11 +530,10 @@ describe('Module 7: Setup & Download Guides Components', () => {
     expect(screen.getByText(/192\.168\.1\.150\s+fesl\.ea\.com/i)).toBeInTheDocument();
   });
 
-  it('HostsGenerator resolves centralspy.appelpitje.dev when accessed on portal.appelpitje.dev', () => {
-    // Mock window.location.hostname as portal.appelpitje.dev
+  it('HostsGenerator uses the VPS IP when accessed on portal.mohpa.net', () => {
     const originalLocation = window.location;
     delete (window as any).location;
-    window.location = { ...originalLocation, hostname: 'portal.appelpitje.dev' } as any;
+    window.location = { ...originalLocation, hostname: 'portal.mohpa.net' } as any;
 
     try {
       render(
@@ -543,30 +542,16 @@ describe('Module 7: Setup & Download Guides Components', () => {
         </MemoryRouter>
       );
 
-      // Verify the notice mentions web portal vs master server
       expect(screen.getByText(/CENTRALSPY MASTER SERVER VS WEB PORTAL/i)).toBeInTheDocument();
-      expect(screen.getAllByText(/portal\.appelpitje\.dev/i).length).toBeGreaterThanOrEqual(1);
-      expect(screen.getAllByText(/centralspy\.appelpitje\.dev/i).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByText(/portal\.mohpa\.net/i).length).toBeGreaterThanOrEqual(1);
+      expect(screen.queryByText(/centralspy\./i)).toBeNull();
       expect(screen.getAllByText(/178\.105\.150\.25/i).length).toBeGreaterThanOrEqual(1);
 
-      // Verify default generated output routes to master server IP (178.105.150.25)
       expect(screen.getByText(/178\.105\.150\.25\s+fesl\.ea\.com/i)).toBeInTheDocument();
       expect(screen.getByText(/178\.105\.150\.25\s+theater\.ea\.com/i)).toBeInTheDocument();
 
-      // Ensure it does NOT use portal.appelpitje.dev in the hosts file
-      expect(screen.queryByText(/portal\.appelpitje\.dev\s+fesl\.ea\.com/i)).toBeNull();
-
-      // Click Master Host button to switch to centralspy.appelpitje.dev FQDN
-      const hostBtn = screen.getByRole('button', { name: /Master Host \(centralspy\.appelpitje\.dev\)/i });
-      fireEvent.click(hostBtn);
-
-      expect(screen.getByText(/centralspy\.appelpitje\.dev\s+fesl\.ea\.com/i)).toBeInTheDocument();
-      expect(screen.getByText(/💡 Hosts File Format Requirement/i)).toBeInTheDocument();
-
-      // Click "Use IPv4: 178.105.150.25" to switch back to IP
-      const useIpBtn = screen.getByRole('button', { name: /Use IPv4: 178\.105\.150\.25/i });
-      fireEvent.click(useIpBtn);
-      expect(screen.getByText(/178\.105\.150\.25\s+fesl\.ea\.com/i)).toBeInTheDocument();
+      expect(screen.queryByText(/portal\.mohpa\.net\s+fesl\.ea\.com/i)).toBeNull();
+      expect(screen.queryByRole('button', { name: /Master Host/i })).toBeNull();
     } finally {
       (window as any).location = originalLocation;
     }
@@ -609,7 +594,7 @@ describe('Module 7: Setup & Download Guides Components', () => {
     const zipLink = screen.getByRole('link', { name: /Download CentralSpy MOHPA Patch/i });
     expect(zipLink).toHaveAttribute(
       'href',
-      'https://centralspy.appelpitje.dev/downloads/CentralSpy-MOHPA-Patch.zip'
+      '/downloads/CentralSpy-MOHPA-Patch.zip'
     );
     expect(zipLink).toHaveAttribute('download', 'CentralSpy-MOHPA-Patch.zip');
     expect(zipLink.getAttribute('href')).not.toContain('(1)');

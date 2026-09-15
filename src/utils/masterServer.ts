@@ -4,15 +4,16 @@ export interface MasterServerInfo {
 }
 
 export const KNOWN_SERVERS: Record<string, { host: string; ip: string }> = {
-  'appelpitje.dev': {
-    host: 'centralspy.appelpitje.dev',
+  'mohpa.net': {
+    host: '178.105.150.25',
     ip: '178.105.150.25',
   },
 };
 
 /**
  * Resolves the master server hostname and IPv4 address.
- * Web portal (e.g. portal.appelpitje.dev) is separated from the master server (centralspy.appelpitje.dev).
+ * Web portal (portal.mohpa.net) is on Cloudflare Pages.
+ * Game traffic (FESL & Theater) goes to the VPS IPv4, never to a Cloudflare hostname.
  */
 export const resolveMasterServerInfo = (): MasterServerInfo => {
   const envHost = import.meta.env.VITE_MASTERSERVER_HOST;
@@ -21,7 +22,6 @@ export const resolveMasterServerInfo = (): MasterServerInfo => {
   if (typeof window !== 'undefined' && window.location?.hostname) {
     const currentHost = window.location.hostname;
 
-    // Check known domains (e.g. appelpitje.dev)
     for (const [domain, info] of Object.entries(KNOWN_SERVERS)) {
       if (currentHost.includes(domain)) {
         return {
@@ -29,15 +29,6 @@ export const resolveMasterServerInfo = (): MasterServerInfo => {
           ip: envIp || info.ip,
         };
       }
-    }
-
-    // Portal subdomain convention: portal.example.com -> centralspy.example.com
-    if (currentHost.startsWith('portal.')) {
-      const derivedHost = currentHost.replace(/^portal\./i, 'centralspy.');
-      return {
-        host: envHost || derivedHost,
-        ip: envIp || derivedHost,
-      };
     }
 
     // Localhost / loopback
@@ -54,9 +45,8 @@ export const resolveMasterServerInfo = (): MasterServerInfo => {
     };
   }
 
-  // Default fallback for CentralSpy master server
   return {
-    host: envHost || 'centralspy.appelpitje.dev',
+    host: envHost || '178.105.150.25',
     ip: envIp || '178.105.150.25',
   };
 };

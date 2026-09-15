@@ -10,7 +10,7 @@ import { Badge } from '../../components/common/Badge';
 import { cn } from '../../utils/cn';
 
 export const MOHPA_PATCH_ZIP_URL =
-  'https://centralspy.appelpitje.dev/downloads/CentralSpy-MOHPA-Patch.zip';
+  '/downloads/CentralSpy-MOHPA-Patch.zip';
 
 interface PatchDirective {
   gameTitle: string;
