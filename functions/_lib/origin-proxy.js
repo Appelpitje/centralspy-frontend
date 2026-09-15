@@ -1,4 +1,5 @@
 const ORIGIN_HOST = 'centralspy.appelpitje.dev';
+const ORIGIN_IP = '178.105.150.25';
 
 export function proxyToOrigin(request) {
   const incoming = new URL(request.url);
@@ -8,7 +9,8 @@ export function proxyToOrigin(request) {
   return fetch(target, {
     method: request.method,
     headers,
-    body: request.body,
+    body: request.method === 'GET' || request.method === 'HEAD' ? undefined : request.body,
     redirect: 'manual',
+    cf: { resolveOverride: ORIGIN_IP },
   });
 }
