@@ -17,6 +17,7 @@ import { CountrySelect } from '../../components/common/CountrySelect';
 import { DatePicker } from '../../components/common/DatePicker';
 import { Button } from '../../components/common/Button';
 import { useToast } from '../../components/hud/Toast';
+import { getTurnstileSiteKey, TurnstileWidget } from '../../components/auth/TurnstileWidget';
 
 export const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -33,6 +34,10 @@ export const Register: React.FC = () => {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [captchaReset, setCaptchaReset] = useState(0);
+  const captchaRequired = Boolean(getTurnstileSiteKey());
+  const captchaPending = captchaRequired && !turnstileToken;
 
   // Helper for age validation (>= 13 years old)
   const isAtLeast13YearsOld = (dobString: string): boolean => {
@@ -110,6 +115,11 @@ export const Register: React.FC = () => {
       return;
     }
 
+    if (captchaRequired && !turnstileToken) {
+      setError('Please complete the CAPTCHA challenge.');
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
@@ -120,6 +130,7 @@ export const Register: React.FC = () => {
         password,
         countryCode,
         dob,
+        turnstileToken: turnstileToken || undefined,
       });
 
       setAuth(response.user, response.token);
@@ -134,6 +145,8 @@ export const Register: React.FC = () => {
         'Registration failed. Username or email may already be registered.';
       setError(msg);
       toast.error('Registration Failed', msg);
+      setTurnstileToken('');
+      setCaptchaReset((value) => value + 1);
     } finally {
       setIsLoading(false);
     }
@@ -264,12 +277,15 @@ export const Register: React.FC = () => {
               />
             </div>
 
+            <TurnstileWidget onToken={setTurnstileToken} resetKey={captchaReset} />
+
             <div className="pt-2">
               <Button
                 type="submit"
                 variant="primary"
                 size="md"
                 isLoading={isLoading}
+                disabled={captchaPending}
                 rightIcon={<ArrowRight className="w-4 h-4" />}
                 className="w-full shadow-glow-cyan"
               >

@@ -26,6 +26,7 @@ export interface LoginCredentials {
   username?: string;
   email?: string;
   password?: string;
+  turnstileToken?: string;
 }
 
 export interface RegisterData {
@@ -34,6 +35,7 @@ export interface RegisterData {
   password?: string;
   countryCode?: string;
   dob?: string;
+  turnstileToken?: string;
 }
 
 export interface UpdateProfileData {

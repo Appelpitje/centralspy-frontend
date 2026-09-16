@@ -7,6 +7,7 @@ import { Card } from '../../components/common/Card';
 import { Input } from '../../components/common/Input';
 import { Button } from '../../components/common/Button';
 import { useToast } from '../../components/hud/Toast';
+import { getTurnstileSiteKey, TurnstileWidget } from '../../components/auth/TurnstileWidget';
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -19,6 +20,10 @@ export const Login: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [captchaReset, setCaptchaReset] = useState(0);
+  const captchaRequired = Boolean(getTurnstileSiteKey());
+  const captchaPending = captchaRequired && !turnstileToken;
 
   const from = (location.state as any)?.from?.pathname || '/dashboard';
 
@@ -35,6 +40,11 @@ export const Login: React.FC = () => {
       return;
     }
 
+    if (captchaRequired && !turnstileToken) {
+      setError('Please complete the CAPTCHA challenge.');
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
@@ -42,6 +52,7 @@ export const Login: React.FC = () => {
       const response = await authService.login({
         identifier: identifier.trim(),
         password,
+        turnstileToken: turnstileToken || undefined,
       });
 
       setAuth(response.user, response.token);
@@ -53,6 +64,8 @@ export const Login: React.FC = () => {
         'Authentication failed. Please verify credentials and network connection.';
       setError(msg);
       toast.error('Access Denied', msg);
+      setTurnstileToken('');
+      setCaptchaReset((value) => value + 1);
     } finally {
       setIsLoading(false);
     }
@@ -143,12 +156,15 @@ export const Login: React.FC = () => {
               </Link>
             </div>
 
+            <TurnstileWidget onToken={setTurnstileToken} resetKey={captchaReset} />
+
             <div className="pt-2">
               <Button
                 type="submit"
                 variant="primary"
                 size="md"
                 isLoading={isLoading}
+                disabled={captchaPending}
                 rightIcon={<ArrowRight className="w-4 h-4" />}
                 className="w-full"
               >
