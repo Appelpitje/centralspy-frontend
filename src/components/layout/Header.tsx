@@ -114,6 +114,8 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
                     <UserIcon className="w-4 h-4 text-ink-faint" />
                     <span>Account</span>
                   </Link>
+                  {/* Licenses link hidden for now while license section is hidden on profile page */}
+                  {/*
                   <Link
                     to="/entitlements"
                     onClick={() => setUserDropdownOpen(false)}
@@ -122,6 +124,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
                     <Key className="w-4 h-4 text-ink-faint" />
                     <span>Licenses</span>
                   </Link>
+                  */}
                   {isAdmin && (
                     <Link
                       to="/admin"

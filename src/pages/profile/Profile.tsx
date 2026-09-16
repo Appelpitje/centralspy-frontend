@@ -11,6 +11,9 @@ import { Badge } from '../../components/common/Badge';
 import { useToast } from '../../components/hud/Toast';
 import { MeResponse } from '../../types/user';
 
+// Feature flag: set to true if license redemption and entitlements overview are needed in the future
+const SHOW_LICENSES = false;
+
 export const Profile: React.FC = () => {
   const { user } = useAuthStore();
   const { toast } = useToast();
@@ -54,11 +57,11 @@ export const Profile: React.FC = () => {
           Account
         </h1>
         <p className="text-sm text-ink-muted mt-1">
-          Profile, licenses, and security.
+          {SHOW_LICENSES ? 'Profile, licenses, and security.' : 'Profile and account specifications.'}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className={SHOW_LICENSES ? "grid grid-cols-1 md:grid-cols-2 gap-6" : "max-w-2xl"}>
         {/* User Info Card */}
         <Card
           title="ACCOUNT SPECIFICATIONS"
@@ -90,62 +93,66 @@ export const Profile: React.FC = () => {
         </Card>
 
         {/* Claim Key Card */}
-        <Card
-          title="CD KEY / LICENSE REDEMPTION"
-          icon={<Key className="w-4 h-4" />}
-          accent="emerald"
-        >
-          <form onSubmit={handleClaimKey} className="space-y-3">
-            <p className="text-xs font-mono text-ink-muted">
-              Enter a game serial key (e.g. MOHPA-XXXX-XXXX) to unlock game access.
-            </p>
+        {SHOW_LICENSES && (
+          <Card
+            title="CD KEY / LICENSE REDEMPTION"
+            icon={<Key className="w-4 h-4" />}
+            accent="emerald"
+          >
+            <form onSubmit={handleClaimKey} className="space-y-3">
+              <p className="text-xs font-mono text-ink-muted">
+                Enter a game serial key (e.g. MOHPA-XXXX-XXXX) to unlock game access.
+              </p>
 
-            <Input
-              placeholder="XXXX-XXXX-XXXX-XXXX"
-              value={cdKey}
-              onChange={(e) => setCdKey(e.target.value)}
-              className="font-mono uppercase tracking-wider"
-              required
-            />
+              <Input
+                placeholder="XXXX-XXXX-XXXX-XXXX"
+                value={cdKey}
+                onChange={(e) => setCdKey(e.target.value)}
+                className="font-mono uppercase tracking-wider"
+                required
+              />
 
-            <Button
-              type="submit"
-              variant="tactical"
-              size="md"
-              isLoading={isClaiming}
-              leftIcon={<Plus className="w-4 h-4" />}
-              className="w-full"
-            >
-              Redeem License Key
-            </Button>
-          </form>
-        </Card>
+              <Button
+                type="submit"
+                variant="tactical"
+                size="md"
+                isLoading={isClaiming}
+                leftIcon={<Plus className="w-4 h-4" />}
+                className="w-full"
+              >
+                Redeem License Key
+              </Button>
+            </form>
+          </Card>
+        )}
       </div>
 
       {/* Entitlements Card */}
-      <Card
-        title="OWNED GAME LICENSES & ENTITLEMENTS"
-        subtitle="Active game SKUs associated with your Master Account"
-        icon={<Key className="w-4 h-4" />}
-      >
-        {entitlements.length === 0 ? (
-          <div className="text-center py-10 text-sm font-medium text-ink">
-            No serial keys claimed yet.
-          </div>
-        ) : (
-          <div className="divide-y divide-sand-200 font-mono text-xs">
-            {entitlements.map((ent) => (
-              <div key={ent.id} className="py-3 flex items-center justify-between">
-                <div>
-                  <span className="font-bold text-ink uppercase">{ent.gameSlug}</span>
-                  <p className="text-[11px] text-ink-muted font-mono mt-0.5">{ent.cdKey}</p>
+      {SHOW_LICENSES && (
+        <Card
+          title="OWNED GAME LICENSES & ENTITLEMENTS"
+          subtitle="Active game SKUs associated with your Master Account"
+          icon={<Key className="w-4 h-4" />}
+        >
+          {entitlements.length === 0 ? (
+            <div className="text-center py-10 text-sm font-medium text-ink">
+              No serial keys claimed yet.
+            </div>
+          ) : (
+            <div className="divide-y divide-sand-200 font-mono text-xs">
+              {entitlements.map((ent) => (
+                <div key={ent.id} className="py-3 flex items-center justify-between">
+                  <div>
+                    <span className="font-bold text-ink uppercase">{ent.gameSlug}</span>
+                    <p className="text-[11px] text-ink-muted font-mono mt-0.5">{ent.cdKey}</p>
+                  </div>
+                  <Badge variant="ONLINE" size="sm">ACTIVE LICENSE</Badge>
                 </div>
-                <Badge variant="ONLINE" size="sm">ACTIVE LICENSE</Badge>
-              </div>
-            ))}
-          </div>
-        )}
-      </Card>
+              ))}
+            </div>
+          )}
+        </Card>
+      )}
     </div>
   );
 };
