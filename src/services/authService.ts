@@ -18,6 +18,11 @@ export const authService = {
     return response.data;
   },
 
+  async forgotPassword(data: { email: string; turnstileToken?: string }): Promise<{ ok: boolean }> {
+    const response = await apiClient.post<{ ok: boolean }>('/auth/forgot-password', data);
+    return response.data;
+  },
+
   /**
    * Get current authenticated user profile along with entitlements and personas
    */

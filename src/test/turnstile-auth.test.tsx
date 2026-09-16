@@ -8,6 +8,7 @@ import apiClient from '../services/api';
 import { ToastProvider } from '../components/hud/Toast';
 import { Login } from '../pages/auth/Login';
 import { Register } from '../pages/auth/Register';
+import { ForgotPassword } from '../pages/auth/ForgotPassword';
 
 vi.mock('../services/api', () => {
   return {
@@ -144,6 +145,35 @@ describe('Cloudflare Turnstile on portal auth pages', () => {
         password: 'SecretPassword123',
         countryCode: 'US',
         dob: '2000-01-01',
+        turnstileToken: DUMMY_TOKEN,
+      });
+    });
+  });
+
+  it('renders the Turnstile widget on ForgotPassword', () => {
+    render(<ForgotPassword />, { wrapper: createWrapper() });
+    expect(screen.getByTestId('cf-turnstile')).toBeInTheDocument();
+  });
+
+  it('keeps Send Recovery Directives disabled until CAPTCHA succeeds', () => {
+    (window as any).turnstile.render = vi.fn(() => 'widget-1');
+    render(<ForgotPassword />, { wrapper: createWrapper() });
+    expect(screen.getByRole('button', { name: /Send Recovery Directives/i })).toBeDisabled();
+  });
+
+  it('sends the Turnstile token with the password reset request', async () => {
+    (apiClient.post as any).mockResolvedValueOnce({ data: { ok: true } });
+
+    render(<ForgotPassword />, { wrapper: createWrapper() });
+
+    fireEvent.change(screen.getByLabelText(/Master Operator Email/i), {
+      target: { value: 'commander@mohpa.net' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: /Send Recovery Directives/i }));
+
+    await waitFor(() => {
+      expect(apiClient.post).toHaveBeenCalledWith('/auth/forgot-password', {
+        email: 'commander@mohpa.net',
         turnstileToken: DUMMY_TOKEN,
       });
     });

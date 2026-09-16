@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, KeyRound, ArrowRight, ArrowLeft, CheckCircle2, ShieldAlert, Terminal } from 'lucide-react';
+import { Mail, KeyRound, ArrowRight, ArrowLeft, CheckCircle2, ShieldAlert, AlertCircle } from 'lucide-react';
 import { Card } from '../../components/common/Card';
 import { Input } from '../../components/common/Input';
 import { Button } from '../../components/common/Button';
 import { useToast } from '../../components/hud/Toast';
+import { authService } from '../../services/authService';
+import { getTurnstileSiteKey, TurnstileWidget } from '../../components/auth/TurnstileWidget';
 
 export const ForgotPassword: React.FC = () => {
   const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [captchaReset, setCaptchaReset] = useState(0);
+  const captchaRequired = Boolean(getTurnstileSiteKey());
+  const captchaPending = captchaRequired && !turnstileToken;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,17 +26,35 @@ export const ForgotPassword: React.FC = () => {
       return;
     }
 
-    setIsLoading(true);
+    if (captchaRequired && !turnstileToken) {
+      setError('Please complete the CAPTCHA challenge.');
+      return;
+    }
 
-    // Simulate recovery dispatch
-    setTimeout(() => {
-      setIsLoading(false);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      await authService.forgotPassword({
+        email: email.trim(),
+        turnstileToken: turnstileToken || undefined,
+      });
       setIsSubmitted(true);
       toast.success(
         'Recovery Signal Dispatched',
         `Security reset instructions sent to ${email.trim()}`
       );
-    }, 800);
+    } catch (err: any) {
+      const msg =
+        err.response?.data?.error ||
+        'Recovery request failed. Please complete the CAPTCHA and try again.';
+      setError(msg);
+      toast.error('Recovery Failed', msg);
+      setTurnstileToken('');
+      setCaptchaReset((value) => value + 1);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -79,7 +104,12 @@ export const ForgotPassword: React.FC = () => {
                 <Button
                   variant="secondary"
                   size="md"
-                  onClick={() => setIsSubmitted(false)}
+                  onClick={() => {
+                    setIsSubmitted(false);
+                    setTurnstileToken('');
+                    setCaptchaReset((value) => value + 1);
+                    setError(null);
+                  }}
                   className="w-full"
                 >
                   Enter Different Email
@@ -103,12 +133,22 @@ export const ForgotPassword: React.FC = () => {
                 Provide the email address associated with your Master Account. We will dispatch a secure recovery token to reset your password.
               </p>
 
+              {error && (
+                <div className="p-3 bg-stamp-50 border border-stamp-500/30 rounded-lg text-stamp-700 text-sm flex items-start space-x-2">
+                  <AlertCircle className="w-4 h-4 text-stamp-500 shrink-0 mt-0.5" />
+                  <span className="flex-1">{error}</span>
+                </div>
+              )}
+
               <Input
                 label="Master Operator Email"
                 type="email"
                 placeholder="e.g. commander@mohpa.net"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (error) setError(null);
+                }}
                 leftIcon={<Mail className="w-4 h-4" />}
                 required
                 autoFocus
@@ -123,12 +163,15 @@ export const ForgotPassword: React.FC = () => {
                 </div>
               )}
 
+              <TurnstileWidget onToken={setTurnstileToken} resetKey={captchaReset} />
+
               <div className="pt-2">
                 <Button
                   type="submit"
                   variant="primary"
                   size="md"
                   isLoading={isLoading}
+                  disabled={captchaPending}
                   rightIcon={<ArrowRight className="w-4 h-4" />}
                   className="w-full shadow-glow-cyan"
                 >
