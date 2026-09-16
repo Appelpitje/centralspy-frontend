@@ -72,7 +72,7 @@ describe('Module 2: Auth Store (useAuthStore)', () => {
     const mockUser = {
       id: 'user-001',
       username: 'Striker2142',
-      email: 'striker@centralspy.net',
+      email: 'striker@mohpa.net',
       countryCode: 'US',
       dob: '1995-05-15',
       isAdmin: false,
@@ -93,7 +93,7 @@ describe('Module 2: Auth Store (useAuthStore)', () => {
     const mockAdmin = {
       id: 'admin-001',
       username: 'SysAdmin',
-      email: 'admin@centralspy.net',
+      email: 'admin@mohpa.net',
       countryCode: 'BE',
       dob: '1990-01-01',
       isAdmin: true,
@@ -111,7 +111,7 @@ describe('Module 2: Auth Store (useAuthStore)', () => {
     const mockUser = {
       id: 'user-002',
       username: 'TitanCommander',
-      email: 'old@centralspy.net',
+      email: 'old@mohpa.net',
       countryCode: 'US',
       dob: '1998-02-10',
       isAdmin: false,
@@ -119,10 +119,10 @@ describe('Module 2: Auth Store (useAuthStore)', () => {
     };
 
     useAuthStore.getState().setAuth(mockUser, 'token-456');
-    useAuthStore.getState().updateUser({ email: 'new@centralspy.net', countryCode: 'NL' });
+    useAuthStore.getState().updateUser({ email: 'new@mohpa.net', countryCode: 'NL' });
 
     const state = useAuthStore.getState();
-    expect(state.user?.email).toBe('new@centralspy.net');
+    expect(state.user?.email).toBe('new@mohpa.net');
     expect(state.user?.countryCode).toBe('NL');
     expect(state.user?.username).toBe('TitanCommander');
   });
@@ -131,7 +131,7 @@ describe('Module 2: Auth Store (useAuthStore)', () => {
     const mockUser = {
       id: 'user-003',
       username: 'Viper',
-      email: 'viper@centralspy.net',
+      email: 'viper@mohpa.net',
       countryCode: 'DE',
       dob: '2000-01-01',
       isAdmin: false,

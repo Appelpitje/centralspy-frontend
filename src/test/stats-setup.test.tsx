@@ -594,9 +594,9 @@ describe('Module 7: Setup & Download Guides Components', () => {
     const zipLink = screen.getByRole('link', { name: /Download mohPA Patch/i });
     expect(zipLink).toHaveAttribute(
       'href',
-      '/downloads/CentralSpy-MOHPA-Patch.zip'
+      '/downloads/mohPA-Client-Patch.zip'
     );
-    expect(zipLink).toHaveAttribute('download', 'CentralSpy-MOHPA-Patch.zip');
+    expect(zipLink).toHaveAttribute('download', 'mohPA-Client-Patch.zip');
     expect(zipLink.getAttribute('href')).not.toContain('(1)');
     expect(zipLink.textContent).not.toContain('(1)');
 

@@ -61,7 +61,7 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
 
   // Formats
   const cliArgument = `+joinServer ${targetAddress} +playerName "${effectiveSoldier}"`;
-  const uriProtocol = `centralspy://join/${server.gameSlug}/${targetAddress}?player=${encodeURIComponent(effectiveSoldier)}`;
+  const uriProtocol = `mohpa://join/${server.gameSlug}/${targetAddress}?player=${encodeURIComponent(effectiveSoldier)}`;
   const consoleCommand = `connect ${targetAddress}`;
   const exeCommand = `${server.gameSlug.toUpperCase()}.exe +joinServer ${targetAddress} +playerName "${effectiveSoldier}"`;
 

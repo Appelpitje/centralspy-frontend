@@ -12,6 +12,21 @@ interface AuthState {
   logout: () => void;
 }
 
+const AUTH_STORAGE_KEY = 'mohpa-auth-storage';
+const LEGACY_AUTH_STORAGE_KEY = 'centralspy-auth-storage';
+
+if (typeof window !== 'undefined' && window.localStorage) {
+  try {
+    if (!window.localStorage.getItem(AUTH_STORAGE_KEY)) {
+      const legacy = window.localStorage.getItem(LEGACY_AUTH_STORAGE_KEY);
+      if (legacy) {
+        window.localStorage.setItem(AUTH_STORAGE_KEY, legacy);
+      }
+    }
+    window.localStorage.removeItem(LEGACY_AUTH_STORAGE_KEY);
+  } catch (_) {}
+}
+
 const getStorage = () => {
   if (typeof window !== 'undefined' && window.localStorage) {
     return window.localStorage;
@@ -67,7 +82,7 @@ export const useAuthStore = create<AuthState>()(
       },
     }),
     {
-      name: 'centralspy-auth-storage',
+      name: AUTH_STORAGE_KEY,
       storage: createJSONStorage(getStorage),
     }
   )

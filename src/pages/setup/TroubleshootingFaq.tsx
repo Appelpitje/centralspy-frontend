@@ -36,7 +36,7 @@ export const TroubleshootingFaq: React.FC = () => {
       symptom: 'Game hangs at login screen, then throws error dialog "Failed to connect to EA Online. (errorCode=122)".',
       rootCause: 'The game client cannot establish a TCP connection to mohPA FESL on port 18020/18270.',
       solution: [
-        'Ensure you ran Patch-MOHPA.bat from CentralSpy-MOHPA-Patch.zip. The patcher hooks DNS resolution directly in the binary so hosts-file edits are not required.',
+        'Ensure you ran Patch-MOHPA.bat from mohPA-Client-Patch.zip. The patcher hooks DNS resolution directly in the binary so hosts-file edits are not required.',
         'If you previously modified your system hosts file, ensure there are no outdated or conflicting entries (or remove them).',
         'Flush your DNS resolver cache by running `ipconfig /flushdns` in an elevated terminal.',
         'Ensure the mohPA server instance is actively running and listening on port 18270 (FESL) and 18275 (Theater).',
@@ -66,7 +66,7 @@ export const TroubleshootingFaq: React.FC = () => {
       symptom: 'Successfully logs into soldier persona, but server list stays empty or throws "Theater connection timed out".',
       rootCause: 'The Theater service (port 18275) handles matchmaking packets. If UDP port 18275 is blocked by router NAT/firewall or the DNS hook is missing, lobby synchronization drops.',
       solution: [
-        'Verify you patched mohpa.exe with CentralSpy-MOHPA-Patch.zip (Patch-MOHPA.bat). The patcher hooks DNS resolution directly to mohPA.',
+        'Verify you patched mohpa.exe with mohPA-Client-Patch.zip (Patch-MOHPA.bat). The patcher hooks DNS resolution directly to mohPA.',
         'Confirm port 18275 (both TCP and UDP) is reachable and open on both client and server firewalls.',
         'If hosting servers behind a home NAT router, enable NAT Loopback / Hairpinning or forward port 18275.',
       ],

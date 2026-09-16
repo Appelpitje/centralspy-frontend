@@ -25,7 +25,7 @@ describe('Auth Store', () => {
     const user = {
       id: 'test-user-1',
       username: 'Operative42',
-      email: 'op42@centralspy.net',
+      email: 'op42@mohpa.net',
       countryCode: 'US',
       dob: '1995-05-15',
       isAdmin: false,

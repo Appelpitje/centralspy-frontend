@@ -10,7 +10,7 @@ import { Badge } from '../../components/common/Badge';
 import { cn } from '../../utils/cn';
 
 export const MOHPA_PATCH_ZIP_URL =
-  '/downloads/CentralSpy-MOHPA-Patch.zip';
+  '/downloads/mohPA-Client-Patch.zip';
 
 interface PatchDirective {
   gameTitle: string;
@@ -59,12 +59,12 @@ export const TlsPatcherGuide: React.FC = () => {
                   mohPA client patch
                 </h4>
                 <p className="text-ink-muted text-[11px] mt-1">
-                  Download CentralSpy-MOHPA-Patch.zip (contains Patch-MOHPA.bat, Patch-MOHPA.ps1, Restore-Original.bat, patcher.py, and README).
+                  Download mohPA-Client-Patch.zip (contains Patch-MOHPA.bat, Patch-MOHPA.ps1, Restore-Original.bat, patcher.py, and README).
                 </p>
               </div>
               <a
                 href={MOHPA_PATCH_ZIP_URL}
-                download="CentralSpy-MOHPA-Patch.zip"
+                download="mohPA-Client-Patch.zip"
                 className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-olive-600 text-white hover:bg-olive-700 border border-transparent shrink-0"
               >
                 <Download className="w-3.5 h-3.5" />

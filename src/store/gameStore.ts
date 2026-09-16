@@ -9,10 +9,19 @@ interface GameState {
   getActiveGameConfig: () => GameConfig;
 }
 
+const GAME_STORAGE_KEY = 'mohpa-game-storage-v2';
+
 // Immediately purge stale localStorage cache from legacy multi-game versions
 if (typeof window !== 'undefined' && window.localStorage) {
   try {
     window.localStorage.removeItem('centralspy-game-storage');
+    if (!window.localStorage.getItem(GAME_STORAGE_KEY)) {
+      const legacy = window.localStorage.getItem('centralspy-game-storage-v2');
+      if (legacy) {
+        window.localStorage.setItem(GAME_STORAGE_KEY, legacy);
+      }
+    }
+    window.localStorage.removeItem('centralspy-game-storage-v2');
   } catch (_) {}
 }
 
@@ -50,7 +59,7 @@ export const useGameStore = create<GameState>()(
       },
     }),
     {
-      name: 'centralspy-game-storage-v2',
+      name: GAME_STORAGE_KEY,
       storage: createJSONStorage(getStorage),
       partialize: () => ({ activeGame: 'mohpa' as const }),
       merge: () => ({

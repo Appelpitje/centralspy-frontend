@@ -1,7 +1,7 @@
-# CentralSpy: Frontend Master Plan
+# mohPA: Frontend Master Plan
 
 ## 1. Executive Summary
-This document defines the modular Master Plan for the **CentralSpy Frontend Portal** (`frontend`).
+This document defines the modular Master Plan for the **mohPA Frontend Portal** (`frontend`).
 
 The frontend is a modern, responsive web application serving as both the **Player Management & Stats Portal** and the **Operations / Protocol Inspector Admin Console**.
 
@@ -86,7 +86,7 @@ The frontend is a modern, responsive web application serving as both the **Playe
 
 ### Module 7: Game Setup & Client Download Center
 - **Setup Guides**:
-  - Step-by-step instructions for patching game executables (DNS / hosts file redirect to CentralSpy server IP).
+  - Step-by-step instructions for patching game executables (DNS / hosts file redirect to mohPA server IP).
   - Guide for applying TLS certificate bypass / aluigi patch for older EA games.
   - Troubleshooting FAQ for connection errors (`errorCode=122`, `LOCERROR_gamenotregistered`).
 
