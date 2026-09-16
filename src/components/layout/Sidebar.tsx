@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -41,23 +41,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
     navItems.push({ to: '/admin', label: 'Admin', icon: ShieldAlert });
   }
 
+  useEffect(() => {
+    if (!isOpenMobile) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpenMobile]);
+
   return (
     <>
       {isOpenMobile && (
         <div
-          className="fixed inset-0 bg-ink/30 z-40 lg:hidden"
+          className="fixed inset-0 top-14 z-50 lg:hidden"
+          style={{ backgroundColor: 'rgba(31, 33, 28, 0.55)' }}
           onClick={onCloseMobile}
         />
       )}
 
       <aside
         className={cn(
-          'fixed lg:sticky top-14 left-0 z-40 h-[calc(100vh-3.5rem)] bg-sand-50 border-r border-sand-200 transition-all duration-200 flex flex-col justify-between shrink-0',
-          isCollapsed ? 'w-16' : 'w-56',
+          'fixed lg:sticky top-14 left-0 z-50 h-[calc(100vh-3.5rem)] border-r border-sand-200 transition-transform duration-200 flex flex-col justify-between shrink-0',
+          isCollapsed ? 'w-56 lg:w-16' : 'w-56',
           isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         )}
+        style={{ backgroundColor: '#fbfaf6', isolation: 'isolate' }}
       >
-        <nav className="flex flex-col gap-0.5 p-3">
+        <nav className="flex flex-col gap-0.5 p-3 overflow-y-auto overscroll-contain">
           {navItems.map((item) => {
             const isDashboard = item.to === '/';
             const Icon = item.icon;
@@ -70,16 +81,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className={({ isActive }) => {
                   const active = isActive || (isDashboard && location.pathname === '/dashboard');
                   return cn(
-                    'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',
+                    'flex items-center gap-3 rounded-lg px-3 py-2.5 lg:py-2 text-sm min-h-11 lg:min-h-0 transition-colors',
                     active
                       ? 'bg-olive-50 text-olive-800 font-medium'
                       : 'text-ink-muted hover:bg-sand-100 hover:text-ink'
                   );
                 }}
-                title={isCollapsed ? item.label : undefined}
+                title={isCollapsed && !isOpenMobile ? item.label : undefined}
               >
                 <Icon className="w-4 h-4 shrink-0" />
-                {!isCollapsed && <span>{item.label}</span>}
+                {(!isCollapsed || isOpenMobile) && <span>{item.label}</span>}
               </NavLink>
             );
           })}

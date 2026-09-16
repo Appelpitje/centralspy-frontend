@@ -14,7 +14,7 @@ import { useAuthStore } from '../../store/authStore';
 import { authService } from '../../services/authService';
 import { Card } from '../../components/common/Card';
 import { Input } from '../../components/common/Input';
-import { Select } from '../../components/common/Select';
+import { CountrySelect } from '../../components/common/CountrySelect';
 import { Button } from '../../components/common/Button';
 import { useToast } from '../../components/hud/Toast';
 
@@ -33,24 +33,6 @@ export const Register: React.FC = () => {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const countryOptions = [
-    { value: 'US', label: 'United States (US)' },
-    { value: 'GB', label: 'United Kingdom (GB)' },
-    { value: 'DE', label: 'Germany (DE)' },
-    { value: 'FR', label: 'France (FR)' },
-    { value: 'BE', label: 'Belgium (BE)' },
-    { value: 'NL', label: 'Netherlands (NL)' },
-    { value: 'SE', label: 'Sweden (SE)' },
-    { value: 'CA', label: 'Canada (CA)' },
-    { value: 'AU', label: 'Australia (AU)' },
-    { value: 'JP', label: 'Japan (JP)' },
-    { value: 'RU', label: 'Russian Federation (RU)' },
-    { value: 'PL', label: 'Poland (PL)' },
-    { value: 'BR', label: 'Brazil (BR)' },
-    { value: 'ES', label: 'Spain (ES)' },
-    { value: 'IT', label: 'Italy (IT)' },
-  ];
 
   // Helper for age validation (>= 13 years old)
   const isAtLeast13YearsOld = (dobString: string): boolean => {
@@ -258,11 +240,10 @@ export const Register: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Select
+              <CountrySelect
                 label="Country / Region"
-                options={countryOptions}
                 value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
+                onChange={setCountryCode}
               />
 
               <Input
