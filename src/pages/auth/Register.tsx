@@ -4,7 +4,6 @@ import {
   Lock,
   User,
   Mail,
-  Calendar,
   Terminal,
   ArrowRight,
   UserPlus,
@@ -15,6 +14,7 @@ import { authService } from '../../services/authService';
 import { Card } from '../../components/common/Card';
 import { Input } from '../../components/common/Input';
 import { CountrySelect } from '../../components/common/CountrySelect';
+import { DatePicker } from '../../components/common/DatePicker';
 import { Button } from '../../components/common/Button';
 import { useToast } from '../../components/hud/Toast';
 
@@ -246,17 +246,15 @@ export const Register: React.FC = () => {
                 onChange={setCountryCode}
               />
 
-              <Input
+              <DatePicker
                 label="Date of Birth"
-                type="date"
                 value={dob}
-                onChange={(e) => {
-                  setDob(e.target.value);
+                onChange={(next) => {
+                  setDob(next);
                   if (error) setError(null);
                 }}
                 onBlur={() => markTouched('dob')}
                 error={touched.dob ? validationErrors.dob : undefined}
-                leftIcon={<Calendar className="w-4 h-4" />}
                 helperText={
                   !touched.dob || !validationErrors.dob
                     ? 'Requires age >= 13.'
