@@ -128,32 +128,34 @@ export const EntitlementCenter: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {/* Dev Quick-Grant dropdown */}
-          <div className="relative group">
-            <Button
-              variant="secondary"
-              size="sm"
-              leftIcon={<Zap className="w-3.5 h-3.5 text-amber-400" />}
-              isLoading={grantMutation.isPending}
-            >
-              Dev Quick-Grant License
-            </Button>
-            <div className="absolute right-0 top-full mt-1 w-56 bg-sand-50 border border-sand-300 rounded-sm shadow-2xl p-1 z-30 hidden group-hover:block group-focus-within:block font-mono text-xs">
-              <div className="px-2 py-1 text-[10px] text-ink-muted uppercase tracking-wider border-b border-sand-200 font-bold">
-                Instant Game Activation
+          {/* Dev Quick-Grant dropdown (Development Only) */}
+          {import.meta.env.DEV && (
+            <div className="relative group">
+              <Button
+                variant="secondary"
+                size="sm"
+                leftIcon={<Zap className="w-3.5 h-3.5 text-amber-400" />}
+                isLoading={grantMutation.isPending}
+              >
+                Dev Quick-Grant License
+              </Button>
+              <div className="absolute right-0 top-full mt-1 w-56 bg-sand-50 border border-sand-300 rounded-sm shadow-2xl p-1 z-30 hidden group-hover:block group-focus-within:block font-mono text-xs">
+                <div className="px-2 py-1 text-[10px] text-ink-muted uppercase tracking-wider border-b border-sand-200 font-bold">
+                  Instant Game Activation
+                </div>
+                {GAMES.map((game) => (
+                  <button
+                    key={game.slug}
+                    onClick={() => grantMutation.mutate(game.slug)}
+                    className="w-full text-left px-2 py-1.5 hover:bg-sand-200 text-ink hover:text-cyan-400 rounded-sm transition-colors flex items-center justify-between"
+                  >
+                    <span className="truncate">{game.name}</span>
+                    <span className="text-[10px] text-ink-muted">{game.slug}</span>
+                  </button>
+                ))}
               </div>
-              {GAMES.map((game) => (
-                <button
-                  key={game.slug}
-                  onClick={() => grantMutation.mutate(game.slug)}
-                  className="w-full text-left px-2 py-1.5 hover:bg-sand-200 text-ink hover:text-cyan-400 rounded-sm transition-colors flex items-center justify-between"
-                >
-                  <span className="truncate">{game.name}</span>
-                  <span className="text-[10px] text-ink-muted">{game.slug}</span>
-                </button>
-              ))}
             </div>
-          </div>
+          )}
 
           <Button
             variant="primary"
@@ -185,7 +187,7 @@ export const EntitlementCenter: React.FC = () => {
               No Game Entitlements Registered
             </h3>
             <p className="text-xs text-ink-muted">
-              You do not have any registered game licenses under your master account. Claim a CD key or use the Dev Quick-Grant button to unlock game access.
+              You do not have any registered game licenses under your master account. Claim a CD key{import.meta.env.DEV ? ' or use the Dev Quick-Grant button' : ''} to unlock game access.
             </p>
             <div className="pt-2 flex justify-center gap-3">
               <Button

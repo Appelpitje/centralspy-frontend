@@ -157,27 +157,29 @@ export const Login: React.FC = () => {
             </div>
           </form>
 
-          {/* Dev / Fast Fill Helpers */}
-          <div className="mt-4 pt-4 border-t border-sand-200 flex items-center justify-between text-xs font-mono text-ink-muted">
-            <span>Dev Fast-fill:</span>
-            <div className="flex items-center space-x-2">
-              <button
-                type="button"
-                onClick={handleDemoAdmin}
-                className="text-cyan-400 hover:text-cyan-300 underline focus:outline-none"
-              >
-                Admin
-              </button>
-              <span className="text-carbon-600">•</span>
-              <button
-                type="button"
-                onClick={handleDemoPlayer}
-                className="text-cyan-400 hover:text-cyan-300 underline focus:outline-none"
-              >
-                Player
-              </button>
+          {/* Dev / Fast Fill Helpers (Development Only) */}
+          {import.meta.env.DEV && (
+            <div className="mt-4 pt-4 border-t border-sand-200 flex items-center justify-between text-xs font-mono text-ink-muted">
+              <span>Dev Fast-fill:</span>
+              <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  onClick={handleDemoAdmin}
+                  className="text-cyan-400 hover:text-cyan-300 underline focus:outline-none"
+                >
+                  Admin
+                </button>
+                <span className="text-carbon-600">•</span>
+                <button
+                  type="button"
+                  onClick={handleDemoPlayer}
+                  className="text-cyan-400 hover:text-cyan-300 underline focus:outline-none"
+                >
+                  Player
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </Card>
 
         <div className="mt-6 text-center text-xs font-mono text-ink-muted space-x-1">

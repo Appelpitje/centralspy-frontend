@@ -71,7 +71,7 @@ export const ForgotPassword: React.FC = () => {
                   Security Notice:
                 </p>
                 <p>
-                  In a decentralized server environment, your password is required to encrypt subaccount persona hashes. If you are running locally, check with your server admin or dev console.
+                  In a decentralized server environment, your password is required to encrypt subaccount persona hashes. If you need assistance, check with your server administrator.
                 </p>
               </div>
 
@@ -114,12 +114,14 @@ export const ForgotPassword: React.FC = () => {
                 autoFocus
               />
 
-              <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm text-[11px] font-mono text-ink-muted">
-                <span className="text-amber-400 font-bold uppercase block mb-1">
-                  Offline / Local Dev Notice:
-                </span>
-                For standalone / offline test clusters, you can also reset your password or inspect your user hash directly through the Admin Console or SQLite/Postgres database.
-              </div>
+              {import.meta.env.DEV && (
+                <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm text-[11px] font-mono text-ink-muted">
+                  <span className="text-amber-400 font-bold uppercase block mb-1">
+                    Offline / Local Dev Notice:
+                  </span>
+                  For standalone / offline test clusters, you can also reset your password or inspect your user hash directly through the Admin Console or SQLite/Postgres database.
+                </div>
+              )}
 
               <div className="pt-2">
                 <Button

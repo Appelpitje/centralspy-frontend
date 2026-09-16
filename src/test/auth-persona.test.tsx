@@ -306,6 +306,17 @@ describe('Module 2 UI: Auth Pages Rendering', () => {
     expect(screen.getByRole('button', { name: /Sign in/i })).toBeInTheDocument();
   });
 
+  it('hides Dev Fast-fill when not in development mode', () => {
+    const originalDev = import.meta.env.DEV;
+    try {
+      (import.meta.env as any).DEV = false;
+      render(<Login />, { wrapper: createWrapper() });
+      expect(screen.queryByText(/Dev Fast-fill:/i)).not.toBeInTheDocument();
+    } finally {
+      (import.meta.env as any).DEV = originalDev;
+    }
+  });
+
   it('renders Register view with full registration fields', () => {
     render(<Register />, { wrapper: createWrapper() });
 

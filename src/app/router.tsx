@@ -6,6 +6,7 @@ import { AdminRoute } from '../components/auth/AdminRoute';
 import { Dashboard } from '../pages/dashboard/Dashboard';
 import { Login } from '../pages/auth/Login';
 import { Register } from '../pages/auth/Register';
+import { ForgotPassword } from '../pages/auth/ForgotPassword';
 import { SoldierManager } from '../pages/soldiers/SoldierManager';
 import { ServerBrowser } from '../pages/servers/ServerBrowser';
 import { Leaderboards } from '../pages/stats/Leaderboards';
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: 'register',
         element: <Register />,
+      },
+      {
+        path: 'forgot-password',
+        element: <ForgotPassword />,
       },
       {
         path: 'soldiers',
