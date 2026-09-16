@@ -109,21 +109,21 @@ export const PacketDetailsDrawer: React.FC<PacketDetailsDrawerProps> = ({ packet
     <div className="fixed inset-0 z-50 flex justify-end">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-carbon-950/70 backdrop-blur-xs transition-opacity animate-fade-in"
+        className="fixed inset-0 bg-sand-50 backdrop-blur-xs transition-opacity animate-fade-in"
         onClick={onClose}
       />
 
       {/* Drawer Panel */}
-      <div className="relative w-full max-w-2xl bg-carbon-900 border-l border-carbon-700 shadow-2xl z-10 flex flex-col h-full animate-slide-left">
+      <div className="relative w-full max-w-2xl bg-sand-50 border-l border-sand-300 shadow-2xl z-10 flex flex-col h-full animate-slide-left">
         {/* Drawer Header */}
-        <div className="px-6 py-4 bg-carbon-950 border-b border-carbon-800 flex items-center justify-between">
+        <div className="px-6 py-4 bg-sand-50 border-b border-sand-200 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-sm bg-carbon-900 border border-carbon-700 text-cyan-400">
+            <div className="p-2 rounded-sm bg-sand-50 border border-sand-300 text-cyan-400">
               <Terminal className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h3 className="font-hud font-bold text-sm tracking-wider uppercase text-gray-100">
+                <h3 className="font-hud font-bold text-sm tracking-wider uppercase text-ink">
                   {packet.subsystemOrCommand}
                 </h3>
                 <Badge
@@ -148,8 +148,8 @@ export const PacketDetailsDrawer: React.FC<PacketDetailsDrawerProps> = ({ packet
                   <span>{packet.direction}</span>
                 </span>
               </div>
-              <p className="text-[11px] font-mono text-gray-400 mt-0.5">
-                TXN / SUBTYPE: <span className="text-gray-200">{String(packet.subtypeOrTxn)}</span>
+              <p className="text-[11px] font-mono text-ink-muted mt-0.5">
+                TXN / SUBTYPE: <span className="text-ink">{String(packet.subtypeOrTxn)}</span>
               </p>
             </div>
           </div>
@@ -165,7 +165,7 @@ export const PacketDetailsDrawer: React.FC<PacketDetailsDrawerProps> = ({ packet
             </Button>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-sm text-gray-400 hover:text-white hover:bg-carbon-800 transition-colors focus:outline-none"
+              className="p-1.5 rounded-sm text-ink-muted hover:text-ink hover:bg-sand-200 transition-colors focus:outline-none"
               aria-label="Close Inspector Drawer"
             >
               <X className="w-5 h-5" />
@@ -174,48 +174,48 @@ export const PacketDetailsDrawer: React.FC<PacketDetailsDrawerProps> = ({ packet
         </div>
 
         {/* Metadata Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-carbon-950/50 border-b border-carbon-800 font-mono text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-sand-50 border-b border-sand-200 font-mono text-xs">
           <div className="space-y-0.5">
-            <div className="text-[10px] text-gray-400 flex items-center gap-1">
+            <div className="text-[10px] text-ink-muted flex items-center gap-1">
               <Clock className="w-3 h-3 text-cyan-400" /> TIMESTAMP
             </div>
-            <div className="text-gray-200 font-medium">{formattedTime}</div>
-            <div className="text-[9px] text-gray-400">{formattedDate}</div>
+            <div className="text-ink font-medium">{formattedTime}</div>
+            <div className="text-[9px] text-ink-muted">{formattedDate}</div>
           </div>
 
           <div className="space-y-0.5">
-            <div className="text-[10px] text-gray-400 flex items-center gap-1">
+            <div className="text-[10px] text-ink-muted flex items-center gap-1">
               <Server className="w-3 h-3 text-emerald-400" /> CLIENT ENDPOINT
             </div>
-            <div className="text-gray-200 font-medium truncate">
+            <div className="text-ink font-medium truncate">
               {packet.clientIp}:{packet.clientPort}
             </div>
           </div>
 
           <div className="space-y-0.5">
-            <div className="text-[10px] text-gray-400">PAYLOAD LENGTH</div>
-            <div className="text-gray-200 font-medium">
-              {packet.length} <span className="text-gray-400 text-[10px]">bytes</span>
+            <div className="text-[10px] text-ink-muted">PAYLOAD LENGTH</div>
+            <div className="text-ink font-medium">
+              {packet.length} <span className="text-ink-muted text-[10px]">bytes</span>
             </div>
           </div>
 
           <div className="space-y-0.5">
-            <div className="text-[10px] text-gray-400">FRAME ID</div>
-            <div className="text-gray-300 font-medium truncate" title={packet.id}>
+            <div className="text-[10px] text-ink-muted">FRAME ID</div>
+            <div className="text-ink font-medium truncate" title={packet.id}>
               {packet.id.slice(0, 10)}...
             </div>
           </div>
         </div>
 
         {/* Tab Selection */}
-        <div className="flex items-center px-4 border-b border-carbon-800 bg-carbon-950/80 space-x-2">
+        <div className="flex items-center px-4 border-b border-sand-200 bg-sand-50 space-x-2">
           <button
             onClick={() => setActiveTab('kv')}
             className={cn(
               'flex items-center space-x-1.5 px-3 py-2.5 font-mono text-xs uppercase tracking-wider border-b-2 transition-colors',
               activeTab === 'kv'
-                ? 'border-cyan-500 text-cyan-300 font-semibold bg-carbon-900/50'
-                : 'border-transparent text-gray-400 hover:text-gray-200'
+                ? 'border-cyan-500 text-cyan-300 font-semibold bg-sand-100'
+                : 'border-transparent text-ink-muted hover:text-ink'
             )}
           >
             <Terminal className="w-3.5 h-3.5" />
@@ -227,8 +227,8 @@ export const PacketDetailsDrawer: React.FC<PacketDetailsDrawerProps> = ({ packet
             className={cn(
               'flex items-center space-x-1.5 px-3 py-2.5 font-mono text-xs uppercase tracking-wider border-b-2 transition-colors',
               activeTab === 'json'
-                ? 'border-cyan-500 text-cyan-300 font-semibold bg-carbon-900/50'
-                : 'border-transparent text-gray-400 hover:text-gray-200'
+                ? 'border-cyan-500 text-cyan-300 font-semibold bg-sand-100'
+                : 'border-transparent text-ink-muted hover:text-ink'
             )}
           >
             <FileCode className="w-3.5 h-3.5" />
@@ -240,8 +240,8 @@ export const PacketDetailsDrawer: React.FC<PacketDetailsDrawerProps> = ({ packet
             className={cn(
               'flex items-center space-x-1.5 px-3 py-2.5 font-mono text-xs uppercase tracking-wider border-b-2 transition-colors',
               activeTab === 'hex'
-                ? 'border-cyan-500 text-cyan-300 font-semibold bg-carbon-900/50'
-                : 'border-transparent text-gray-400 hover:text-gray-200'
+                ? 'border-cyan-500 text-cyan-300 font-semibold bg-sand-100'
+                : 'border-transparent text-ink-muted hover:text-ink'
             )}
           >
             <Binary className="w-3.5 h-3.5" />
@@ -254,32 +254,32 @@ export const PacketDetailsDrawer: React.FC<PacketDetailsDrawerProps> = ({ packet
           {activeTab === 'kv' && (
             <div className="space-y-2">
               {kvEntries.length === 0 ? (
-                <div className="text-center py-12 text-gray-500">
+                <div className="text-center py-12 text-ink-muted">
                   No Key-Value payload entries decoded.
                 </div>
               ) : (
-                <div className="border border-carbon-800 rounded-sm overflow-hidden bg-carbon-950/60">
+                <div className="border border-sand-200 rounded-sm overflow-hidden bg-sand-50">
                   <table className="w-full border-collapse">
                     <thead>
-                      <tr className="bg-carbon-900/80 border-b border-carbon-800 text-[10px] text-gray-400 uppercase tracking-wider">
+                      <tr className="bg-sand-50 border-b border-sand-200 text-[10px] text-ink-muted uppercase tracking-wider">
                         <th className="px-3 py-2 text-left font-semibold w-1/3">Key</th>
                         <th className="px-3 py-2 text-left font-semibold">Value</th>
                         <th className="px-3 py-2 text-right font-semibold w-16">Type</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-carbon-800/60 text-xs">
+                    <tbody className="divide-y divide-sand-200 text-xs">
                       {kvEntries.map((item, idx) => (
                         <tr
                           key={`${item.key}-${idx}`}
-                          className={idx % 2 === 0 ? 'bg-carbon-950/30' : 'bg-carbon-900/20'}
+                          className={idx % 2 === 0 ? 'bg-sand-50' : 'bg-sand-100'}
                         >
                           <td className="px-3 py-2 font-semibold text-cyan-300 select-all">
                             {item.key}
                           </td>
-                          <td className="px-3 py-2 text-gray-200 break-all select-all font-sans text-xs">
+                          <td className="px-3 py-2 text-ink break-all select-all font-sans text-xs">
                             {item.value}
                           </td>
-                          <td className="px-3 py-2 text-right text-[10px] text-gray-400 uppercase">
+                          <td className="px-3 py-2 text-right text-[10px] text-ink-muted uppercase">
                             {item.type}
                           </td>
                         </tr>
@@ -292,7 +292,7 @@ export const PacketDetailsDrawer: React.FC<PacketDetailsDrawerProps> = ({ packet
           )}
 
           {activeTab === 'json' && (
-            <div className="p-4 bg-carbon-950 rounded-sm border border-carbon-800 text-gray-200 overflow-x-auto text-[11px] leading-relaxed">
+            <div className="p-4 bg-sand-50 rounded-sm border border-sand-200 text-ink overflow-x-auto text-[11px] leading-relaxed">
               <pre className="font-mono">
                 {JSON.stringify(
                   {
@@ -316,7 +316,7 @@ export const PacketDetailsDrawer: React.FC<PacketDetailsDrawerProps> = ({ packet
           )}
 
           {activeTab === 'hex' && (
-            <div className="p-4 bg-carbon-950 rounded-sm border border-carbon-800 text-emerald-400 overflow-x-auto text-[11px] leading-tight">
+            <div className="p-4 bg-sand-50 rounded-sm border border-sand-200 text-emerald-400 overflow-x-auto text-[11px] leading-tight">
               <pre className="font-mono select-all whitespace-pre">
                 {generateHexDump()}
               </pre>
@@ -325,8 +325,8 @@ export const PacketDetailsDrawer: React.FC<PacketDetailsDrawerProps> = ({ packet
         </div>
 
         {/* Drawer Footer */}
-        <div className="px-6 py-3 bg-carbon-950 border-t border-carbon-800 flex items-center justify-between text-xs font-mono text-gray-400">
-          <span>CENTRALSPY PACKET INSPECTOR // V1.0</span>
+        <div className="px-6 py-3 bg-sand-50 border-t border-sand-200 flex items-center justify-between text-xs font-mono text-ink-muted">
+          <span>MOHPA PACKET INSPECTOR // V1.0</span>
           <Button variant="secondary" size="xs" onClick={onClose}>
             Close Inspector
           </Button>

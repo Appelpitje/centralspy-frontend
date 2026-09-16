@@ -80,7 +80,7 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
 
   const handleLaunchProtocol = () => {
     window.location.href = uriProtocol;
-    toast.info('Initiating Client Launch', `Dispatched protocol link to CentralSpy Game Launcher.`);
+    toast.info('Initiating Client Launch', `Dispatched protocol link to mohPA Game Launcher.`);
   };
 
   return (
@@ -94,21 +94,21 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
     >
       <div className="space-y-5 font-mono text-xs">
         {/* Server Quick Info Bar */}
-        <div className="p-3.5 bg-carbon-950 border border-carbon-800 rounded-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="p-3.5 bg-sand-50 border border-sand-200 rounded-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="flex items-center space-x-3">
             <div className="w-9 h-9 rounded-sm bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center shrink-0">
               <Server className="w-5 h-5 text-cyan-400" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="font-hud font-bold text-sm text-gray-100 uppercase truncate max-w-xs">
+                <span className="font-hud font-bold text-sm text-ink uppercase truncate max-w-xs">
                   {server.name}
                 </span>
                 <Badge variant={server.isRanked ? 'RANKED' : 'DEFAULT'} size="sm">
                   {server.isRanked ? 'RANKED' : 'UNRANKED'}
                 </Badge>
               </div>
-              <p className="text-[11px] text-gray-400 mt-0.5">
+              <p className="text-[11px] text-ink-muted mt-0.5">
                 Target Node: <span className="text-cyan-400 font-bold">{targetAddress}</span>
                 {server.mapName && <span> • Map: {server.mapName}</span>}
               </p>
@@ -121,8 +121,8 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
         </div>
 
         {/* Soldier / Persona Selector */}
-        <div className="space-y-2 p-3.5 bg-carbon-900/80 border border-carbon-800 rounded-sm">
-          <label className="text-xs uppercase tracking-wider text-gray-300 flex items-center justify-between">
+        <div className="space-y-2 p-3.5 bg-sand-50 border border-sand-200 rounded-sm">
+          <label className="text-xs uppercase tracking-wider text-ink flex items-center justify-between">
             <span className="flex items-center gap-1.5">
               <User className="w-3.5 h-3.5 text-cyan-400" />
               Active Soldier Callsign
@@ -139,7 +139,7 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
               <select
                 value={soldierName}
                 onChange={(e) => setSoldierName(e.target.value)}
-                className="bg-carbon-950 border border-carbon-700 text-gray-100 rounded-sm text-xs px-3 py-2 focus:outline-none focus:border-cyan-500"
+                className="bg-sand-50 border border-sand-300 text-ink rounded-sm text-xs px-3 py-2 focus:outline-none focus:border-cyan-500"
               >
                 {personas.map((p) => (
                   <option key={p.id} value={p.name}>
@@ -152,7 +152,7 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
                 value={soldierName}
                 onChange={(e) => setSoldierName(e.target.value)}
                 placeholder="Or type custom persona callsign..."
-                className="bg-carbon-950 border border-carbon-700 text-gray-100 rounded-sm text-xs px-3 py-2 focus:outline-none focus:border-cyan-500"
+                className="bg-sand-50 border border-sand-300 text-ink rounded-sm text-xs px-3 py-2 focus:outline-none focus:border-cyan-500"
               />
             </div>
           ) : (
@@ -161,10 +161,10 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
               value={soldierName}
               onChange={(e) => setSoldierName(e.target.value)}
               placeholder="Enter in-game persona callsign (e.g. CommanderAlpha)..."
-              className="w-full bg-carbon-950 border border-carbon-700 text-gray-100 rounded-sm text-xs px-3 py-2 focus:outline-none focus:border-cyan-500"
+              className="w-full bg-sand-50 border border-sand-300 text-ink rounded-sm text-xs px-3 py-2 focus:outline-none focus:border-cyan-500"
             />
           )}
-          <p className="text-[10px] text-gray-500">
+          <p className="text-[10px] text-ink-muted">
             Selected persona will be injected into launch parameters for seamless authentication.
           </p>
         </div>
@@ -173,14 +173,14 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
         <div className="space-y-3">
           {/* 1. CLI Parameter */}
           <div className="space-y-1">
-            <div className="flex items-center justify-between text-[11px] text-gray-400 uppercase tracking-wider">
+            <div className="flex items-center justify-between text-[11px] text-ink-muted uppercase tracking-wider">
               <span className="flex items-center gap-1.5">
                 <Terminal className="w-3.5 h-3.5 text-cyan-400" />
                 Game Executable Launch Arguments
               </span>
-              <span className="text-gray-500">Shortcut / Steam / Origin Launch Option</span>
+              <span className="text-ink-muted">Shortcut / Steam / Origin Launch Option</span>
             </div>
-            <div className="flex items-center bg-carbon-950 border border-carbon-700 rounded-sm p-1.5">
+            <div className="flex items-center bg-sand-50 border border-sand-300 rounded-sm p-1.5">
               <code className="flex-1 px-2.5 py-1 text-cyan-300 font-mono text-xs overflow-x-auto select-all whitespace-nowrap">
                 {cliArgument}
               </code>
@@ -198,14 +198,14 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
 
           {/* 2. Full Executable CLI */}
           <div className="space-y-1">
-            <div className="flex items-center justify-between text-[11px] text-gray-400 uppercase tracking-wider">
+            <div className="flex items-center justify-between text-[11px] text-ink-muted uppercase tracking-wider">
               <span className="flex items-center gap-1.5">
                 <Terminal className="w-3.5 h-3.5 text-amber-400" />
                 Terminal / Command Prompt Execution
               </span>
-              <span className="text-gray-500">CMD / PowerShell</span>
+              <span className="text-ink-muted">CMD / PowerShell</span>
             </div>
-            <div className="flex items-center bg-carbon-950 border border-carbon-700 rounded-sm p-1.5">
+            <div className="flex items-center bg-sand-50 border border-sand-300 rounded-sm p-1.5">
               <code className="flex-1 px-2.5 py-1 text-amber-300 font-mono text-xs overflow-x-auto select-all whitespace-nowrap">
                 {exeCommand}
               </code>
@@ -223,14 +223,14 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
 
           {/* 3. In-Game Console */}
           <div className="space-y-1">
-            <div className="flex items-center justify-between text-[11px] text-gray-400 uppercase tracking-wider">
+            <div className="flex items-center justify-between text-[11px] text-ink-muted uppercase tracking-wider">
               <span className="flex items-center gap-1.5">
                 <Shield className="w-3.5 h-3.5 text-emerald-400" />
                 In-Game Tilde (~) Console Command
               </span>
-              <span className="text-gray-500">Direct Connect</span>
+              <span className="text-ink-muted">Direct Connect</span>
             </div>
-            <div className="flex items-center bg-carbon-950 border border-carbon-700 rounded-sm p-1.5">
+            <div className="flex items-center bg-sand-50 border border-sand-300 rounded-sm p-1.5">
               <code className="flex-1 px-2.5 py-1 text-emerald-300 font-mono text-xs overflow-x-auto select-all whitespace-nowrap">
                 {consoleCommand}
               </code>
@@ -248,10 +248,10 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
         </div>
 
         {/* Tactical Helper Notice */}
-        <div className="p-3 bg-carbon-950/60 border border-carbon-800 rounded-sm flex items-start space-x-2.5 text-gray-400 text-[11px]">
+        <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm flex items-start space-x-2.5 text-ink-muted text-[11px]">
           <Info className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
           <p className="leading-relaxed">
-            Ensure your game client is configured to route master server queries through the CentralSpy FESL and Theater emulator. Refer to the{' '}
+            Ensure your game client is configured to route master server queries through the mohPA FESL and Theater emulator. Refer to the{' '}
             <a href="/setup" className="text-cyan-400 underline hover:text-cyan-300">
               Client Setup & Guides
             </a>{' '}
@@ -260,7 +260,7 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
         </div>
 
         {/* Footer actions */}
-        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-carbon-800">
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-sand-200">
           <Button
             type="button"
             variant="ghost"
@@ -277,7 +277,7 @@ export const DirectConnectModal: React.FC<DirectConnectModalProps> = ({
               size="sm"
               leftIcon={<ExternalLink className="w-3.5 h-3.5" />}
               onClick={handleLaunchProtocol}
-              title="Trigger CentralSpy Launcher Protocol Handler"
+              title="Trigger mohPA Launcher Protocol Handler"
             >
               Launch via Protocol URI
             </Button>

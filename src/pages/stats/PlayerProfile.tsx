@@ -96,8 +96,8 @@ export const PlayerProfile: React.FC = () => {
     if (scoreVal >= 25000) return { title: 'Major', grade: 'OF-3', insignia: '★', color: 'text-cyan-400', border: 'border-cyan-500/60' };
     if (scoreVal >= 10000) return { title: 'Captain', grade: 'OF-2', insignia: 'CAP', color: 'text-emerald-400', border: 'border-emerald-500/60' };
     if (scoreVal >= 5000) return { title: 'Lieutenant', grade: 'OF-1', insignia: 'LT', color: 'text-emerald-400', border: 'border-emerald-500/60' };
-    if (scoreVal >= 1000) return { title: 'Master Sergeant', grade: 'OR-8', insignia: 'SGT', color: 'text-gray-300', border: 'border-gray-500/60' };
-    return { title: 'Private First Class', grade: 'OR-2', insignia: 'PFC', color: 'text-gray-400', border: 'border-gray-600/60' };
+    if (scoreVal >= 1000) return { title: 'Master Sergeant', grade: 'OR-8', insignia: 'SGT', color: 'text-ink', border: 'border-gray-500/60' };
+    return { title: 'Private First Class', grade: 'OR-2', insignia: 'PFC', color: 'text-ink-muted', border: 'border-gray-600/60' };
   };
 
   const rankInfo = getMilitaryRank(score);
@@ -172,14 +172,15 @@ export const PlayerProfile: React.FC = () => {
   if (isProfileLoading) {
     return (
       <div className="space-y-6 animate-pulse max-w-6xl mx-auto">
-        <div className="h-8 w-48 bg-carbon-800 rounded" />
-        <div className="h-48 bg-carbon-900 border border-carbon-800 rounded-sm" />
+        <p className="text-sm font-medium text-ink">Loading soldier…</p>
+        <div className="h-8 w-48 bg-sand-300 rounded" />
+        <div className="h-48 bg-sand-50 border border-sand-200 rounded-xl" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-28 bg-carbon-900 border border-carbon-800 rounded-sm" />
+            <div key={i} className="h-28 bg-sand-50 border border-sand-200 rounded-xl" />
           ))}
         </div>
-        <div className="h-64 bg-carbon-900 border border-carbon-800 rounded-sm" />
+        <div className="h-64 bg-sand-50 border border-sand-200 rounded-xl" />
       </div>
     );
   }
@@ -188,16 +189,16 @@ export const PlayerProfile: React.FC = () => {
   if (isProfileError || !persona) {
     return (
       <div className="space-y-6 max-w-2xl mx-auto py-12 text-center animate-fade-in">
-        <div className="hud-card p-8 rounded-sm border-l-2 border-l-crimson-500 shadow-glow-crimson space-y-4">
-          <div className="w-12 h-12 bg-crimson-950/80 border border-crimson-800 rounded-full flex items-center justify-center mx-auto text-crimson-400">
+        <div className="bg-sand-50 border border-sand-200 rounded-xl p-8 shadow-soft space-y-4">
+          <div className="w-12 h-12 bg-olive-50 rounded-full flex items-center justify-center mx-auto text-olive-700">
             <AlertCircle className="w-6 h-6" />
           </div>
           <div>
-            <h2 className="font-hud font-bold text-xl text-gray-100 uppercase tracking-wider">
-              OPERATIVE RECORD NOT FOUND
+            <h2 className="text-xl font-semibold text-ink">
+              Soldier not found
             </h2>
-            <p className="text-xs font-mono text-gray-400 mt-1">
-              No active military dossier found for callsign <span className="text-cyan-400 font-bold font-mono">"{name}"</span>.
+            <p className="text-sm text-ink-muted mt-1">
+              No record for <span className="font-medium text-ink">“{name}”</span>.
             </p>
           </div>
 
@@ -207,14 +208,14 @@ export const PlayerProfile: React.FC = () => {
               value={lookupName}
               onChange={(e) => setLookupName(e.target.value)}
               placeholder="Search soldier callsign..."
-              className="flex-1 bg-carbon-900 border border-carbon-700 text-gray-200 placeholder-gray-500 rounded-sm text-xs font-mono px-3 py-2 focus:outline-none focus:border-cyan-500"
+              className="flex-1 bg-sand-50 border border-sand-300 text-ink placeholder-ink-faint rounded-sm text-xs font-mono px-3 py-2 focus:outline-none focus:border-cyan-500"
             />
             <Button type="submit" variant="primary" size="sm" leftIcon={<Search className="w-3.5 h-3.5" />}>
               Search
             </Button>
           </form>
 
-          <div className="pt-4 border-t border-carbon-800">
+          <div className="pt-4 border-t border-sand-200">
             <Link to="/leaderboards">
               <Button variant="secondary" size="sm" leftIcon={<ArrowLeft className="w-3.5 h-3.5" />}>
                 Return to Global Leaderboards
@@ -240,7 +241,7 @@ export const PlayerProfile: React.FC = () => {
       <div className="flex items-center justify-between">
         <Link
           to={`/leaderboards?game=${gameSlug}`}
-          className="inline-flex items-center space-x-1.5 text-xs font-mono text-gray-400 hover:text-cyan-400 transition-colors"
+          className="inline-flex items-center space-x-1.5 text-xs font-mono text-ink-muted hover:text-cyan-400 transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>BACK TO {gameConfig.name.toUpperCase()} LEADERBOARD</span>
@@ -259,7 +260,7 @@ export const PlayerProfile: React.FC = () => {
       </div>
 
       {/* Header Banner: Soldier Dossier Hero */}
-      <div className="hud-card p-6 rounded-sm border-l-4 border-l-cyan-500 shadow-glow-cyan bg-carbon-900/90 relative overflow-hidden">
+      <div className="hud-card p-6 rounded-sm border-l-4 border-l-cyan-500 shadow-glow-cyan bg-sand-50 relative overflow-hidden">
         {/* Background Cyber Graphic Overlay */}
         <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-cyan-950/30 to-transparent pointer-events-none" />
         <div className="absolute -right-8 -top-8 w-40 h-40 rounded-full border border-cyan-500/10 pointer-events-none" />
@@ -268,18 +269,18 @@ export const PlayerProfile: React.FC = () => {
           {/* Left: Callsign & Military Rank */}
           <div className="flex items-start space-x-4">
             {/* Rank Crest Avatar */}
-            <div className={cn('w-16 h-16 rounded-sm bg-carbon-950 border flex flex-col items-center justify-center p-1 shadow-inner', rankInfo.border)}>
+            <div className={cn('w-16 h-16 rounded-sm bg-sand-50 border flex flex-col items-center justify-center p-1 shadow-inner', rankInfo.border)}>
               <span className={cn('font-mono text-xs font-black tracking-tighter', rankInfo.color)}>
                 {rankInfo.insignia}
               </span>
-              <span className="text-[10px] font-mono text-gray-400 font-bold mt-0.5">
+              <span className="text-[10px] font-mono text-ink-muted font-bold mt-0.5">
                 {rankInfo.grade}
               </span>
             </div>
 
             <div>
               <div className="flex items-center space-x-2.5 flex-wrap">
-                <h1 className="font-hud font-black text-3xl tracking-wide text-gray-100 uppercase">
+                <h1 className="font-hud font-black text-3xl tracking-wide text-ink uppercase">
                   {persona.name}
                 </h1>
                 <Badge variant="CYAN">{gameConfig.name}</Badge>
@@ -290,17 +291,17 @@ export const PlayerProfile: React.FC = () => {
                 )}
               </div>
 
-              <div className="flex items-center space-x-4 mt-2 text-xs font-mono text-gray-400 flex-wrap gap-y-1">
+              <div className="flex items-center space-x-4 mt-2 text-xs font-mono text-ink-muted flex-wrap gap-y-1">
                 <span className={cn('font-bold', rankInfo.color)}>
                   {rankInfo.title} ({rankInfo.grade})
                 </span>
                 <span className="text-carbon-600">•</span>
                 <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 text-gray-500" />
-                  Enlisted: <span className="text-gray-300 font-medium">{enlistmentDate}</span>
+                  <Calendar className="w-3.5 h-3.5 text-ink-muted" />
+                  Enlisted: <span className="text-ink font-medium">{enlistmentDate}</span>
                 </span>
                 <span className="text-carbon-600">•</span>
-                <span className="font-mono text-[10px] text-gray-400 bg-carbon-950 px-1.5 py-0.5 rounded border border-carbon-800">
+                <span className="font-mono text-[10px] text-ink-muted bg-sand-50 px-1.5 py-0.5 rounded border border-sand-200">
                   ID: {persona.id ? `${persona.id.slice(0, 8)}...` : 'N/A'}
                 </span>
               </div>
@@ -345,7 +346,7 @@ export const PlayerProfile: React.FC = () => {
         <div className="hud-card p-4 rounded-sm border-l-2 border-l-emerald-500 shadow-[inset_2px_0_10px_-2px_rgba(16,185,129,0.3)] flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-gray-400 font-medium">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-ink-muted font-medium">
                 KILL / DEATH EFFICIENCY
               </span>
               <div className="p-2 rounded-sm border border-emerald-800/60 bg-emerald-950/50 text-emerald-400 shrink-0">
@@ -357,7 +358,7 @@ export const PlayerProfile: React.FC = () => {
               <div className="font-hud font-bold text-2xl text-emerald-400">
                 {kdRatio}
               </div>
-              <span className="font-mono text-[11px] text-gray-400">
+              <span className="font-mono text-[11px] text-ink-muted">
                 {kills.toLocaleString()} K / {deaths.toLocaleString()} D
               </span>
             </div>
@@ -365,7 +366,7 @@ export const PlayerProfile: React.FC = () => {
 
           {/* K/D Progress Bar */}
           <div className="mt-3">
-            <div className="w-full bg-carbon-950 rounded-full h-1.5 overflow-hidden border border-carbon-800 flex">
+            <div className="w-full bg-sand-50 rounded-full h-1.5 overflow-hidden border border-sand-200 flex">
               <div
                 className="bg-emerald-500 h-full"
                 style={{
@@ -379,7 +380,7 @@ export const PlayerProfile: React.FC = () => {
                 }}
               />
             </div>
-            <div className="flex justify-between text-[10px] font-mono text-gray-400 mt-1">
+            <div className="flex justify-between text-[10px] font-mono text-ink-muted mt-1">
               <span className="text-emerald-400">Kills</span>
               <span className="text-crimson-400">Deaths</span>
             </div>
@@ -390,7 +391,7 @@ export const PlayerProfile: React.FC = () => {
         <div className="hud-card p-4 rounded-sm border-l-2 border-l-amber-500 shadow-[inset_2px_0_10px_-2px_rgba(245,158,11,0.3)] flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-gray-400 font-medium">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-ink-muted font-medium">
                 WIN / LOSS RECORD
               </span>
               <div className="p-2 rounded-sm border border-amber-800/60 bg-amber-950/50 text-amber-400 shrink-0">
@@ -402,7 +403,7 @@ export const PlayerProfile: React.FC = () => {
               <div className="font-hud font-bold text-2xl text-amber-400">
                 {winRate}%
               </div>
-              <span className="font-mono text-[11px] text-gray-400">
+              <span className="font-mono text-[11px] text-ink-muted">
                 {wins.toLocaleString()} W / {losses.toLocaleString()} L
               </span>
             </div>
@@ -410,15 +411,15 @@ export const PlayerProfile: React.FC = () => {
 
           {/* Win Rate Progress Bar */}
           <div className="mt-3">
-            <div className="w-full bg-carbon-950 rounded-full h-1.5 overflow-hidden border border-carbon-800">
+            <div className="w-full bg-sand-50 rounded-full h-1.5 overflow-hidden border border-sand-200">
               <div
                 className="bg-amber-400 h-full transition-all duration-300"
                 style={{ width: `${Math.min(100, Math.max(0, +winRate))}%` }}
               />
             </div>
-            <div className="flex justify-between text-[10px] font-mono text-gray-400 mt-1">
+            <div className="flex justify-between text-[10px] font-mono text-ink-muted mt-1">
               <span className="text-amber-400">{wins} Wins</span>
-              <span className="text-gray-400">{totalMatches} Matches</span>
+              <span className="text-ink-muted">{totalMatches} Matches</span>
             </div>
           </div>
         </div>
@@ -446,7 +447,7 @@ export const PlayerProfile: React.FC = () => {
             return (
               <div
                 key={cls.className}
-                className="bg-carbon-950/80 border border-carbon-800 p-4 rounded-sm flex flex-col justify-between space-y-3 hover:border-carbon-600 transition-colors"
+                className="bg-sand-50 border border-sand-200 p-4 rounded-sm flex flex-col justify-between space-y-3 hover:border-sand-300 transition-colors"
               >
                 <div>
                   <div className="flex items-center justify-between">
@@ -455,32 +456,32 @@ export const PlayerProfile: React.FC = () => {
                       {classScorePercent}% PTS
                     </span>
                   </div>
-                  <h4 className="font-hud font-bold text-sm text-gray-100 mt-1">
+                  <h4 className="font-hud font-bold text-sm text-ink mt-1">
                     {cls.className.toUpperCase()}
                   </h4>
-                  <p className="text-[10px] font-mono text-gray-400">{cls.role}</p>
+                  <p className="text-[10px] font-mono text-ink-muted">{cls.role}</p>
                 </div>
 
-                <div className="space-y-2 pt-2 border-t border-carbon-800 font-mono text-xs">
+                <div className="space-y-2 pt-2 border-t border-sand-200 font-mono text-xs">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Score:</span>
-                    <span className="text-gray-200 font-semibold">{cls.score.toLocaleString()}</span>
+                    <span className="text-ink-muted">Score:</span>
+                    <span className="text-ink font-semibold">{cls.score.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Kills:</span>
+                    <span className="text-ink-muted">Kills:</span>
                     <span className="text-emerald-400 font-semibold">{cls.kills.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Combat Time:</span>
-                    <span className="text-gray-300">{cls.timePlayed} hrs</span>
+                    <span className="text-ink-muted">Combat Time:</span>
+                    <span className="text-ink">{cls.timePlayed} hrs</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Accuracy:</span>
+                    <span className="text-ink-muted">Accuracy:</span>
                     <span className="text-amber-400 font-semibold">{cls.accuracy}%</span>
                   </div>
                 </div>
 
-                <div className="w-full bg-carbon-900 h-1 rounded-full overflow-hidden">
+                <div className="w-full bg-sand-50 h-1 rounded-full overflow-hidden">
                   <div
                     className={cn('h-full bg-gradient-to-r', cls.color)}
                     style={{ width: `${Math.min(100, +classScorePercent)}%` }}
@@ -499,10 +500,10 @@ export const PlayerProfile: React.FC = () => {
         icon={<Swords className="w-4 h-4 text-emerald-400" />}
         accent="emerald"
       >
-        <div className="overflow-x-auto rounded-sm border border-carbon-800 bg-carbon-950/60">
+        <div className="overflow-x-auto rounded-sm border border-sand-200 bg-sand-50">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-carbon-800 bg-carbon-900/80 font-mono text-[11px] uppercase tracking-wider text-gray-400">
+              <tr className="border-b border-sand-200 bg-sand-50 font-mono text-[11px] uppercase tracking-wider text-ink-muted">
                 <th className="px-4 py-3">MAP / SECTOR</th>
                 <th className="px-4 py-3">GAME MODE</th>
                 <th className="px-4 py-3 text-center">DURATION</th>
@@ -510,17 +511,13 @@ export const PlayerProfile: React.FC = () => {
                 <th className="px-4 py-3 text-right">DATE LOGGED</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-carbon-800/60 font-mono text-xs">
+            <tbody className="divide-y divide-sand-200 font-mono text-xs">
               {isMatchesLoading ? (
-                Array.from({ length: 4 }).map((_, i) => (
-                  <tr key={`match-skeleton-${i}`} className="animate-pulse bg-carbon-900/20">
-                    <td className="px-4 py-3.5"><div className="h-4 w-32 bg-carbon-800 rounded" /></td>
-                    <td className="px-4 py-3.5"><div className="h-4 w-24 bg-carbon-800 rounded" /></td>
-                    <td className="px-4 py-3.5 text-center"><div className="h-4 w-16 bg-carbon-800 rounded mx-auto" /></td>
-                    <td className="px-4 py-3.5 text-center"><div className="h-4 w-20 bg-carbon-800 rounded mx-auto" /></td>
-                    <td className="px-4 py-3.5 text-right"><div className="h-4 w-24 bg-carbon-800 rounded ml-auto" /></td>
-                  </tr>
-                ))
+                <tr>
+                  <td colSpan={5} className="px-4 py-16 text-center">
+                    <p className="text-sm font-medium text-ink">Loading match history…</p>
+                  </td>
+                </tr>
               ) : matchHistoryData?.matches && matchHistoryData.matches.length > 0 ? (
                 matchHistoryData.matches.map((match, idx) => {
                   const isVictory = (match.winnerTeam !== null ? match.winnerTeam === 1 : idx % 2 === 0);
@@ -537,31 +534,31 @@ export const PlayerProfile: React.FC = () => {
                   return (
                     <tr
                       key={match.id || `match-${idx}`}
-                      className="hover:bg-carbon-900/40 transition-colors"
+                      className="hover:bg-sand-100 transition-colors"
                     >
-                      <td className="px-4 py-3 font-semibold text-gray-200">
+                      <td className="px-4 py-3 font-semibold text-ink">
                         {match.mapName || 'Suez Canal / Sector 4'}
                       </td>
-                      <td className="px-4 py-3 text-gray-400">
-                        <span className="px-2 py-0.5 rounded-sm bg-carbon-900 border border-carbon-800 text-[11px] text-cyan-300">
+                      <td className="px-4 py-3 text-ink-muted">
+                        <span className="px-2 py-0.5 rounded-full bg-olive-50 border border-olive-200 text-[11px] text-olive-800">
                           {match.gameMode || 'Titan Conquest'}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-center text-gray-400">
+                      <td className="px-4 py-3 text-center text-ink-muted">
                         {formattedDuration}
                       </td>
                       <td className="px-4 py-3 text-center">
                         {isVictory ? (
-                          <span className="inline-flex items-center gap-1 font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-600/50 px-2 py-0.5 rounded-sm text-[11px]">
-                            <CheckCircle2 className="w-3 h-3" /> VICTORY
+                          <span className="inline-flex items-center gap-1 font-medium text-olive-800 bg-olive-50 border border-olive-200 px-2 py-0.5 rounded-full text-[11px]">
+                            <CheckCircle2 className="w-3 h-3" /> Victory
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 font-bold text-crimson-400 bg-crimson-950/60 border border-crimson-600/50 px-2 py-0.5 rounded-sm text-[11px]">
-                            <Skull className="w-3 h-3" /> DEFEAT
+                          <span className="inline-flex items-center gap-1 font-medium text-stamp-700 bg-stamp-50 border border-stamp-500/30 px-2 py-0.5 rounded-full text-[11px]">
+                            <Skull className="w-3 h-3" /> Defeat
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-right text-gray-400">
+                      <td className="px-4 py-3 text-right text-ink-muted">
                         {matchDate}
                       </td>
                     </tr>
@@ -575,26 +572,26 @@ export const PlayerProfile: React.FC = () => {
                   { map: 'Verdun Liberation', mode: 'Titan Assault', duration: '31m 05s', victory: false, date: '3 days ago' },
                   { map: 'Camp Gibraltar', mode: 'Conquest 32', duration: '15m 19s', victory: true, date: '5 days ago' },
                 ].map((item, idx) => (
-                  <tr key={`sample-${idx}`} className="hover:bg-carbon-900/40 transition-colors">
-                    <td className="px-4 py-3 font-semibold text-gray-200">{item.map}</td>
-                    <td className="px-4 py-3 text-gray-400">
-                      <span className="px-2 py-0.5 rounded-sm bg-carbon-900 border border-carbon-800 text-[11px] text-cyan-300">
+                  <tr key={`sample-${idx}`} className="hover:bg-sand-100 transition-colors">
+                    <td className="px-4 py-3 font-semibold text-ink">{item.map}</td>
+                    <td className="px-4 py-3 text-ink-muted">
+                      <span className="px-2 py-0.5 rounded-full bg-olive-50 border border-olive-200 text-[11px] text-olive-800">
                         {item.mode}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-center text-gray-400">{item.duration}</td>
+                    <td className="px-4 py-3 text-center text-ink-muted">{item.duration}</td>
                     <td className="px-4 py-3 text-center">
                       {item.victory ? (
-                        <span className="inline-flex items-center gap-1 font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-600/50 px-2 py-0.5 rounded-sm text-[11px]">
-                          <CheckCircle2 className="w-3 h-3" /> VICTORY
+                        <span className="inline-flex items-center gap-1 font-medium text-olive-800 bg-olive-50 border border-olive-200 px-2 py-0.5 rounded-full text-[11px]">
+                          <CheckCircle2 className="w-3 h-3" /> Victory
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 font-bold text-crimson-400 bg-crimson-950/60 border border-crimson-600/50 px-2 py-0.5 rounded-sm text-[11px]">
-                          <Skull className="w-3 h-3" /> DEFEAT
+                        <span className="inline-flex items-center gap-1 font-medium text-stamp-700 bg-stamp-50 border border-stamp-500/30 px-2 py-0.5 rounded-full text-[11px]">
+                          <Skull className="w-3 h-3" /> Defeat
                         </span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-right text-gray-400">{item.date}</td>
+                    <td className="px-4 py-3 text-right text-ink-muted">{item.date}</td>
                   </tr>
                 ))
               )}
@@ -611,12 +608,12 @@ export const PlayerProfile: React.FC = () => {
         size="lg"
       >
         <div className="space-y-4 font-mono text-xs">
-          <p className="text-gray-400">
+          <p className="text-ink-muted">
             Compare operative telemetry against sector averages and top-tier veterans.
           </p>
 
-          <div className="grid grid-cols-3 gap-2 text-center p-3 bg-carbon-950 border border-carbon-800 rounded-sm font-semibold">
-            <div className="text-gray-400 text-left">METRIC</div>
+          <div className="grid grid-cols-3 gap-2 text-center p-3 bg-sand-50 border border-sand-200 rounded-sm font-semibold">
+            <div className="text-ink-muted text-left">METRIC</div>
             <div className="text-cyan-400">{persona.name.toUpperCase()}</div>
             <div className="text-amber-400">SECTOR AVG</div>
           </div>
@@ -631,11 +628,11 @@ export const PlayerProfile: React.FC = () => {
             ].map((row, i) => (
               <div
                 key={i}
-                className="grid grid-cols-3 gap-2 p-2.5 bg-carbon-900/50 border border-carbon-800/80 rounded-sm text-center"
+                className="grid grid-cols-3 gap-2 p-2.5 bg-sand-100 border border-sand-200 rounded-sm text-center"
               >
-                <div className="text-left text-gray-300 font-medium">{row.metric}</div>
+                <div className="text-left text-ink font-medium">{row.metric}</div>
                 <div className="text-cyan-300 font-bold">{row.player}</div>
-                <div className="text-gray-400">{row.avg}</div>
+                <div className="text-ink-muted">{row.avg}</div>
               </div>
             ))}
           </div>

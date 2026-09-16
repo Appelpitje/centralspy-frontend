@@ -77,7 +77,7 @@ export const StatusIndicator: React.FC<StatusIndicatorProps> = ({
             'relative inline-flex rounded-full',
             sizeStyles[size],
             current.dot,
-            current.glow
+            ''
           )}
         />
       </span>
@@ -90,7 +90,7 @@ export const StatusIndicator: React.FC<StatusIndicatorProps> = ({
             </span>
           )}
           {sublabel && (
-            <span className="text-[10px] font-mono text-gray-400 mt-0.5">{sublabel}</span>
+            <span className="text-[10px] font-mono text-ink-muted mt-0.5">{sublabel}</span>
           )}
         </div>
       )}

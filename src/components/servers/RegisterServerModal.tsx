@@ -53,7 +53,7 @@ export const RegisterServerModal: React.FC<RegisterServerModalProps> = ({
       });
 
       setRegistrationResult(result);
-      toast.success('Server Registered', `Server node "${formData.name}" enrolled into CentralSpy theater network.`);
+      toast.success('Server Registered', `Server node "${formData.name}" enrolled into mohPA theater network.`);
       if (onRegistered) {
         onRegistered(result.server);
       }
@@ -97,7 +97,7 @@ export const RegisterServerModal: React.FC<RegisterServerModalProps> = ({
       isOpen={isOpen}
       onClose={handleResetAndClose}
       title="REGISTER DEDICATED THEATER SERVER"
-      subtitle="Enroll a new game server node into CentralSpy Theater directory"
+      subtitle="Enroll a new game server node into mohPA Theater directory"
       icon={<Server className="w-5 h-5 text-cyan-400" />}
       size="lg"
     >
@@ -107,32 +107,32 @@ export const RegisterServerModal: React.FC<RegisterServerModalProps> = ({
             <h4 className="font-hud font-bold text-sm uppercase text-emerald-400 mb-1">
               NODE ENROLLMENT SUCCESSFUL
             </h4>
-            <p className="text-[11px] text-gray-300 leading-relaxed">
+            <p className="text-[11px] text-ink leading-relaxed">
               Your server <b>{registrationResult.server.name}</b> has been registered. The backend queried the node via UDP.
             </p>
 
             {/* Live Query Telemetry Summary */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-emerald-500/30 text-[11px]">
-              <div className="bg-carbon-950/60 p-2 rounded border border-emerald-500/20">
-                <span className="text-gray-400 block text-[10px] uppercase">STATUS</span>
+              <div className="bg-sand-50 p-2 rounded border border-emerald-500/20">
+                <span className="text-ink-muted block text-[10px] uppercase">STATUS</span>
                 <span className={registrationResult.server.isOnline ? 'text-emerald-400 font-bold' : 'text-crimson-400 font-bold'}>
                   {registrationResult.server.isOnline ? 'ONLINE' : 'OFFLINE'}
                 </span>
               </div>
-              <div className="bg-carbon-950/60 p-2 rounded border border-emerald-500/20">
-                <span className="text-gray-400 block text-[10px] uppercase">MAP</span>
+              <div className="bg-sand-50 p-2 rounded border border-emerald-500/20">
+                <span className="text-ink-muted block text-[10px] uppercase">MAP</span>
                 <span className="text-cyan-300 font-bold truncate block">
                   {registrationResult.server.mapName || 'None'}
                 </span>
               </div>
-              <div className="bg-carbon-950/60 p-2 rounded border border-emerald-500/20">
-                <span className="text-gray-400 block text-[10px] uppercase">MODE</span>
+              <div className="bg-sand-50 p-2 rounded border border-emerald-500/20">
+                <span className="text-ink-muted block text-[10px] uppercase">MODE</span>
                 <span className="text-cyan-300 font-bold truncate block">
                   {registrationResult.server.gameMode || 'None'}
                 </span>
               </div>
-              <div className="bg-carbon-950/60 p-2 rounded border border-emerald-500/20">
-                <span className="text-gray-400 block text-[10px] uppercase">PLAYERS</span>
+              <div className="bg-sand-50 p-2 rounded border border-emerald-500/20">
+                <span className="text-ink-muted block text-[10px] uppercase">PLAYERS</span>
                 <span className="text-cyan-300 font-bold">
                   {registrationResult.server.currentPlayers || 0} / {registrationResult.server.maxPlayers || 64}
                 </span>
@@ -141,8 +141,8 @@ export const RegisterServerModal: React.FC<RegisterServerModalProps> = ({
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-gray-400 uppercase text-[11px]">Server Secret Key</label>
-            <div className="flex items-center bg-carbon-950 border border-carbon-700 rounded-sm p-1.5">
+            <label className="text-ink-muted uppercase text-[11px]">Server Secret Key</label>
+            <div className="flex items-center bg-sand-50 border border-sand-300 rounded-sm p-1.5">
               <code className="flex-1 px-2.5 py-1 text-cyan-300 font-mono text-xs select-all break-all">
                 {registrationResult.secretKey}
               </code>
@@ -156,7 +156,7 @@ export const RegisterServerModal: React.FC<RegisterServerModalProps> = ({
                 {copiedSecret ? 'Copied' : 'Copy'}
               </Button>
             </div>
-            <p className="text-[10px] text-gray-500">
+            <p className="text-[10px] text-ink-muted">
               Keep this key secure. It authorizes heartbeat telemetry and player count updates.
             </p>
           </div>
@@ -228,12 +228,12 @@ export const RegisterServerModal: React.FC<RegisterServerModalProps> = ({
           </div>
 
           <div className="flex items-center space-x-2 pt-1">
-            <label className="flex items-center space-x-2 text-gray-300 cursor-pointer select-none">
+            <label className="flex items-center space-x-2 text-ink cursor-pointer select-none">
               <input
                 type="checkbox"
                 checked={formData.isRanked}
                 onChange={(e) => setFormData({ ...formData, isRanked: e.target.checked })}
-                className="w-4 h-4 rounded bg-carbon-950 border-carbon-700 text-cyan-500 focus:ring-0 cursor-pointer"
+                className="w-4 h-4 rounded bg-sand-50 border-sand-300 text-cyan-500 focus:ring-0 cursor-pointer"
               />
               <span className="flex items-center gap-1.5">
                 <Shield className="w-3.5 h-3.5 text-cyan-400" />
@@ -242,7 +242,7 @@ export const RegisterServerModal: React.FC<RegisterServerModalProps> = ({
             </label>
           </div>
 
-          <div className="pt-3 flex items-center justify-end space-x-2 border-t border-carbon-800">
+          <div className="pt-3 flex items-center justify-end space-x-2 border-t border-sand-200">
             <Button
               type="button"
               variant="ghost"

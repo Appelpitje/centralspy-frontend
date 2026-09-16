@@ -252,7 +252,7 @@ describe('Module 5: Leaderboards Component', () => {
       </QueryClientProvider>
     );
 
-    expect(screen.getByText(/GLOBAL LEADERBOARDS & RANKINGS/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Stats/i })).toBeInTheDocument();
 
     await waitFor(() => {
       expect(screen.getAllByText('ReconGhost').length).toBeGreaterThanOrEqual(1);
@@ -323,7 +323,7 @@ describe('Module 5: Leaderboards Component', () => {
       expect(screen.getAllByText('BravoEcho').length).toBeGreaterThanOrEqual(1);
     });
 
-    const searchInput = screen.getByPlaceholderText(/Filter soldier callsign.../i);
+    const searchInput = screen.getByPlaceholderText(/Filter by soldier name/i);
     fireEvent.change(searchInput, { target: { value: 'Alpha' } });
 
     expect(screen.getAllByText('AlphaDog').length).toBeGreaterThanOrEqual(1);
@@ -542,7 +542,7 @@ describe('Module 7: Setup & Download Guides Components', () => {
         </MemoryRouter>
       );
 
-      expect(screen.getByText(/CENTRALSPY MASTER SERVER VS WEB PORTAL/i)).toBeInTheDocument();
+      expect(screen.getByText(/MOHPA MASTER SERVER VS WEB PORTAL/i)).toBeInTheDocument();
       expect(screen.getAllByText(/portal\.mohpa\.net/i).length).toBeGreaterThanOrEqual(1);
       expect(screen.queryByText(/centralspy\./i)).toBeNull();
       expect(screen.getAllByText(/178\.105\.150\.25/i).length).toBeGreaterThanOrEqual(1);
@@ -581,8 +581,8 @@ describe('Module 7: Setup & Download Guides Components', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText(/GAME SETUP & CLIENT CONNECTION CENTER/i)).toBeInTheDocument();
-    expect(screen.getByText(/NETWORK INFRASTRUCTURE ARCHITECTURE/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /^Setup$/i })).toBeInTheDocument();
+    expect(screen.getByText(/How traffic is routed/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Quick Setup \(Client Patch\)/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Dedicated Server Setup/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Troubleshooting FAQ/i })).toBeInTheDocument();
@@ -591,7 +591,7 @@ describe('Module 7: Setup & Download Guides Components', () => {
     // Default tab is Quick Setup (Client Patch)
     expect(screen.getByText(/TLS & SSL CERTIFICATE BYPASS ARCHITECTURE/i)).toBeInTheDocument();
 
-    const zipLink = screen.getByRole('link', { name: /Download CentralSpy MOHPA Patch/i });
+    const zipLink = screen.getByRole('link', { name: /Download mohPA Patch/i });
     expect(zipLink).toHaveAttribute(
       'href',
       '/downloads/CentralSpy-MOHPA-Patch.zip'

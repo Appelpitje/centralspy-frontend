@@ -9,11 +9,9 @@ import {
   ShieldAlert,
   ChevronLeft,
   ChevronRight,
-  Activity,
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { cn } from '../../utils/cn';
-import { GameSelector } from './GameSelector';
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -32,74 +30,37 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const location = useLocation();
 
   const navItems = [
-    {
-      to: '/',
-      label: 'Dashboard',
-      icon: <LayoutDashboard className="w-4 h-4 shrink-0" />,
-      end: true,
-    },
-    {
-      to: '/soldiers',
-      label: 'Soldiers & Personas',
-      icon: <Users className="w-4 h-4 shrink-0" />,
-    },
-    {
-      to: '/servers',
-      label: 'Server Browser',
-      icon: <Server className="w-4 h-4 shrink-0" />,
-    },
-    {
-      to: '/stats',
-      label: 'Leaderboards',
-      icon: <Trophy className="w-4 h-4 shrink-0" />,
-    },
-    {
-      to: '/setup',
-      label: 'Client Setup & Guides',
-      icon: <Download className="w-4 h-4 shrink-0" />,
-    },
+    { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
+    { to: '/soldiers', label: 'Soldiers', icon: Users },
+    { to: '/servers', label: 'Servers', icon: Server },
+    { to: '/stats', label: 'Stats', icon: Trophy },
+    { to: '/setup', label: 'Setup', icon: Download },
   ];
 
   if (isAdmin) {
-    navItems.push({
-      to: '/admin',
-      label: 'Protocol Inspector & Admin',
-      icon: <ShieldAlert className="w-4 h-4 shrink-0 text-crimson-400" />,
-    });
+    navItems.push({ to: '/admin', label: 'Admin', icon: ShieldAlert });
   }
 
   return (
     <>
-      {/* Mobile Backdrop */}
       {isOpenMobile && (
         <div
-          className="fixed inset-0 bg-carbon-950/80 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-ink/30 z-40 lg:hidden"
           onClick={onCloseMobile}
         />
       )}
 
-      {/* Sidebar Container */}
       <aside
         className={cn(
-          'fixed lg:sticky top-16 left-0 z-40 h-[calc(100vh-4rem)] bg-carbon-900 border-r border-carbon-800 transition-all duration-200 flex flex-col justify-between shrink-0 select-none',
-          isCollapsed ? 'w-16' : 'w-64',
+          'fixed lg:sticky top-14 left-0 z-40 h-[calc(100vh-3.5rem)] bg-sand-50 border-r border-sand-200 transition-all duration-200 flex flex-col justify-between shrink-0',
+          isCollapsed ? 'w-16' : 'w-56',
           isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         )}
       >
-        {/* Navigation Section */}
-        <div className="flex flex-col py-4 px-2 space-y-1">
-          {/* Mobile Game Selector */}
-          <div className="px-2 pb-3 mb-2 border-b border-carbon-800 md:hidden">
-            <GameSelector className="w-full" />
-          </div>
-
-          <div className="px-3 pb-2 text-[10px] font-mono uppercase tracking-wider text-gray-400 flex items-center justify-between">
-            {!isCollapsed && <span>TACTICAL NAV</span>}
-            <Activity className="w-3.5 h-3.5 text-cyan-400 opacity-60" />
-          </div>
-
+        <nav className="flex flex-col gap-0.5 p-3">
           {navItems.map((item) => {
             const isDashboard = item.to === '/';
+            const Icon = item.icon;
             return (
               <NavLink
                 key={item.to}
@@ -109,49 +70,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className={({ isActive }) => {
                   const active = isActive || (isDashboard && location.pathname === '/dashboard');
                   return cn(
-                    'group flex items-center space-x-3 px-3 py-2.5 rounded-sm font-mono text-xs transition-all duration-150',
+                    'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',
                     active
-                      ? 'bg-cyan-950/70 text-cyan-300 border border-cyan-500/40 shadow-glow-cyan font-bold'
-                      : 'text-gray-400 hover:text-gray-100 hover:bg-carbon-800/70 border border-transparent'
+                      ? 'bg-olive-50 text-olive-800 font-medium'
+                      : 'text-ink-muted hover:bg-sand-100 hover:text-ink'
                   );
                 }}
                 title={isCollapsed ? item.label : undefined}
               >
-                <span className="text-cyan-400 transition-transform group-hover:scale-110">
-                  {item.icon}
-                </span>
-                {!isCollapsed && <span className="truncate">{item.label}</span>}
+                <Icon className="w-4 h-4 shrink-0" />
+                {!isCollapsed && <span>{item.label}</span>}
               </NavLink>
             );
           })}
-        </div>
+        </nav>
 
-        {/* Footer & Collapse Toggle */}
-        <div className="p-3 border-t border-carbon-800 bg-carbon-950/40 flex flex-col space-y-2">
-          {!isCollapsed && (
-            <div className="px-2 py-1 bg-carbon-900 border border-carbon-800/80 rounded-sm">
-              <div className="flex items-center justify-between text-[10px] font-mono text-gray-400">
-                <span>SYS // CORE</span>
-                <span className="text-emerald-400 font-semibold">SYNCED</span>
-              </div>
-              <div className="text-[9px] font-mono text-gray-400 truncate mt-0.5">
-                EA FESL & Theater Bridge
-              </div>
-            </div>
-          )}
-
+        <div className="p-3 border-t border-sand-200">
           <button
             onClick={onToggleCollapse}
-            className="w-full hidden lg:flex items-center justify-center p-2 rounded-sm text-gray-400 hover:text-white hover:bg-carbon-800 transition-colors focus:outline-none"
+            className="w-full hidden lg:flex items-center justify-center gap-2 p-2 rounded-lg text-ink-faint hover:text-ink hover:bg-sand-100 transition-colors text-sm"
             aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {isCollapsed ? (
-              <ChevronRight className="w-4 h-4 text-cyan-400" />
+              <ChevronRight className="w-4 h-4" />
             ) : (
-              <div className="flex items-center space-x-2 text-xs font-mono text-gray-400">
-                <ChevronLeft className="w-4 h-4 text-cyan-400" />
-                <span>COLLAPSE HUD</span>
-              </div>
+              <>
+                <ChevronLeft className="w-4 h-4" />
+                <span>Collapse</span>
+              </>
             )}
           </button>
         </div>

@@ -45,16 +45,16 @@ export const AdminDashboard: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in max-w-6xl">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-carbon-800 pb-4 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-sand-200 pb-4 gap-3">
         <div>
           <div className="flex items-center space-x-2">
             <h1 className="font-hud font-bold text-2xl uppercase tracking-wider text-crimson-400 flex items-center gap-2">
               <ShieldAlert className="w-7 h-7" />
-              CENTRALSPY ADMIN & PROTOCOL OPS CONSOLE
+              MOHPA ADMIN & PROTOCOL OPS CONSOLE
             </h1>
             <Badge variant="ADMIN">LEVEL 10 SEC</Badge>
           </div>
-          <p className="text-xs font-mono text-gray-400 mt-1">
+          <p className="text-xs font-mono text-ink-muted mt-1">
             Real-time FESL/Theater engine packet debugger, dedicated server authority, and user moderation center.
           </p>
         </div>
@@ -104,26 +104,26 @@ export const AdminDashboard: React.FC = () => {
       </div>
 
       {/* System Telemetry & Fastify Health Strip */}
-      <div className="p-4 bg-carbon-900 border border-carbon-800 rounded-sm font-mono text-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-4 bg-sand-50 border border-sand-200 rounded-sm font-mono text-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-2">
-            <span className="text-gray-400">FASTIFY CORE:</span>
+            <span className="text-ink-muted">FASTIFY CORE:</span>
             <StatusIndicator status="online" label="HEALTHY" size="sm" />
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-gray-400">WS INSPECTOR:</span>
+            <span className="text-ink-muted">WS INSPECTOR:</span>
             <span className="text-cyan-400 font-semibold">/ws/inspector</span>
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-gray-400">ZERO-TRUST AUTH:</span>
+            <span className="text-ink-muted">ZERO-TRUST AUTH:</span>
             <Badge variant="RANKED">ENFORCED</Badge>
           </div>
         </div>
 
-        <div className="text-[11px] text-gray-400">
-          CENTRALSPY MASTER PROTOCOL BRIDGE // REVISION 1.0.0
+        <div className="text-[11px] text-ink-muted">
+          MOHPA MASTER PROTOCOL BRIDGE // REVISION 1.0.0
         </div>
       </div>
 
@@ -143,12 +143,12 @@ export const AdminDashboard: React.FC = () => {
             </Link>
           }
         >
-          <div className="space-y-3 font-mono text-xs text-gray-300">
+          <div className="space-y-3 font-mono text-xs text-ink">
             <p>
               Inspect inbound and outbound network packets for EA FESL (<code className="text-cyan-400">fsys</code>, <code className="text-cyan-400">acct</code>, <code className="text-cyan-400">subs</code>, <code className="text-cyan-400">dobj</code>, <code className="text-cyan-400">rank</code>) and Theater matchmaking (<code className="text-cyan-400">CONN</code>, <code className="text-cyan-400">USER</code>, <code className="text-cyan-400">GLST</code>, <code className="text-cyan-400">EGAM</code>).
             </p>
-            <div className="p-3 bg-carbon-950 rounded-sm border border-carbon-800 flex items-center justify-between text-[11px]">
-              <span className="text-gray-400">LIVE CLIENTS CONNECTED:</span>
+            <div className="p-3 bg-sand-50 rounded-sm border border-sand-200 flex items-center justify-between text-[11px]">
+              <span className="text-ink-muted">LIVE CLIENTS CONNECTED:</span>
               <span className="text-cyan-400 font-bold">{inspectorStats.connectedClients || 1}</span>
             </div>
           </div>
@@ -168,12 +168,12 @@ export const AdminDashboard: React.FC = () => {
             </Link>
           }
         >
-          <div className="space-y-3 font-mono text-xs text-gray-300">
+          <div className="space-y-3 font-mono text-xs text-ink">
             <p>
               Issue immediate zero-tolerance account bans, revoke existing bans, or disconnect rogue players with real-time Theater kick packet broadcast.
             </p>
-            <div className="p-3 bg-carbon-950 rounded-sm border border-carbon-800 flex items-center justify-between text-[11px]">
-              <span className="text-gray-400">MODERATION ACTIONS LOGGED:</span>
+            <div className="p-3 bg-sand-50 rounded-sm border border-sand-200 flex items-center justify-between text-[11px]">
+              <span className="text-ink-muted">MODERATION ACTIONS LOGGED:</span>
               <span className="text-crimson-400 font-bold">{auditLogsCount}</span>
             </div>
           </div>
@@ -193,12 +193,12 @@ export const AdminDashboard: React.FC = () => {
             </Link>
           }
         >
-          <div className="space-y-3 font-mono text-xs text-gray-300">
+          <div className="space-y-3 font-mono text-xs text-ink">
             <p>
               Generate secure <code className="text-amber-400">CS-SRV-...</code> tokens for trusted community hosts and dedicated server operators.
             </p>
-            <div className="p-3 bg-carbon-950 rounded-sm border border-carbon-800 flex items-center justify-between text-[11px]">
-              <span className="text-gray-400">ONLINE DEDICATED SERVERS:</span>
+            <div className="p-3 bg-sand-50 rounded-sm border border-sand-200 flex items-center justify-between text-[11px]">
+              <span className="text-ink-muted">ONLINE DEDICATED SERVERS:</span>
               <span className="text-amber-400 font-bold">{onlineServersCount}</span>
             </div>
           </div>
@@ -218,12 +218,12 @@ export const AdminDashboard: React.FC = () => {
             </Link>
           }
         >
-          <div className="space-y-3 font-mono text-xs text-gray-300">
+          <div className="space-y-3 font-mono text-xs text-ink">
             <p>
               Inspect cryptographically signed audit logs with administrative actor IDs, timestamp signatures, target identifiers, and reason payloads.
             </p>
-            <div className="p-3 bg-carbon-950 rounded-sm border border-carbon-800 flex items-center justify-between text-[11px]">
-              <span className="text-gray-400">LOG INTEGRITY:</span>
+            <div className="p-3 bg-sand-50 rounded-sm border border-sand-200 flex items-center justify-between text-[11px]">
+              <span className="text-ink-muted">LOG INTEGRITY:</span>
               <span className="text-emerald-400 font-bold">VERIFIED</span>
             </div>
           </div>

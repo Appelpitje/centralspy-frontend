@@ -8,21 +8,17 @@ export const NotFound: React.FC = () => {
   return (
     <div className="min-h-[70vh] flex items-center justify-center p-4">
       <Card
-        title="404 // SECTOR NOT FOUND"
-        icon={<AlertOctagon className="w-5 h-5 text-crimson-400" />}
-        accent="crimson"
+        title="Page not found"
         className="max-w-md w-full text-center py-6"
       >
-        <div className="space-y-4 font-mono">
-          <div className="text-4xl text-crimson-400 font-bold">404</div>
-          <p className="text-xs text-gray-400">
-            The requested tactical coordinates or protocol resource cannot be resolved on the CentralSpy network.
+        <div className="space-y-4">
+          <p className="text-sm text-ink-muted">
+            That page doesn’t exist on mohPA.
           </p>
-
-          <div className="pt-2 flex justify-center gap-3">
+          <div className="pt-2 flex justify-center">
             <Link to="/">
               <Button variant="primary" size="sm" leftIcon={<Home className="w-4 h-4" />}>
-                Return to Base
+                Back to dashboard
               </Button>
             </Link>
           </div>

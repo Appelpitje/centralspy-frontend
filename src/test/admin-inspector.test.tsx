@@ -315,7 +315,7 @@ describe('Admin UI Components Tests', () => {
 
     renderWithProviders(<AdminDashboard />);
 
-    expect(screen.getByText(/CENTRALSPY ADMIN & PROTOCOL OPS CONSOLE/i)).toBeInTheDocument();
+    expect(screen.getByText(/MOHPA ADMIN & PROTOCOL OPS CONSOLE/i)).toBeInTheDocument();
     expect(screen.getByText('Active FESL Sockets')).toBeInTheDocument();
     expect(screen.getByText('Online Dedicated Servers')).toBeInTheDocument();
     expect(screen.getByText('Launch Protocol Inspector')).toBeInTheDocument();
@@ -329,7 +329,7 @@ describe('Admin UI Components Tests', () => {
     expect(screen.getByText('Pause Stream')).toBeInTheDocument();
     expect(screen.getByText('Clear Buffer')).toBeInTheDocument();
     expect(screen.getByText(/Auto-Scroll:/i)).toBeInTheDocument();
-    expect(screen.getByText('LISTENING FOR PROTOCOL TELEMETRY...')).toBeInTheDocument();
+    expect(screen.getByText(/Waiting for packets/i)).toBeInTheDocument();
   });
 
   it('renders PacketDetailsDrawer with tabs and Key-Value tree', () => {
@@ -516,7 +516,7 @@ describe('Admin UI Components Tests', () => {
 
     render(<CreateServerKeyModal isOpen={true} onClose={onClose} onSuccess={onSuccess} />);
 
-    fireEvent.change(screen.getByPlaceholderText(/e\.g\. \[EU\] CentralSpy Tactical #01/i), {
+    fireEvent.change(screen.getByPlaceholderText(/e\.g\. \[EU\] mohPA Tactical #01/i), {
       target: { value: 'New Test Server' },
     });
     fireEvent.change(screen.getByPlaceholderText(/e\.g\. 198\.51\.100\.24/i), {

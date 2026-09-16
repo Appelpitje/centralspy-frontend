@@ -161,7 +161,7 @@ export const ServerBrowser: React.FC = () => {
   const columns: Column<GameServer>[] = [
     {
       key: 'isOnline',
-      header: 'STATUS',
+      header: 'Status',
       width: '70px',
       align: 'center',
       sortable: true,
@@ -170,12 +170,12 @@ export const ServerBrowser: React.FC = () => {
         <div className="flex items-center justify-center">
           <span className="relative flex h-2.5 w-2.5">
             {srv.isOnline && (
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-olive-500 opacity-75" />
             )}
             <span
               className={cn(
                 'relative inline-flex rounded-full h-2.5 w-2.5',
-                srv.isOnline ? 'bg-emerald-400 shadow-[0_0_8px_#10b981]' : 'bg-crimson-500'
+                srv.isOnline ? 'bg-olive-600' : 'bg-stamp-500'
               )}
             />
           </span>
@@ -184,7 +184,7 @@ export const ServerBrowser: React.FC = () => {
     },
     {
       key: 'gameSlug',
-      header: 'GAME',
+      header: 'Game',
       width: '110px',
       sortable: true,
       render: (srv) => {
@@ -199,7 +199,7 @@ export const ServerBrowser: React.FC = () => {
     },
     {
       key: 'name',
-      header: 'SERVER NAME & NODE',
+      header: 'Server',
       sortable: true,
       render: (srv) => {
         const region = getRegionInfo(
@@ -208,7 +208,7 @@ export const ServerBrowser: React.FC = () => {
         );
         return (
           <div className="flex flex-col space-y-0.5 py-0.5 group">
-            <div className="flex items-center space-x-1.5 font-semibold text-gray-100 group-hover:text-cyan-300 transition-colors">
+            <div className="flex items-center space-x-1.5 font-semibold text-ink group-hover:text-olive-700 transition-colors">
               <span className="truncate max-w-xs md:max-w-md">{srv.name}</span>
               {srv.isRanked && (
                 <Badge variant="RANKED" size="sm" className="hidden sm:inline-flex">
@@ -221,12 +221,12 @@ export const ServerBrowser: React.FC = () => {
                 </Badge>
               )}
             </div>
-            <div className="flex items-center space-x-2 text-[11px] text-gray-400">
-              <span className="font-mono text-gray-400">
+            <div className="flex items-center space-x-2 text-[11px] text-ink-muted">
+              <span className="font-mono text-ink-muted">
                 {srv.ipAddress}:{srv.port}
               </span>
               <span>•</span>
-              <span className="flex items-center space-x-1 text-gray-400" title={region.name}>
+              <span className="flex items-center space-x-1 text-ink-muted" title={region.name}>
                 <span>{region.flag}</span>
                 <span className="uppercase">{region.code.toUpperCase()}</span>
               </span>
@@ -237,11 +237,11 @@ export const ServerBrowser: React.FC = () => {
     },
     {
       key: 'mapName',
-      header: 'CURRENT MAP',
+      header: 'Map',
       sortable: true,
       render: (srv) => (
-        <div className="flex items-center space-x-1.5 text-gray-200">
-          <MapPin className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+        <div className="flex items-center space-x-1.5 text-ink">
+          <MapPin className="w-3.5 h-3.5 text-olive-600 shrink-0" />
           <span className="truncate max-w-[130px]" title={formatMapName(srv.mapName, srv.gameSlug)}>
             {formatMapName(srv.mapName, srv.gameSlug)}
           </span>
@@ -250,17 +250,17 @@ export const ServerBrowser: React.FC = () => {
     },
     {
       key: 'gameMode',
-      header: 'GAME MODE',
+      header: 'Mode',
       sortable: true,
       render: (srv) => (
-        <span className="text-gray-300 font-mono text-[11px] uppercase truncate block max-w-[110px]" title={formatGameMode(srv.gameMode, srv.gameSlug)}>
+        <span className="text-ink font-mono text-[11px] uppercase truncate block max-w-[110px]" title={formatGameMode(srv.gameMode, srv.gameSlug)}>
           {formatGameMode(srv.gameMode, srv.gameSlug)}
         </span>
       ),
     },
     {
       key: 'currentPlayers',
-      header: 'CAPACITY',
+      header: 'Players',
       width: '130px',
       sortable: true,
       sortValue: (srv) => srv.currentPlayers || 0,
@@ -270,17 +270,17 @@ export const ServerBrowser: React.FC = () => {
         const percent = Math.min(100, Math.round((cur / Math.max(1, max)) * 100));
 
         const barColor =
-          percent >= 100 ? 'bg-crimson-500' : percent >= 80 ? 'bg-amber-400' : 'bg-cyan-500';
+          percent >= 100 ? 'bg-stamp-500' : percent >= 80 ? 'bg-amber-400' : 'bg-olive-600';
 
         return (
           <div className="flex flex-col space-y-1 w-24">
             <div className="flex items-center justify-between text-[11px] font-mono">
-              <span className={cn('font-bold', cur > 0 ? 'text-cyan-300' : 'text-gray-400')}>
+              <span className={cn('font-bold', cur > 0 ? 'text-olive-700' : 'text-ink-muted')}>
                 {cur}
               </span>
-              <span className="text-gray-500">/ {max}</span>
+              <span className="text-ink-muted">/ {max}</span>
             </div>
-            <div className="w-full bg-carbon-800 h-1.5 rounded-full overflow-hidden">
+            <div className="w-full bg-sand-200 h-1.5 rounded-full overflow-hidden">
               <div
                 className={cn('h-full rounded-full transition-all duration-300', barColor)}
                 style={{ width: `${percent}%` }}
@@ -292,7 +292,7 @@ export const ServerBrowser: React.FC = () => {
     },
     {
       key: 'region',
-      header: 'REGION / PING',
+      header: 'Ping',
       width: '110px',
       sortable: true,
       sortValue: (srv) => srv.ping || srv.details?.ping || 30,
@@ -303,7 +303,7 @@ export const ServerBrowser: React.FC = () => {
         );
         const ping = srv.ping ?? srv.details?.ping ?? region.estimatedPing;
         const pingColor =
-          ping < 50 ? 'text-emerald-400' : ping < 110 ? 'text-amber-400' : 'text-crimson-400';
+          ping < 50 ? 'text-olive-700' : ping < 110 ? 'text-amber-500' : 'text-stamp-600';
 
         return (
           <div className="flex items-center space-x-1.5 font-mono text-[11px]" title={`${region.name} (${ping}ms)`}>
@@ -315,7 +315,7 @@ export const ServerBrowser: React.FC = () => {
     },
     {
       key: 'actions',
-      header: 'TACTICAL ACTIONS',
+      header: 'Actions',
       width: '180px',
       align: 'right',
       render: (srv) => (
@@ -347,37 +347,26 @@ export const ServerBrowser: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6 animate-fade-in font-sans">
-      {/* Top Header & Live Telemetry Stats */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-carbon-800 pb-5">
+    <div className="space-y-6 font-sans">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-3">
-            <h1 className="font-hud font-bold text-2xl uppercase tracking-wider text-gray-100 flex items-center gap-2">
-              <Radio className="w-6 h-6 text-cyan-400 animate-pulse" />
-              LIVE THEATER SERVER BROWSER
-            </h1>
-            <Badge variant="CYAN" dot>
-              {filters.gameSlug ? GAME_METADATA[filters.gameSlug]?.shortTitle || filters.gameSlug : 'GLOBAL THEATER'}
-            </Badge>
-          </div>
-          <p className="text-xs font-mono text-gray-400 mt-1">
-            Real-time telemetry heartbeat & active dedicated servers across EA FESL / Theater emulators.
+          <h1 className="text-2xl font-semibold tracking-tight text-ink">Servers</h1>
+          <p className="text-sm text-ink-muted mt-1">
+            Live Theater servers for Medal of Honor: Pacific Assault.
           </p>
         </div>
 
-        {/* Action Controls & Auto-refresh toggle */}
         <div className="flex flex-wrap items-center gap-3">
-          {/* Auto Refresh Toggle */}
-          <label className="flex items-center space-x-2 px-3 py-1.5 bg-carbon-900 border border-carbon-800 rounded-sm text-xs font-mono text-gray-300 cursor-pointer select-none hover:border-carbon-700 transition-colors">
+          <label className="flex items-center space-x-2 px-3 py-1.5 bg-sand-50 border border-sand-200 rounded-lg text-sm text-ink-muted cursor-pointer select-none hover:bg-sand-100">
             <input
               type="checkbox"
               checked={autoRefresh}
               onChange={(e) => setAutoRefresh(e.target.checked)}
-              className="w-3.5 h-3.5 rounded bg-carbon-950 border-carbon-700 text-cyan-500 focus:ring-0 cursor-pointer"
+              className="w-3.5 h-3.5 rounded border-sand-300 text-olive-600 focus:ring-olive-500 cursor-pointer"
             />
             <span className="flex items-center gap-1">
-              <RefreshCw className={cn('w-3 h-3 text-cyan-400', autoRefresh && isFetching ? 'animate-spin' : '')} />
-              Auto-Sync (10s)
+              <RefreshCw className={cn('w-3.5 h-3.5', autoRefresh && isFetching ? 'animate-spin' : '')} />
+              Auto-refresh
             </span>
           </label>
 
@@ -405,53 +394,29 @@ export const ServerBrowser: React.FC = () => {
       </div>
 
       {/* Telemetry Metric Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
-        <div className="p-3.5 bg-carbon-900 border border-carbon-800 rounded-sm hud-border-corners flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-sm bg-emerald-950/60 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
-            <Server className="w-5 h-5" />
-          </div>
-          <div>
-            <span className="text-[10px] uppercase text-gray-400 block tracking-wider">ONLINE NODES</span>
-            <span className="font-hud font-bold text-lg text-emerald-400">
-              {telemetry.onlineServers} <span className="text-xs text-gray-500">/ {telemetry.totalServers}</span>
-            </span>
-          </div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="p-4 bg-sand-50 border border-sand-200 rounded-xl shadow-soft">
+          <span className="text-xs text-ink-muted block">Online</span>
+          <span className="font-semibold text-lg text-ink tabular-nums">
+            {telemetry.onlineServers}
+            <span className="text-sm text-ink-faint font-normal"> / {telemetry.totalServers}</span>
+          </span>
         </div>
-
-        <div className="p-3.5 bg-carbon-900 border border-carbon-800 rounded-sm hud-border-corners flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-sm bg-cyan-950/60 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shrink-0">
-            <Users className="w-5 h-5" />
-          </div>
-          <div>
-            <span className="text-[10px] uppercase text-gray-400 block tracking-wider">ACTIVE COMBATANTS</span>
-            <span className="font-hud font-bold text-lg text-cyan-400">
-              {telemetry.activePlayers.toLocaleString()}
-            </span>
-          </div>
+        <div className="p-4 bg-sand-50 border border-sand-200 rounded-xl shadow-soft">
+          <span className="text-xs text-ink-muted block">Players</span>
+          <span className="font-semibold text-lg text-ink tabular-nums">
+            {telemetry.activePlayers.toLocaleString()}
+          </span>
         </div>
-
-        <div className="p-3.5 bg-carbon-900 border border-carbon-800 rounded-sm hud-border-corners flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-sm bg-purple-950/60 border border-purple-500/40 flex items-center justify-center text-purple-400 shrink-0">
-            <Activity className="w-5 h-5" />
-          </div>
-          <div>
-            <span className="text-[10px] uppercase text-gray-400 block tracking-wider">NETWORK CAPACITY</span>
-            <span className="font-hud font-bold text-lg text-purple-400">
-              {telemetry.totalCapacity.toLocaleString()} <span className="text-xs text-gray-500">SLOTS</span>
-            </span>
-          </div>
+        <div className="p-4 bg-sand-50 border border-sand-200 rounded-xl shadow-soft">
+          <span className="text-xs text-ink-muted block">Capacity</span>
+          <span className="font-semibold text-lg text-ink tabular-nums">
+            {telemetry.totalCapacity.toLocaleString()}
+          </span>
         </div>
-
-        <div className="p-3.5 bg-carbon-900 border border-carbon-800 rounded-sm hud-border-corners flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-sm bg-amber-950/60 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
-            <Globe className="w-5 h-5" />
-          </div>
-          <div>
-            <span className="text-[10px] uppercase text-gray-400 block tracking-wider">THEATER STATUS</span>
-            <span className="font-hud font-bold text-lg text-amber-400">
-              SYNCED <span className="text-xs text-emerald-400">100%</span>
-            </span>
-          </div>
+        <div className="p-4 bg-sand-50 border border-sand-200 rounded-xl shadow-soft">
+          <span className="text-xs text-ink-muted block">Status</span>
+          <span className="font-semibold text-lg text-olive-700">Live</span>
         </div>
       </div>
 
@@ -469,13 +434,13 @@ export const ServerBrowser: React.FC = () => {
       <Card
         title={
           <div className="flex items-center space-x-2">
-            <span>DEDICATED THEATER NODES</span>
+            <span>Server list</span>
             <Badge variant="CYAN" size="sm">
-              {filteredServers.length} ACTIVE
+              {filteredServers.length} online
             </Badge>
           </div>
         }
-        subtitle="Click any server row to open live scoreboard telemetry, cvar rules, and direct join directives."
+        subtitle="Click a row for scoreboard and join details."
         icon={<Server className="w-4 h-4" />}
         accent="cyan"
       >
@@ -484,11 +449,12 @@ export const ServerBrowser: React.FC = () => {
           data={filteredServers}
           keyExtractor={(srv) => srv.id}
           isLoading={isLoading}
+          loadingMessage="Loading servers…"
           onRowClick={(srv) => handleOpenDetails(srv)}
           emptyMessage={
             rawServers.length === 0
-              ? 'No live theater servers currently registered in CentralSpy network.'
-              : 'No servers match the selected tactical filter criteria.'
+              ? 'No live servers right now.'
+              : 'No servers match these filters.'
           }
         />
 

@@ -110,7 +110,7 @@ export const CreateServerKeyModal: React.FC<CreateServerKeyModalProps> = ({
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs uppercase tracking-wider text-gray-300 font-semibold">
+            <label className="text-xs uppercase tracking-wider text-ink font-semibold">
               Server Secret Key (Token)
             </label>
             <div className="flex items-center space-x-2">
@@ -118,7 +118,7 @@ export const CreateServerKeyModal: React.FC<CreateServerKeyModalProps> = ({
                 type="text"
                 readOnly
                 value={generatedSecretKey}
-                className="w-full bg-carbon-950 border border-carbon-700 text-cyan-300 font-mono text-xs px-3 py-2.5 rounded-sm select-all focus:outline-none"
+                className="w-full bg-sand-50 border border-sand-300 text-cyan-300 font-mono text-xs px-3 py-2.5 rounded-sm select-all focus:outline-none"
               />
               <Button
                 variant={copied ? 'tactical' : 'primary'}
@@ -131,7 +131,7 @@ export const CreateServerKeyModal: React.FC<CreateServerKeyModalProps> = ({
             </div>
           </div>
 
-          <div className="p-3 bg-carbon-950 border border-carbon-800 rounded-sm space-y-1 text-gray-400 text-[11px]">
+          <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm space-y-1 text-ink-muted text-[11px]">
             <div><strong>SERVER NAME:</strong> {serverName}</div>
             <div><strong>GAME:</strong> {gameSlug.toUpperCase()}</div>
             <div><strong>BIND ENDPOINT:</strong> {ipAddress}:{port}</div>
@@ -156,7 +156,7 @@ export const CreateServerKeyModal: React.FC<CreateServerKeyModalProps> = ({
             label="Server Display Name"
             value={serverName}
             onChange={(e) => setServerName(e.target.value)}
-            placeholder="e.g. [EU] CentralSpy Tactical #01"
+            placeholder="e.g. [EU] mohPA Tactical #01"
             required
             autoFocus
           />
@@ -203,20 +203,20 @@ export const CreateServerKeyModal: React.FC<CreateServerKeyModalProps> = ({
             />
           </div>
 
-          <div className="flex items-center space-x-3 p-3 bg-carbon-950 border border-carbon-800 rounded-sm">
+          <div className="flex items-center space-x-3 p-3 bg-sand-50 border border-sand-200 rounded-sm">
             <input
               type="checkbox"
               id="isRankedToggle"
               checked={isRanked}
               onChange={(e) => setIsRanked(e.target.checked)}
-              className="w-4 h-4 rounded-xs text-cyan-500 bg-carbon-900 border-carbon-700 focus:ring-cyan-500"
+              className="w-4 h-4 rounded-xs text-cyan-500 bg-sand-50 border-sand-300 focus:ring-cyan-500"
             />
             <label htmlFor="isRankedToggle" className="cursor-pointer">
-              <div className="text-xs font-semibold text-gray-200 uppercase">
+              <div className="text-xs font-semibold text-ink uppercase">
                 Authorize Official Ranked Stats Recording
               </div>
-              <div className="text-[10px] text-gray-400">
-                Allows this server to submit verified match results to CentralSpy leaderboards.
+              <div className="text-[10px] text-ink-muted">
+                Allows this server to submit verified match results to mohPA leaderboards.
               </div>
             </label>
           </div>

@@ -49,12 +49,12 @@ export const Profile: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in max-w-5xl">
       {/* Header */}
-      <div className="border-b border-carbon-800 pb-4">
-        <h1 className="font-hud font-bold text-2xl uppercase tracking-wider text-gray-100">
-          MASTER OPERATOR DOSSIER
+      <div className="border-b border-sand-200 pb-4">
+        <h1 className="text-2xl font-semibold tracking-tight text-ink">
+          Account
         </h1>
-        <p className="text-xs font-mono text-gray-400 mt-1">
-          Master Nucleus identity, game entitlements, and security authorization.
+        <p className="text-sm text-ink-muted mt-1">
+          Profile, licenses, and security.
         </p>
       </div>
 
@@ -66,20 +66,20 @@ export const Profile: React.FC = () => {
           accent="cyan"
         >
           <div className="space-y-3 font-mono text-xs">
-            <div className="flex items-center justify-between p-2.5 bg-carbon-950/60 rounded border border-carbon-800">
-              <span className="text-gray-400">Master Username:</span>
+            <div className="flex items-center justify-between p-2.5 bg-sand-50 rounded border border-sand-200">
+              <span className="text-ink-muted">Master Username:</span>
               <span className="text-cyan-400 font-bold">{user?.username}</span>
             </div>
-            <div className="flex items-center justify-between p-2.5 bg-carbon-950/60 rounded border border-carbon-800">
-              <span className="text-gray-400">Linked Email:</span>
-              <span className="text-gray-200">{user?.email}</span>
+            <div className="flex items-center justify-between p-2.5 bg-sand-50 rounded border border-sand-200">
+              <span className="text-ink-muted">Linked Email:</span>
+              <span className="text-ink">{user?.email}</span>
             </div>
-            <div className="flex items-center justify-between p-2.5 bg-carbon-950/60 rounded border border-carbon-800">
-              <span className="text-gray-400">Country Code:</span>
-              <span className="text-gray-200 font-semibold">{user?.countryCode || 'US'}</span>
+            <div className="flex items-center justify-between p-2.5 bg-sand-50 rounded border border-sand-200">
+              <span className="text-ink-muted">Country Code:</span>
+              <span className="text-ink font-semibold">{user?.countryCode || 'US'}</span>
             </div>
-            <div className="flex items-center justify-between p-2.5 bg-carbon-950/60 rounded border border-carbon-800">
-              <span className="text-gray-400">Authorization Level:</span>
+            <div className="flex items-center justify-between p-2.5 bg-sand-50 rounded border border-sand-200">
+              <span className="text-ink-muted">Authorization Level:</span>
               {user?.isAdmin ? (
                 <Badge variant="ADMIN" size="sm">ADMINISTRATOR</Badge>
               ) : (
@@ -96,7 +96,7 @@ export const Profile: React.FC = () => {
           accent="emerald"
         >
           <form onSubmit={handleClaimKey} className="space-y-3">
-            <p className="text-xs font-mono text-gray-400">
+            <p className="text-xs font-mono text-ink-muted">
               Enter a game serial key (e.g. MOHPA-XXXX-XXXX) to unlock game access.
             </p>
 
@@ -129,16 +129,16 @@ export const Profile: React.FC = () => {
         icon={<Key className="w-4 h-4" />}
       >
         {entitlements.length === 0 ? (
-          <div className="text-center py-6 font-mono text-xs text-gray-500">
+          <div className="text-center py-10 text-sm font-medium text-ink">
             No serial keys claimed yet.
           </div>
         ) : (
-          <div className="divide-y divide-carbon-800 font-mono text-xs">
+          <div className="divide-y divide-sand-200 font-mono text-xs">
             {entitlements.map((ent) => (
               <div key={ent.id} className="py-3 flex items-center justify-between">
                 <div>
-                  <span className="font-bold text-gray-200 uppercase">{ent.gameSlug}</span>
-                  <p className="text-[11px] text-gray-400 font-mono mt-0.5">{ent.cdKey}</p>
+                  <span className="font-bold text-ink uppercase">{ent.gameSlug}</span>
+                  <p className="text-[11px] text-ink-muted font-mono mt-0.5">{ent.cdKey}</p>
                 </div>
                 <Badge variant="ONLINE" size="sm">ACTIVE LICENSE</Badge>
               </div>

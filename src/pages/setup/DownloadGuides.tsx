@@ -62,16 +62,16 @@ export const DownloadGuides: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in max-w-6xl mx-auto">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-carbon-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-sand-200 pb-4">
         <div>
           <div className="flex items-center space-x-2.5 flex-wrap">
-            <h1 className="font-hud font-bold text-2xl uppercase tracking-wider text-gray-100">
-              GAME SETUP & CLIENT CONNECTION CENTER
+            <h1 className="text-2xl font-semibold tracking-tight text-ink">
+              Setup
             </h1>
             <Badge variant="CYAN">{activeConfig.name}</Badge>
           </div>
-          <p className="text-xs font-mono text-gray-400 mt-1">
-            Tactical directives, automated client patcher, and setup instructions to connect your legacy client to CentralSpy.
+          <p className="text-sm text-ink-muted mt-1">
+            Client patch, dedicated server, and connection help for {activeConfig.name}.
           </p>
         </div>
 
@@ -81,26 +81,26 @@ export const DownloadGuides: React.FC = () => {
       </div>
 
       {/* Network Infrastructure Architecture Banner */}
-      <div className="p-3.5 bg-carbon-950/90 border border-cyan-900/60 rounded-sm space-y-1.5 font-mono text-xs border-l-4 border-l-cyan-500">
-        <div className="flex items-center space-x-2 text-cyan-400 font-bold uppercase tracking-wider text-[11px]">
-          <Server className="w-3.5 h-3.5 text-cyan-400" />
-          <span>NETWORK INFRASTRUCTURE ARCHITECTURE</span>
+      <div className="p-4 bg-sand-50 border border-sand-200 rounded-xl space-y-1.5 text-sm">
+        <div className="flex items-center space-x-2 text-ink font-medium">
+          <Server className="w-3.5 h-3.5 text-olive-600" />
+          <span>How traffic is routed</span>
         </div>
-        <p className="text-gray-300 text-[11px] leading-relaxed">
-          The CentralSpy Master Server (FESL authentication &amp; Theater matchmaking) runs on{' '}
+        <p className="text-ink-muted leading-relaxed">
+          The mohPA Master Server (FESL authentication &amp; Theater matchmaking) runs on{' '}
           <strong className="text-emerald-400">{masterInfo.host}</strong> (IPv4: <strong className="text-emerald-400">{masterInfo.ip}</strong>).
           This web application (<code className="text-cyan-300">{typeof window !== 'undefined' ? window.location.hostname : 'portal.mohpa.net'}</code>) is exclusively the frontend management portal.
         </p>
         <p className="text-emerald-400/90 text-[10px]">
-          ✨ No hosts-file edits needed! The CentralSpy MOHPA patcher hooks DNS resolution directly in the game client, routing automatically to the master server (<code className="text-emerald-300">{masterInfo.ip}</code> / <code className="text-emerald-300">{masterInfo.host}</code>).
+          ✨ No hosts-file edits needed! The mohPA MOHPA patcher hooks DNS resolution directly in the game client, routing automatically to the master server (<code className="text-emerald-300">{masterInfo.ip}</code> / <code className="text-emerald-300">{masterInfo.host}</code>).
         </p>
       </div>
 
       {/* Game Quick Bar */}
       <div className="hud-card p-3 rounded-sm flex items-center justify-between overflow-x-auto gap-4 border-l-2 border-l-cyan-500">
-        <div className="flex items-center space-x-2 text-xs font-mono text-gray-300">
+        <div className="flex items-center space-x-2 text-xs font-mono text-ink">
           <Gamepad2 className="w-4 h-4 text-cyan-400 shrink-0" />
-          <span className="font-semibold text-gray-200">SUPPORTED THEATERS:</span>
+          <span className="font-semibold text-ink">SUPPORTED THEATERS:</span>
         </div>
         <div className="flex items-center space-x-2 shrink-0">
           {GAMES.map((game) => (
@@ -110,8 +110,8 @@ export const DownloadGuides: React.FC = () => {
               className={cn(
                 'px-2.5 py-1 rounded-sm text-[11px] font-mono transition-colors',
                 game.slug === activeGame
-                  ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/60 font-bold'
-                  : 'bg-carbon-900 text-gray-400 hover:text-gray-200 border border-carbon-800'
+                  ? 'bg-olive-600 text-white border border-olive-700 font-medium'
+                  : 'bg-sand-50 text-ink-muted hover:text-ink border border-sand-200'
               )}
             >
               {game.name}

@@ -209,7 +209,7 @@ describe('Module 4: ServerFilters Component', () => {
     expect(screen.getByLabelText(/Filter by Game/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Filter by Map/i)).toBeInTheDocument();
     expect(screen.getByText(/Ranked Only/i)).toBeInTheDocument();
-    expect(screen.getByText(/Official Nodes/i)).toBeInTheDocument();
+    expect(screen.getByText(/^Official$/i)).toBeInTheDocument();
     expect(screen.getByText(/Hide Empty/i)).toBeInTheDocument();
     expect(screen.getByText(/Hide Full/i)).toBeInTheDocument();
   });
@@ -267,10 +267,10 @@ describe('Module 4: ServerBrowser Page', () => {
     renderWithProviders(<ServerBrowser />);
 
     // Header & Telemetry
-    expect(screen.getByText(/LIVE THEATER SERVER BROWSER/i)).toBeInTheDocument();
-    expect(screen.getByText(/Auto-Sync \(10s\)/i)).toBeInTheDocument();
-    expect(screen.getByText(/ONLINE NODES/i)).toBeInTheDocument();
-    expect(screen.getByText(/ACTIVE COMBATANTS/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Servers/i })).toBeInTheDocument();
+    expect(screen.getByText(/Auto-refresh/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Online/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/^Players$/i).length).toBeGreaterThan(0);
 
     // Table Data
     await waitFor(() => {

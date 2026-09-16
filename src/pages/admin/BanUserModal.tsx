@@ -70,7 +70,7 @@ export const BanUserModal: React.FC<BanUserModalProps> = ({
         <div className="p-3 bg-crimson-950/40 border border-crimson-500/40 rounded-sm flex items-start space-x-3 text-xs font-mono text-crimson-300">
           <AlertTriangle className="w-4 h-4 text-crimson-400 shrink-0 mt-0.5" />
           <div>
-            <strong className="text-crimson-200">TACTICAL WARNING:</strong> Banning this account will immediately invalidate all active FESL session tokens and block access across all CentralSpy supported game titles.
+            <strong className="text-crimson-200">TACTICAL WARNING:</strong> Banning this account will immediately invalidate all active FESL session tokens and block access across all mohPA supported game titles.
           </div>
         </div>
 
@@ -90,7 +90,7 @@ export const BanUserModal: React.FC<BanUserModalProps> = ({
         />
 
         <div className="w-full flex flex-col space-y-1.5">
-          <label className="text-xs font-mono uppercase tracking-wider text-gray-300">
+          <label className="text-xs font-mono uppercase tracking-wider text-ink">
             Reason / Infraction Note
           </label>
           <textarea
@@ -98,7 +98,7 @@ export const BanUserModal: React.FC<BanUserModalProps> = ({
             onChange={(e) => setReason(e.target.value)}
             rows={3}
             placeholder="Specify reason for moderation audit log..."
-            className="w-full bg-carbon-900 border border-carbon-700 text-gray-100 placeholder-gray-500 rounded-sm text-xs font-mono p-2.5 focus:outline-none focus:border-crimson-500 focus:ring-1 focus:ring-crimson-500/50"
+            className="w-full bg-sand-50 border border-sand-300 text-ink placeholder-ink-faint rounded-sm text-xs font-mono p-2.5 focus:outline-none focus:border-crimson-500 focus:ring-1 focus:ring-crimson-500/50"
           />
         </div>
 

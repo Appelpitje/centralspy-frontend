@@ -74,25 +74,25 @@ export const DeletePersonaModal: React.FC<DeletePersonaModalProps> = ({
     >
       <form onSubmit={handleDelete} className="space-y-4 font-mono text-xs">
         {error && (
-          <div className="p-3 bg-crimson-950/90 border border-crimson-700/80 rounded-sm text-crimson-300">
+          <div className="p-3 bg-stamp-50 border border-stamp-500/30 rounded-lg text-stamp-700 text-sm">
             {error}
           </div>
         )}
 
-        <div className="p-3.5 bg-crimson-950/40 border border-crimson-800/80 rounded-sm space-y-2 text-gray-300">
-          <div className="flex items-center space-x-2 text-crimson-400 font-bold uppercase">
+        <div className="p-3.5 bg-stamp-50 border border-stamp-500/30 rounded-lg space-y-2 text-ink">
+          <div className="flex items-center space-x-2 text-stamp-700 font-semibold">
             <ShieldAlert className="w-4 h-4" />
-            <span>Permanent Deletion Warning</span>
+            <span>Permanent deletion</span>
           </div>
-          <p className="text-[11px] leading-relaxed">
-            Discharging <span className="font-bold text-white">{persona.name}</span> will permanently wipe all attached combat telemetry, unlocked weapons, soldier achievements, and leaderboard rankings across the CentralSpy network.
+          <p className="text-sm leading-relaxed text-ink-muted">
+            Discharging <span className="font-semibold text-ink">{persona.name}</span> will permanently wipe all attached combat telemetry, unlocked weapons, soldier achievements, and leaderboard rankings across the mohPA network.
           </p>
         </div>
 
         <div className="space-y-2">
-          <p className="text-gray-300">
+          <p className="text-ink">
             To confirm this operation, type the soldier callsign{' '}
-            <span className="text-cyan-400 font-bold select-all bg-carbon-950 px-1.5 py-0.5 rounded border border-carbon-800">
+            <span className="text-cyan-400 font-bold select-all bg-sand-50 px-1.5 py-0.5 rounded border border-sand-200">
               {persona.name}
             </span>{' '}
             below:
@@ -110,7 +110,7 @@ export const DeletePersonaModal: React.FC<DeletePersonaModalProps> = ({
           />
         </div>
 
-        <div className="flex items-center justify-end space-x-3 pt-3 border-t border-carbon-800">
+        <div className="flex items-center justify-end space-x-3 pt-3 border-t border-sand-200">
           <Button type="button" variant="ghost" size="md" onClick={handleClose}>
             Cancel
           </Button>

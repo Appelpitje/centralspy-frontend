@@ -300,16 +300,16 @@ describe('Module 2 UI: Auth Pages Rendering', () => {
   it('renders Login view with identifier and password inputs', () => {
     render(<Login />, { wrapper: createWrapper() });
 
-    expect(screen.getByText(/OPERATOR AUTHENTICATION/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /mohPA/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/Username or Email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Security Password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Authenticate Session/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Sign in/i })).toBeInTheDocument();
   });
 
   it('renders Register view with full registration fields', () => {
     render(<Register />, { wrapper: createWrapper() });
 
-    expect(screen.getByText(/OPERATOR ENLISTMENT/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Create account/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/Master Username/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Contact Email Address/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/^Password/i)).toBeInTheDocument();
@@ -322,7 +322,7 @@ describe('Module 2 UI: Auth Pages Rendering', () => {
   it('renders ForgotPassword view with recovery form', () => {
     render(<ForgotPassword />, { wrapper: createWrapper() });
 
-    expect(screen.getByText(/PASSWORD RECOVERY/i)).toBeInTheDocument();
+    expect(screen.getAllByRole('heading', { name: /Reset password/i }).length).toBeGreaterThan(0);
     expect(screen.getByLabelText(/Master Operator Email/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Send Recovery Directives/i })).toBeInTheDocument();
   });

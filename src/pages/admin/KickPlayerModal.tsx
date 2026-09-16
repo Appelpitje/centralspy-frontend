@@ -74,7 +74,7 @@ export const KickPlayerModal: React.FC<KickPlayerModalProps> = ({
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Target Mode Toggle */}
-        <div className="flex items-center space-x-2 bg-carbon-950 p-1 rounded-sm border border-carbon-800">
+        <div className="flex items-center space-x-2 bg-sand-50 p-1 rounded-sm border border-sand-200">
           <button
             type="button"
             onClick={() => setTargetType('USER')}
@@ -82,7 +82,7 @@ export const KickPlayerModal: React.FC<KickPlayerModalProps> = ({
               'flex-1 py-1.5 text-xs font-mono font-semibold uppercase tracking-wider rounded-xs transition-colors',
               targetType === 'USER'
                 ? 'bg-amber-950 text-amber-300 border border-amber-600/50 shadow-glow-amber'
-                : 'text-gray-400 hover:text-gray-200'
+                : 'text-ink-muted hover:text-ink'
             )}
           >
             Target by User ID
@@ -94,7 +94,7 @@ export const KickPlayerModal: React.FC<KickPlayerModalProps> = ({
               'flex-1 py-1.5 text-xs font-mono font-semibold uppercase tracking-wider rounded-xs transition-colors',
               targetType === 'PERSONA'
                 ? 'bg-amber-950 text-amber-300 border border-amber-600/50 shadow-glow-amber'
-                : 'text-gray-400 hover:text-gray-200'
+                : 'text-ink-muted hover:text-ink'
             )}
           >
             Target by Persona ID
@@ -118,7 +118,7 @@ export const KickPlayerModal: React.FC<KickPlayerModalProps> = ({
         />
 
         <div className="w-full flex flex-col space-y-1.5">
-          <label className="text-xs font-mono uppercase tracking-wider text-gray-300">
+          <label className="text-xs font-mono uppercase tracking-wider text-ink">
             Kick Reason
           </label>
           <input
@@ -126,7 +126,7 @@ export const KickPlayerModal: React.FC<KickPlayerModalProps> = ({
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             placeholder="Reason for disconnection..."
-            className="w-full bg-carbon-900 border border-carbon-700 text-gray-100 placeholder-gray-500 rounded-sm text-xs font-mono p-2.5 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/50"
+            className="w-full bg-sand-50 border border-sand-300 text-ink placeholder-ink-faint rounded-sm text-xs font-mono p-2.5 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/50"
           />
         </div>
 

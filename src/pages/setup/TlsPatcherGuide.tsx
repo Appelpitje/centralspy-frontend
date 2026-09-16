@@ -37,7 +37,7 @@ export const TlsPatcherGuide: React.FC = () => {
         'Confirm you have official MOHPA v1.2 (GOG, Origin/EA App, or retail disc + EA 1.2 patch).',
         'Extract the zip contents directly into your game folder containing mohpa.exe.',
         'Run Patch-MOHPA.bat (creates mohpa.exe.bak and patches mohpa.exe automatically).',
-        'Fully quit the game (and Wine), relaunch mohpa.exe, and log in under Multiplayer with your CentralSpy account.',
+        'Fully quit the game (and Wine), relaunch mohpa.exe, and log in under Multiplayer with your mohPA account.',
       ],
     },
   ];
@@ -51,76 +51,76 @@ export const TlsPatcherGuide: React.FC = () => {
         icon={<ShieldAlert className="w-4 h-4 text-amber-400" />}
         accent="amber"
       >
-        <div className="space-y-4 font-mono text-xs text-gray-300">
-          <div className="p-4 bg-cyan-950/40 border border-cyan-800/60 rounded-sm space-y-3">
+        <div className="space-y-4 font-mono text-xs text-ink">
+          <div className="p-4 bg-olive-50 border border-olive-200 rounded-lg space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
-                <h4 className="text-cyan-300 font-bold uppercase tracking-wider">
-                  MOHPA client patch (full zip)
+                <h4 className="text-ink font-semibold">
+                  mohPA client patch
                 </h4>
-                <p className="text-gray-400 text-[11px] mt-1">
+                <p className="text-ink-muted text-[11px] mt-1">
                   Download CentralSpy-MOHPA-Patch.zip (contains Patch-MOHPA.bat, Patch-MOHPA.ps1, Restore-Original.bat, patcher.py, and README).
                 </p>
               </div>
               <a
                 href={MOHPA_PATCH_ZIP_URL}
                 download="CentralSpy-MOHPA-Patch.zip"
-                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-sm font-mono text-xs font-bold uppercase tracking-wider bg-cyan-600 text-white hover:bg-cyan-500 border border-cyan-400/40 shrink-0"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-olive-600 text-white hover:bg-olive-700 border border-transparent shrink-0"
               >
                 <Download className="w-3.5 h-3.5" />
-                Download CentralSpy MOHPA Patch (.zip)
+                Download mohPA Patch (.zip)
               </a>
             </div>
 
-            <div className="pt-2.5 border-t border-cyan-900/50">
-              <h5 className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-1.5">
-                Instructions:
+            <div className="pt-2.5 border-t border-olive-200">
+              <h5 className="text-sm font-semibold text-ink mb-1.5">
+                Instructions
               </h5>
-              <ol className="list-decimal list-inside space-y-1.5 text-gray-200 text-[11px]">
+              <ol className="list-decimal list-inside space-y-1.5 text-ink text-[11px]">
                 <li>Confirm you have official <strong className="text-cyan-300">v1.2</strong> (GOG, Origin/EA App, or retail disc + EA 1.2 patch).</li>
                 <li>Extract the zip contents directly into your game folder containing <code className="text-cyan-300">mohpa.exe</code>.</li>
-                <li>Run <code className="text-cyan-300">Patch-MOHPA.bat</code> (creates <code className="text-gray-400">mohpa.exe.bak</code>, then applies the patch).</li>
-                <li>Fully quit the game (check Task Manager), relaunch <code className="text-cyan-300">mohpa.exe</code>, and log in under <strong>Multiplayer</strong> with your CentralSpy account.</li>
+                <li>Run <code className="text-cyan-300">Patch-MOHPA.bat</code> (creates <code className="text-ink-muted">mohpa.exe.bak</code>, then applies the patch).</li>
+                <li>Fully quit the game (check Task Manager), relaunch <code className="text-cyan-300">mohpa.exe</code>, and log in under <strong>Multiplayer</strong> with your mohPA account.</li>
               </ol>
             </div>
           </div>
 
-          <div className="p-3.5 bg-emerald-950/40 border border-emerald-800/60 rounded-sm flex items-start space-x-3">
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+          <div className="p-3.5 bg-olive-50 border border-olive-200 rounded-lg flex items-start space-x-3">
+            <CheckCircle2 className="w-5 h-5 text-olive-700 shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <h4 className="text-emerald-300 font-bold uppercase tracking-wider text-[11px]">
-                No Hosts-File Edits Required
+              <h4 className="text-ink font-semibold text-sm">
+                No hosts-file edits required
               </h4>
-              <p className="text-gray-300 text-[11px] leading-relaxed">
-                The patcher rewrites hardcoded GameSpy and EA host strings to CentralSpy and hooks <code className="text-emerald-400">gethostbyname</code> directly inside the game binary. Residual domains (<code className="text-cyan-300">fesl.ea.com</code>, <code className="text-cyan-300">theater.ea.com</code>, etc.) resolve directly to CentralSpy at runtime without editing system files. If you previously added CentralSpy entries to your hosts file, you can safely delete them.
+              <p className="text-ink text-[11px] leading-relaxed">
+                The patcher rewrites hardcoded GameSpy and EA host strings to mohPA and hooks <code className="text-emerald-400">gethostbyname</code> directly inside the game binary. Residual domains (<code className="text-cyan-300">fesl.ea.com</code>, <code className="text-cyan-300">theater.ea.com</code>, etc.) resolve directly to mohPA at runtime without editing system files. If you previously added mohPA entries to your hosts file, you can safely delete them.
               </p>
-              <p className="text-gray-400 text-[10px]">
+              <p className="text-ink-muted text-[10px]">
                 To restore stock: double-click <code className="text-amber-400">Restore-Original.bat</code> or rename <code className="text-amber-400">mohpa.exe.bak</code> back to <code className="text-amber-400">mohpa.exe</code>.
               </p>
             </div>
           </div>
 
-          <div className="p-3 bg-amber-950/30 border border-amber-800/50 rounded-sm flex items-start space-x-3">
-            <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+          <div className="p-3 bg-sand-100 border border-sand-300 rounded-lg flex items-start space-x-3">
+            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
             <div>
-              <h4 className="text-amber-300 font-bold uppercase tracking-wider">
-                Why is TLS Certificate Patching Required?
+              <h4 className="text-ink font-semibold">
+                Why TLS patching is required
               </h4>
-              <p className="text-gray-400 text-[11px] mt-1">
-                Legacy EA titles from 2006–2012 used hardcoded VeriSign / EA Root CA certificate public keys inside the game binaries. Because CentralSpy operates as a private replacement server with custom TLS certificates, the game client will abort the handshake with an <code className="text-amber-300">SSL_ERROR_HANDSHAKE_FAILURE</code> unless the verification check is bypassed using the proven Aluigi SSL patcher or binary modifications.
+              <p className="text-ink-muted text-[11px] mt-1">
+                Legacy EA titles from 2006–2012 used hardcoded VeriSign / EA Root CA certificate public keys inside the game binaries. Because mohPA operates as a private replacement server with custom TLS certificates, the game client will abort the handshake with an <code className="text-amber-300">SSL_ERROR_HANDSHAKE_FAILURE</code> unless the verification check is bypassed using the proven Aluigi SSL patcher or binary modifications.
               </p>
             </div>
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex items-center space-x-2 border-b border-carbon-800 pb-2">
+          <div className="flex items-center space-x-2 border-b border-sand-200 pb-2">
             <button
               onClick={() => setActiveTab('overview')}
               className={cn(
                 'px-3 py-1.5 rounded-sm font-semibold uppercase tracking-wider transition-colors',
                 activeTab === 'overview'
-                  ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/50'
-                  : 'text-gray-400 hover:text-gray-200'
+                  ? 'bg-olive-600 text-white border border-olive-700'
+                  : 'text-ink-muted hover:text-ink'
               )}
             >
               Engine Directives
@@ -130,8 +130,8 @@ export const TlsPatcherGuide: React.FC = () => {
               className={cn(
                 'px-3 py-1.5 rounded-sm font-semibold uppercase tracking-wider transition-colors',
                 activeTab === 'aluigi'
-                  ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/50'
-                  : 'text-gray-400 hover:text-gray-200'
+                  ? 'bg-olive-600 text-white border border-olive-700'
+                  : 'text-ink-muted hover:text-ink'
               )}
             >
               Aluigi Universal Patcher Guide
@@ -141,8 +141,8 @@ export const TlsPatcherGuide: React.FC = () => {
               className={cn(
                 'px-3 py-1.5 rounded-sm font-semibold uppercase tracking-wider transition-colors',
                 activeTab === 'manual'
-                  ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/50'
-                  : 'text-gray-400 hover:text-gray-200'
+                  ? 'bg-olive-600 text-white border border-olive-700'
+                  : 'text-ink-muted hover:text-ink'
               )}
             >
               Hex & Disassembly Signatures
@@ -152,19 +152,19 @@ export const TlsPatcherGuide: React.FC = () => {
           {/* Tab Content: Engine Directives */}
           {activeTab === 'overview' && (
             <div className="space-y-4 pt-2">
-              <p className="text-gray-400">
-                Directives and execution steps for all 5 supported CentralSpy game titles:
+              <p className="text-ink-muted">
+                Directives and execution steps for all 5 supported mohPA game titles:
               </p>
 
               <div className="space-y-3">
                 {patchDirectives.map((item, idx) => (
                   <div
                     key={idx}
-                    className="p-4 bg-carbon-950/80 border border-carbon-800 rounded-sm space-y-2 hover:border-carbon-700 transition-colors"
+                    className="p-4 bg-sand-50 border border-sand-200 rounded-sm space-y-2 hover:border-sand-300 transition-colors"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 border-b border-carbon-800/80 pb-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 border-b border-sand-200 pb-2">
                       <div className="flex items-center space-x-2">
-                        <span className="font-hud font-bold text-gray-100 text-sm">
+                        <span className="font-hud font-bold text-ink text-sm">
                           {item.gameTitle}
                         </span>
                         <Badge variant="CYAN">{item.engine}</Badge>
@@ -174,7 +174,7 @@ export const TlsPatcherGuide: React.FC = () => {
                       </span>
                     </div>
 
-                    <ol className="list-decimal list-inside space-y-1.5 text-gray-300 pl-1 pt-1 text-[11px]">
+                    <ol className="list-decimal list-inside space-y-1.5 text-ink pl-1 pt-1 text-[11px]">
                       {item.instructions.map((step, sIdx) => (
                         <li key={sIdx}>{step}</li>
                       ))}
@@ -187,8 +187,8 @@ export const TlsPatcherGuide: React.FC = () => {
 
           {/* Tab Content: Aluigi Patcher */}
           {activeTab === 'aluigi' && (
-            <div className="space-y-4 pt-2 text-gray-300">
-              <div className="p-4 bg-carbon-950/90 border border-carbon-800 rounded-sm space-y-3">
+            <div className="space-y-4 pt-2 text-ink">
+              <div className="p-4 bg-sand-50 border border-sand-200 rounded-sm space-y-3">
                 <div className="flex items-center justify-between">
                   <h4 className="font-hud font-bold text-sm text-cyan-300 uppercase">
                     Aluigi EA SSL Universal Bypass Routine
@@ -196,27 +196,27 @@ export const TlsPatcherGuide: React.FC = () => {
                   <Badge variant="ONLINE">VERIFIED WORKING</Badge>
                 </div>
 
-                <p className="text-[11px] text-gray-400">
-                  Developed by veteran security researcher Luigi Auriemma (aluigi), this utility dynamically intercepts the OpenSSL / SChannel root certificate verification callbacks, causing the game to trust any SSL certificate issued by private servers (such as CentralSpy).
+                <p className="text-[11px] text-ink-muted">
+                  Developed by veteran security researcher Luigi Auriemma (aluigi), this utility dynamically intercepts the OpenSSL / SChannel root certificate verification callbacks, causing the game to trust any SSL certificate issued by private servers (such as mohPA).
                 </p>
 
-                <div className="space-y-2 pt-2 border-t border-carbon-800/80">
-                  <h5 className="font-semibold text-gray-200 uppercase text-[11px]">
+                <div className="space-y-2 pt-2 border-t border-sand-200">
+                  <h5 className="font-semibold text-ink uppercase text-[11px]">
                     Method A: Drag-and-Drop Automated Patching
                   </h5>
-                  <ol className="list-decimal list-inside space-y-1 text-gray-400 pl-1 text-[11px]">
+                  <ol className="list-decimal list-inside space-y-1 text-ink-muted pl-1 text-[11px]">
                     <li>Download the compiled <code className="text-cyan-400">ea_ssl_patch.exe</code> tool.</li>
-                    <li>Make a backup copy of your original game executable (e.g. <code className="text-gray-300">mohpa.exe.bak</code>).</li>
+                    <li>Make a backup copy of your original game executable (e.g. <code className="text-ink">mohpa.exe.bak</code>).</li>
                     <li>Drag your game executable directly onto <code className="text-cyan-400">ea_ssl_patch.exe</code>.</li>
                     <li>The patcher will scan byte patterns, apply the jump patch, and output a confirmation message.</li>
                   </ol>
                 </div>
 
-                <div className="space-y-2 pt-2 border-t border-carbon-800/80">
-                  <h5 className="font-semibold text-gray-200 uppercase text-[11px]">
+                <div className="space-y-2 pt-2 border-t border-sand-200">
+                  <h5 className="font-semibold text-ink uppercase text-[11px]">
                     Method B: DLL Proxy Injection (Non-Destructive)
                   </h5>
-                  <ol className="list-decimal list-inside space-y-1 text-gray-400 pl-1 text-[11px]">
+                  <ol className="list-decimal list-inside space-y-1 text-ink-muted pl-1 text-[11px]">
                     <li>Place <code className="text-cyan-400">dinput8.dll</code> or <code className="text-cyan-400">ws2_32.dll</code> proxy wrapper in the game folder.</li>
                     <li>The wrapper automatically hooks memory upon startup, meaning the original game executable remains 100% untouched.</li>
                   </ol>
@@ -228,7 +228,7 @@ export const TlsPatcherGuide: React.FC = () => {
           {/* Tab Content: Hex Signatures */}
           {activeTab === 'manual' && (
             <div className="space-y-4 pt-2">
-              <p className="text-gray-400">
+              <p className="text-ink-muted">
                 For security researchers and server developers patching executables using HxD, IDA Pro, or Ghidra:
               </p>
 
@@ -236,20 +236,20 @@ export const TlsPatcherGuide: React.FC = () => {
                 {patchDirectives.map((item, idx) => (
                   <div
                     key={idx}
-                    className="p-3 bg-carbon-950 border border-carbon-800 rounded-sm font-mono text-[11px] space-y-1.5"
+                    className="p-3 bg-sand-50 border border-sand-200 rounded-sm font-mono text-[11px] space-y-1.5"
                   >
-                    <div className="flex items-center justify-between text-gray-200 font-bold">
+                    <div className="flex items-center justify-between text-ink font-bold">
                       <span>{item.gameTitle} ({item.targetBinary})</span>
                       <span className="text-amber-400">{item.offsetHex}</span>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                      <div className="p-2 bg-carbon-900 rounded border border-carbon-800">
-                        <span className="text-gray-500 block text-[10px]">ORIGINAL HEX BYTES:</span>
+                      <div className="p-2 bg-sand-50 rounded border border-sand-200">
+                        <span className="text-ink-muted block text-[10px]">ORIGINAL HEX BYTES:</span>
                         <code className="text-crimson-400 font-bold">{item.originalBytes}</code>
                       </div>
-                      <div className="p-2 bg-carbon-900 rounded border border-carbon-800">
-                        <span className="text-gray-500 block text-[10px]">PATCHED REPLACEMENT:</span>
+                      <div className="p-2 bg-sand-50 rounded border border-sand-200">
+                        <span className="text-ink-muted block text-[10px]">PATCHED REPLACEMENT:</span>
                         <code className="text-emerald-400 font-bold">{item.patchedBytes}</code>
                       </div>
                     </div>

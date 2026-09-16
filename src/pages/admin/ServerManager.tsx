@@ -62,7 +62,7 @@ export const ServerManager: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in max-w-6xl">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-carbon-800 pb-4 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-sand-200 pb-4 gap-3">
         <div>
           <div className="flex items-center space-x-2">
             <h1 className="font-hud font-bold text-xl uppercase tracking-wider text-amber-400 flex items-center gap-2">
@@ -71,7 +71,7 @@ export const ServerManager: React.FC = () => {
             </h1>
             <Badge variant="OFFICIAL">AUTHORITY NODE</Badge>
           </div>
-          <p className="text-xs font-mono text-gray-400 mt-1">
+          <p className="text-xs font-mono text-ink-muted mt-1">
             Provision cryptographically signed server tokens, monitor game nodes, and enforce ranked compliance.
           </p>
         </div>
@@ -124,7 +124,7 @@ export const ServerManager: React.FC = () => {
       <div className="space-y-3">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           <div className="flex items-center space-x-2">
-            <h2 className="font-hud font-bold text-base uppercase tracking-wider text-gray-100 flex items-center gap-2">
+            <h2 className="font-hud font-bold text-base uppercase tracking-wider text-ink flex items-center gap-2">
               <Globe className="w-4 h-4 text-amber-400" />
               ACTIVE DEDICATED GAME SERVERS
             </h2>
@@ -136,7 +136,7 @@ export const ServerManager: React.FC = () => {
             <select
               value={selectedGame}
               onChange={(e) => setSelectedGame(e.target.value)}
-              className="bg-carbon-900 border border-carbon-800 text-gray-200 rounded-sm text-xs font-mono px-3 py-1.5 focus:outline-none focus:border-amber-500"
+              className="bg-sand-50 border border-sand-200 text-ink rounded-sm text-xs font-mono px-3 py-1.5 focus:outline-none focus:border-amber-500"
             >
               <option value="ALL">ALL GAMES</option>
               {GAMES.map((g: GameConfig) => (
@@ -148,13 +148,13 @@ export const ServerManager: React.FC = () => {
 
             {/* Search */}
             <div className="relative">
-              <Search className="absolute left-2.5 top-2 w-3.5 h-3.5 text-gray-400 pointer-events-none" />
+              <Search className="absolute left-2.5 top-2 w-3.5 h-3.5 text-ink-muted pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search server name or IP..."
-                className="w-48 bg-carbon-900 border border-carbon-800 text-gray-200 placeholder-gray-500 rounded-sm text-xs font-mono pl-8 pr-2.5 py-1.5 focus:outline-none focus:border-amber-500"
+                className="w-48 bg-sand-50 border border-sand-200 text-ink placeholder-ink-faint rounded-sm text-xs font-mono pl-8 pr-2.5 py-1.5 focus:outline-none focus:border-amber-500"
               />
             </div>
 
@@ -170,10 +170,10 @@ export const ServerManager: React.FC = () => {
         </div>
 
         {/* Server Table */}
-        <div className="border border-carbon-800 rounded-sm bg-carbon-950/70 shadow-hud-card overflow-x-auto">
+        <div className="border border-sand-200 rounded-sm bg-sand-50 shadow-hud-card overflow-x-auto">
           <table className="w-full text-left border-collapse font-mono text-xs">
             <thead>
-              <tr className="bg-carbon-900/90 border-b border-carbon-800 text-[10px] uppercase tracking-wider text-gray-400">
+              <tr className="bg-sand-50 border-b border-sand-200 text-[10px] uppercase tracking-wider text-ink-muted">
                 <th className="px-4 py-3 font-semibold">Status</th>
                 <th className="px-4 py-3 font-semibold">Server Name</th>
                 <th className="px-4 py-3 font-semibold">Game Title</th>
@@ -184,18 +184,16 @@ export const ServerManager: React.FC = () => {
                 <th className="px-4 py-3 font-semibold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-carbon-800/60 text-gray-300">
+            <tbody className="divide-y divide-sand-200 text-ink">
               {isLoading ? (
-                Array.from({ length: 4 }).map((_, i) => (
-                  <tr key={`loading-srv-${i}`} className="animate-pulse bg-carbon-900/20">
-                    <td colSpan={8} className="px-4 py-3.5">
-                      <div className="h-3.5 bg-carbon-800 rounded-sm w-3/4" />
-                    </td>
-                  </tr>
-                ))
+                <tr>
+                  <td colSpan={8} className="px-4 py-16 text-center text-sm font-medium text-ink">
+                    Loading servers…
+                  </td>
+                </tr>
               ) : filteredServers.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-12 text-center text-gray-500 font-mono text-xs uppercase">
+                  <td colSpan={8} className="px-4 py-16 text-center text-sm font-medium text-ink">
                     No active dedicated servers reported. Click "Register Dedicated Server Key" to issue a key.
                   </td>
                 </tr>
@@ -209,7 +207,7 @@ export const ServerManager: React.FC = () => {
                   return (
                     <tr
                       key={srv.id || `srv-${idx}`}
-                      className={idx % 2 === 0 ? 'bg-carbon-950/40 hover:bg-carbon-900/40' : 'bg-carbon-900/20 hover:bg-carbon-900/40'}
+                      className={idx % 2 === 0 ? 'bg-sand-50 hover:bg-sand-100' : 'bg-sand-100 hover:bg-sand-100'}
                     >
                       <td className="px-4 py-3 whitespace-nowrap">
                         <StatusIndicator
@@ -219,7 +217,7 @@ export const ServerManager: React.FC = () => {
                         />
                       </td>
 
-                      <td className="px-4 py-3 font-semibold text-gray-100 whitespace-nowrap">
+                      <td className="px-4 py-3 font-semibold text-ink whitespace-nowrap">
                         {srv.name}
                       </td>
 
@@ -227,13 +225,13 @@ export const ServerManager: React.FC = () => {
                         <Badge variant="CYAN">{srv.gameSlug.toUpperCase()}</Badge>
                       </td>
 
-                      <td className="px-4 py-3 font-mono text-gray-200 whitespace-nowrap">
+                      <td className="px-4 py-3 font-mono text-ink whitespace-nowrap">
                         <span className="select-all">{endpoint}</span>
                       </td>
 
                       <td className="px-4 py-3 text-center whitespace-nowrap">
                         <span className="text-cyan-400 font-bold">{srv.currentPlayers || 0}</span>
-                        <span className="text-gray-400 text-[10px]"> / {srv.maxPlayers || 64}</span>
+                        <span className="text-ink-muted text-[10px]"> / {srv.maxPlayers || 64}</span>
                       </td>
 
                       <td className="px-4 py-3 text-center whitespace-nowrap">
@@ -244,7 +242,7 @@ export const ServerManager: React.FC = () => {
                         )}
                       </td>
 
-                      <td className="px-4 py-3 text-gray-400 text-[11px] whitespace-nowrap">
+                      <td className="px-4 py-3 text-ink-muted text-[11px] whitespace-nowrap">
                         {formattedTime}
                       </td>
 

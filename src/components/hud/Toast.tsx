@@ -89,25 +89,25 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           <div
             key={t.id}
             className={cn(
-              'pointer-events-auto bg-carbon-900 border border-carbon-700 border-l-4 rounded-sm p-3.5 shadow-2xl transition-all duration-200 flex items-start space-x-3 backdrop-blur-md animate-fade-in',
+              'pointer-events-auto bg-sand-50 border border-sand-200 rounded-xl p-3.5 shadow-soft transition-all duration-200 flex items-start space-x-3',
               borders[t.type]
             )}
             role="alert"
           >
             <div className="mt-0.5">{icons[t.type]}</div>
             <div className="flex-1 min-w-0">
-              <h4 className="font-hud font-bold text-xs uppercase tracking-wider text-gray-100">
+              <h4 className="font-sans font-bold text-xs uppercase tracking-wide text-ink">
                 {t.title}
               </h4>
               {t.message && (
-                <p className="text-[11px] font-mono text-gray-400 mt-0.5 break-words">
+                <p className="text-[11px] font-sans text-ink-muted mt-0.5 break-words">
                   {t.message}
                 </p>
               )}
             </div>
             <button
               onClick={() => removeToast(t.id)}
-              className="text-gray-500 hover:text-gray-300 transition-colors p-0.5"
+              className="text-ink-muted hover:text-ink transition-colors p-0.5"
               aria-label="Close notification"
             >
               <X className="w-3.5 h-3.5" />

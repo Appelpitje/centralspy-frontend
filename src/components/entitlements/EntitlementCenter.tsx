@@ -114,16 +114,16 @@ export const EntitlementCenter: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top action header bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-carbon-900 border border-carbon-800 rounded-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 bg-sand-50 border border-sand-200 rounded-sm">
         <div>
           <div className="flex items-center space-x-2">
             <Key className="w-5 h-5 text-cyan-400" />
-            <h2 className="font-hud font-bold text-base uppercase tracking-wider text-gray-100">
+            <h2 className="font-hud font-bold text-base uppercase tracking-wider text-ink">
               GAME LICENSES & ENTITLEMENTS
             </h2>
           </div>
-          <p className="text-xs font-mono text-gray-400 mt-0.5">
-            Manage your digital game ownership and serial licenses across CentralSpy.
+          <p className="text-xs font-mono text-ink-muted mt-0.5">
+            Manage your digital game ownership and serial licenses across mohPA.
           </p>
         </div>
 
@@ -138,18 +138,18 @@ export const EntitlementCenter: React.FC = () => {
             >
               Dev Quick-Grant License
             </Button>
-            <div className="absolute right-0 top-full mt-1 w-56 bg-carbon-900 border border-carbon-700 rounded-sm shadow-2xl p-1 z-30 hidden group-hover:block group-focus-within:block font-mono text-xs">
-              <div className="px-2 py-1 text-[10px] text-gray-400 uppercase tracking-wider border-b border-carbon-800 font-bold">
+            <div className="absolute right-0 top-full mt-1 w-56 bg-sand-50 border border-sand-300 rounded-sm shadow-2xl p-1 z-30 hidden group-hover:block group-focus-within:block font-mono text-xs">
+              <div className="px-2 py-1 text-[10px] text-ink-muted uppercase tracking-wider border-b border-sand-200 font-bold">
                 Instant Game Activation
               </div>
               {GAMES.map((game) => (
                 <button
                   key={game.slug}
                   onClick={() => grantMutation.mutate(game.slug)}
-                  className="w-full text-left px-2 py-1.5 hover:bg-carbon-800 text-gray-200 hover:text-cyan-400 rounded-sm transition-colors flex items-center justify-between"
+                  className="w-full text-left px-2 py-1.5 hover:bg-sand-200 text-ink hover:text-cyan-400 rounded-sm transition-colors flex items-center justify-between"
                 >
                   <span className="truncate">{game.name}</span>
-                  <span className="text-[10px] text-gray-500">{game.slug}</span>
+                  <span className="text-[10px] text-ink-muted">{game.slug}</span>
                 </button>
               ))}
             </div>
@@ -171,20 +171,20 @@ export const EntitlementCenter: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[1, 2, 3].map((i) => (
             <div key={i} className="hud-card p-6 animate-pulse space-y-4">
-              <div className="h-4 bg-carbon-800 rounded w-1/2" />
-              <div className="h-8 bg-carbon-800 rounded w-3/4" />
-              <div className="h-4 bg-carbon-800 rounded w-full" />
+              <div className="h-4 bg-sand-300 rounded w-1/2" />
+              <div className="h-8 bg-sand-300 rounded w-3/4" />
+              <div className="h-4 bg-sand-300 rounded w-full" />
             </div>
           ))}
         </div>
       ) : entitlements.length === 0 ? (
         <Card className="text-center py-12">
           <div className="max-w-md mx-auto space-y-3 font-mono">
-            <Gamepad2 className="w-12 h-12 text-gray-500 mx-auto" />
-            <h3 className="font-hud font-bold text-lg text-gray-200 uppercase">
+            <Gamepad2 className="w-12 h-12 text-ink-muted mx-auto" />
+            <h3 className="font-hud font-bold text-lg text-ink uppercase">
               No Game Entitlements Registered
             </h3>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-ink-muted">
               You do not have any registered game licenses under your master account. Claim a CD key or use the Dev Quick-Grant button to unlock game access.
             </p>
             <div className="pt-2 flex justify-center gap-3">
@@ -229,13 +229,13 @@ export const EntitlementCenter: React.FC = () => {
                 <div className="space-y-4 font-mono text-xs">
                   {/* SKU tags */}
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="text-[10px] text-gray-400 uppercase tracking-wider mr-1">
+                    <span className="text-[10px] text-ink-muted uppercase tracking-wider mr-1">
                       SKU:
                     </span>
                     {config.skus.slice(0, 2).map((sku) => (
                       <span
                         key={sku}
-                        className="px-1.5 py-0.5 bg-carbon-950 border border-carbon-800 text-[10px] rounded-sm text-cyan-300 font-mono"
+                        className="px-1.5 py-0.5 bg-sand-50 border border-sand-200 text-[10px] rounded-sm text-cyan-300 font-mono"
                       >
                         {sku}
                       </span>
@@ -243,10 +243,10 @@ export const EntitlementCenter: React.FC = () => {
                   </div>
 
                   {/* CD Key Box */}
-                  <div className="p-2.5 bg-carbon-950 border border-carbon-800 rounded-sm flex items-center justify-between">
+                  <div className="p-2.5 bg-sand-50 border border-sand-200 rounded-sm flex items-center justify-between">
                     <div className="flex flex-col min-w-0 pr-2">
-                      <span className="text-[10px] text-gray-500 uppercase">SERIAL CD KEY</span>
-                      <span className="font-mono text-gray-200 font-semibold tracking-wider text-xs truncate">
+                      <span className="text-[10px] text-ink-muted uppercase">SERIAL CD KEY</span>
+                      <span className="font-mono text-ink font-semibold tracking-wider text-xs truncate">
                         {ent.cdKey}
                       </span>
                     </div>
@@ -254,7 +254,7 @@ export const EntitlementCenter: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleCopyKey(ent.cdKey, ent.id)}
-                      className="p-1.5 rounded-sm bg-carbon-800 hover:bg-carbon-700 text-gray-300 hover:text-cyan-400 transition-colors focus:outline-none shrink-0"
+                      className="p-1.5 rounded-sm bg-sand-200 hover:bg-carbon-700 text-ink hover:text-cyan-400 transition-colors focus:outline-none shrink-0"
                       title="Copy CD Key"
                     >
                       {isCopied ? (
@@ -266,12 +266,12 @@ export const EntitlementCenter: React.FC = () => {
                   </div>
 
                   {/* Activation Date */}
-                  <div className="pt-2 border-t border-carbon-800 flex items-center justify-between text-[11px] text-gray-400">
+                  <div className="pt-2 border-t border-sand-200 flex items-center justify-between text-[11px] text-ink-muted">
                     <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-gray-500" />
+                      <Calendar className="w-3.5 h-3.5 text-ink-muted" />
                       Activated:
                     </span>
-                    <span className="text-gray-300">
+                    <span className="text-ink">
                       {ent.activatedAt
                         ? new Date(ent.activatedAt).toLocaleDateString()
                         : ent.createdAt
@@ -312,7 +312,7 @@ export const EntitlementCenter: React.FC = () => {
             autoFocus
           />
 
-          <div className="p-3 bg-carbon-950/80 border border-carbon-800 rounded-sm text-[11px] font-mono text-gray-400">
+          <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm text-[11px] font-mono text-ink-muted">
             <span className="text-cyan-400 font-bold uppercase block mb-1">
               Automated Entitlement Routing
             </span>

@@ -127,7 +127,7 @@ export function getRegionInfo(regionOrCountryCode?: string, ipAddress?: string) 
       return { code: 'lan', countryCode: 'LOCAL', name: 'Local Node (LAN)', flag: '🏠', estimatedPing: 5 };
     }
 
-    // Hetzner Germany nodes (including default CentralSpy server 178.105.150.25)
+    // Hetzner Germany nodes (including default mohPA server 178.105.150.25)
     if (
       cleanIp.startsWith('178.105.') ||
       cleanIp.startsWith('188.40.') ||

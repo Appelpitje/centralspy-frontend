@@ -118,7 +118,7 @@ export const Moderation: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in max-w-6xl">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-carbon-800 pb-4 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-sand-200 pb-4 gap-3">
         <div>
           <div className="flex items-center space-x-2">
             <h1 className="font-hud font-bold text-xl uppercase tracking-wider text-crimson-400 flex items-center gap-2">
@@ -127,7 +127,7 @@ export const Moderation: React.FC = () => {
             </h1>
             <Badge variant="ADMIN">LEVEL 10 SEC</Badge>
           </div>
-          <p className="text-xs font-mono text-gray-400 mt-1">
+          <p className="text-xs font-mono text-ink-muted mt-1">
             Enforce account restrictions, disconnect live sessions, and track administrative audit events.
           </p>
         </div>
@@ -193,7 +193,7 @@ export const Moderation: React.FC = () => {
                   value={unbanUserId}
                   onChange={(e) => setUnbanUserId(e.target.value)}
                   placeholder="Enter User ID to Unban..."
-                  className="w-full bg-carbon-950 border border-carbon-700 text-gray-100 placeholder-gray-500 rounded-sm text-xs font-mono px-3 py-2 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-sand-50 border border-sand-300 text-ink placeholder-ink-faint rounded-sm text-xs font-mono px-3 py-2 focus:outline-none focus:border-emerald-500"
                 />
               </div>
               <Button
@@ -206,7 +206,7 @@ export const Moderation: React.FC = () => {
                 Revoke Ban
               </Button>
             </div>
-            <p className="text-[11px] text-gray-400">
+            <p className="text-[11px] text-ink-muted">
               Unbanning will immediately restore EA FESL login capabilities for all soldiers associated with this account.
             </p>
           </form>
@@ -219,17 +219,17 @@ export const Moderation: React.FC = () => {
           icon={<Terminal className="w-4 h-4 text-cyan-400" />}
           accent="cyan"
         >
-          <div className="space-y-2 font-mono text-xs text-gray-300">
-            <div className="flex items-center justify-between text-[11px] border-b border-carbon-800 pb-1">
-              <span className="text-gray-400">AUDIT LOG RETENTION:</span>
+          <div className="space-y-2 font-mono text-xs text-ink">
+            <div className="flex items-center justify-between text-[11px] border-b border-sand-200 pb-1">
+              <span className="text-ink-muted">AUDIT LOG RETENTION:</span>
               <span className="text-emerald-400 font-semibold">IMMUTABLE (365 DAYS)</span>
             </div>
-            <div className="flex items-center justify-between text-[11px] border-b border-carbon-800 pb-1">
-              <span className="text-gray-400">SESSION TEARDOWN:</span>
+            <div className="flex items-center justify-between text-[11px] border-b border-sand-200 pb-1">
+              <span className="text-ink-muted">SESSION TEARDOWN:</span>
               <span className="text-cyan-400 font-semibold">THEATER & FESL BROADCAST</span>
             </div>
             <div className="flex items-center justify-between text-[11px]">
-              <span className="text-gray-400">AUDIT ACTOR AUTH:</span>
+              <span className="text-ink-muted">AUDIT ACTOR AUTH:</span>
               <span className="text-amber-400 font-semibold">JWT ADMIN SIGNED</span>
             </div>
           </div>
@@ -240,7 +240,7 @@ export const Moderation: React.FC = () => {
       <div className="space-y-3">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           <div className="flex items-center space-x-2">
-            <h2 className="font-hud font-bold text-base uppercase tracking-wider text-gray-100 flex items-center gap-2">
+            <h2 className="font-hud font-bold text-base uppercase tracking-wider text-ink flex items-center gap-2">
               <Clock className="w-4 h-4 text-cyan-400" />
               ADMINISTRATIVE AUDIT TRAIL
             </h2>
@@ -250,7 +250,7 @@ export const Moderation: React.FC = () => {
           {/* Search and Action Filter */}
           <div className="flex flex-wrap items-center gap-2">
             {/* Action Filter */}
-            <div className="flex items-center bg-carbon-900 border border-carbon-800 rounded-sm p-0.5 font-mono text-xs">
+            <div className="flex items-center bg-sand-50 border border-sand-200 rounded-sm p-0.5 font-mono text-xs">
               {['ALL', 'BAN_USER', 'UNBAN_USER', 'KICK_PLAYER', 'CREATE_SERVER_KEY'].map((act) => (
                 <button
                   key={act}
@@ -258,8 +258,8 @@ export const Moderation: React.FC = () => {
                   className={cn(
                     'px-2 py-1 rounded-xs text-[10px] font-semibold uppercase transition-colors',
                     actionFilter === act
-                      ? 'bg-carbon-800 text-cyan-300 border border-carbon-700'
-                      : 'text-gray-400 hover:text-gray-200'
+                      ? 'bg-sand-200 text-cyan-300 border border-sand-300'
+                      : 'text-ink-muted hover:text-ink'
                   )}
                 >
                   {act === 'CREATE_SERVER_KEY' ? 'SRV_KEY' : act}
@@ -269,13 +269,13 @@ export const Moderation: React.FC = () => {
 
             {/* Search */}
             <div className="relative">
-              <Search className="absolute left-2.5 top-2 w-3.5 h-3.5 text-gray-400 pointer-events-none" />
+              <Search className="absolute left-2.5 top-2 w-3.5 h-3.5 text-ink-muted pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search audit trail..."
-                className="w-48 bg-carbon-900 border border-carbon-800 text-gray-200 placeholder-gray-500 rounded-sm text-xs font-mono pl-8 pr-2.5 py-1.5 focus:outline-none focus:border-cyan-500"
+                className="w-48 bg-sand-50 border border-sand-200 text-ink placeholder-ink-faint rounded-sm text-xs font-mono pl-8 pr-2.5 py-1.5 focus:outline-none focus:border-cyan-500"
               />
             </div>
 
@@ -291,10 +291,10 @@ export const Moderation: React.FC = () => {
         </div>
 
         {/* Audit Table */}
-        <div className="border border-carbon-800 rounded-sm bg-carbon-950/70 shadow-hud-card overflow-x-auto">
+        <div className="border border-sand-200 rounded-sm bg-sand-50 shadow-hud-card overflow-x-auto">
           <table className="w-full text-left border-collapse font-mono text-xs">
             <thead>
-              <tr className="bg-carbon-900/90 border-b border-carbon-800 text-[10px] uppercase tracking-wider text-gray-400">
+              <tr className="bg-sand-50 border-b border-sand-200 text-[10px] uppercase tracking-wider text-ink-muted">
                 <th className="px-4 py-3 font-semibold">Timestamp</th>
                 <th className="px-4 py-3 font-semibold">Admin Actor</th>
                 <th className="px-4 py-3 font-semibold text-center">Action</th>
@@ -302,18 +302,16 @@ export const Moderation: React.FC = () => {
                 <th className="px-4 py-3 font-semibold">Audit Details & Parameters</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-carbon-800/60 text-gray-300">
+            <tbody className="divide-y divide-sand-200 text-ink">
               {isLoading ? (
-                Array.from({ length: 5 }).map((_, i) => (
-                  <tr key={`loading-${i}`} className="animate-pulse bg-carbon-900/20">
-                    <td colSpan={5} className="px-4 py-3.5">
-                      <div className="h-3.5 bg-carbon-800 rounded-sm w-3/4" />
-                    </td>
-                  </tr>
-                ))
+                <tr>
+                  <td colSpan={5} className="px-4 py-16 text-center text-sm font-medium text-ink">
+                    Loading audit log…
+                  </td>
+                </tr>
               ) : filteredLogs.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-4 py-12 text-center text-gray-500 font-mono text-xs uppercase">
+                  <td colSpan={5} className="px-4 py-16 text-center text-sm font-medium text-ink">
                     No matching audit records located.
                   </td>
                 </tr>
@@ -325,12 +323,12 @@ export const Moderation: React.FC = () => {
                   return (
                     <tr
                       key={log.id || `log-${idx}`}
-                      className={idx % 2 === 0 ? 'bg-carbon-950/40 hover:bg-carbon-900/40' : 'bg-carbon-900/20 hover:bg-carbon-900/40'}
+                      className={idx % 2 === 0 ? 'bg-sand-50 hover:bg-sand-100' : 'bg-sand-100 hover:bg-sand-100'}
                     >
-                      <td className="px-4 py-3 text-gray-400 whitespace-nowrap text-[11px]">
+                      <td className="px-4 py-3 text-ink-muted whitespace-nowrap text-[11px]">
                         {timeFormatted}
                       </td>
-                      <td className="px-4 py-3 text-gray-300 whitespace-nowrap">
+                      <td className="px-4 py-3 text-ink whitespace-nowrap">
                         <span className="text-cyan-300 font-semibold truncate max-w-[120px] inline-block" title={log.actorId || 'SYSTEM'}>
                           {log.actorId ? `${log.actorId.slice(0, 8)}...` : 'SYSTEM'}
                         </span>
@@ -339,16 +337,16 @@ export const Moderation: React.FC = () => {
                         {renderActionBadge(log.action)}
                       </td>
                       <td className="px-4 py-3 whitespace-nowrap">
-                        <span className="text-gray-400 text-[10px] mr-1.5">{log.targetType}:</span>
-                        <span className="text-gray-200 font-mono select-all font-medium">
+                        <span className="text-ink-muted text-[10px] mr-1.5">{log.targetType}:</span>
+                        <span className="text-ink font-mono select-all font-medium">
                           {log.targetId || '-'}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-gray-400 text-[11px] font-sans">
+                      <td className="px-4 py-3 text-ink-muted text-[11px] font-sans">
                         {log.details ? (
-                          <div className="max-w-md truncate font-mono text-[11px] text-gray-300" title={JSON.stringify(log.details, null, 2)}>
+                          <div className="max-w-md truncate font-mono text-[11px] text-ink" title={JSON.stringify(log.details, null, 2)}>
                             {log.details.reason ? (
-                              <span>Reason: <strong className="text-gray-200">{log.details.reason}</strong></span>
+                              <span>Reason: <strong className="text-ink">{log.details.reason}</strong></span>
                             ) : (
                               JSON.stringify(log.details)
                             )}
@@ -367,23 +365,23 @@ export const Moderation: React.FC = () => {
 
         {/* Pagination Footer */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between px-1 text-xs font-mono text-gray-400">
+          <div className="flex items-center justify-between px-1 text-xs font-mono text-ink-muted">
             <div>
-              Page <strong className="text-gray-200">{page}</strong> of <strong className="text-gray-200">{totalPages}</strong>
+              Page <strong className="text-ink">{page}</strong> of <strong className="text-ink">{totalPages}</strong>
             </div>
 
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="p-1.5 rounded-sm bg-carbon-900 border border-carbon-700 text-gray-300 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+                className="p-1.5 rounded-sm bg-sand-50 border border-sand-300 text-ink hover:text-ink disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
-                className="p-1.5 rounded-sm bg-carbon-900 border border-carbon-700 text-gray-300 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+                className="p-1.5 rounded-sm bg-sand-50 border border-sand-300 text-ink hover:text-ink disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>

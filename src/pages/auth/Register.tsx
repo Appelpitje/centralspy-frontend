@@ -143,7 +143,7 @@ export const Register: React.FC = () => {
       setAuth(response.user, response.token);
       toast.success(
         'Enlistment Complete',
-        `Master account initialized. Welcome to CentralSpy, Operator ${response.user.username}!`
+        `Master account initialized. Welcome to mohPA, Operator ${response.user.username}!`
       );
       navigate('/dashboard', { replace: true });
     } catch (err: any) {
@@ -161,28 +161,25 @@ export const Register: React.FC = () => {
     <div className="min-h-[80vh] flex items-center justify-center py-10 px-4">
       <div className="max-w-md w-full animate-fade-in">
         <div className="text-center mb-6">
-          <div className="w-12 h-12 rounded-sm bg-cyan-950 border border-cyan-500/60 mx-auto flex items-center justify-center shadow-glow-cyan mb-3">
-            <Terminal className="w-6 h-6 text-cyan-400" />
-          </div>
-          <h2 className="font-hud font-extrabold text-2xl uppercase tracking-wider text-gray-100">
-            Enlist In CentralSpy
+          <h2 className="text-2xl font-semibold tracking-tight text-ink">
+            Create account
           </h2>
-          <p className="text-xs font-mono text-gray-400 mt-1">
-            Create Master EA Nucleus Account for Multi-Game Access
+          <p className="text-sm text-ink-muted mt-1">
+            Register to manage soldiers and join live servers
           </p>
         </div>
 
         <Card
-          title="OPERATOR ENLISTMENT"
-          subtitle="Deploy a Master Identity across all FESL Lobbies"
+          title="Register"
+          subtitle="Username, email, and password"
           icon={<UserPlus className="w-4 h-4" />}
           accent="cyan"
           className="shadow-2xl"
         >
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="p-3 bg-crimson-950/80 border border-crimson-700/80 rounded-sm text-crimson-300 font-mono text-xs flex items-start space-x-2 animate-fade-in">
-                <AlertCircle className="w-4 h-4 text-crimson-400 shrink-0 mt-0.5" />
+              <div className="p-3 bg-stamp-50 border border-stamp-500/30 rounded-lg text-stamp-700 text-sm flex items-start space-x-2">
+                <AlertCircle className="w-4 h-4 text-stamp-500 shrink-0 mt-0.5" />
                 <span className="flex-1">{error}</span>
               </div>
             )}
@@ -211,7 +208,7 @@ export const Register: React.FC = () => {
             <Input
               label="Contact Email Address"
               type="email"
-              placeholder="e.g. commander@centralspy.net"
+              placeholder="e.g. commander@mohpa.net"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -303,8 +300,8 @@ export const Register: React.FC = () => {
           </form>
         </Card>
 
-        <div className="mt-6 text-center text-xs font-mono text-gray-400 space-x-1">
-          <span>Already registered with CentralSpy?</span>
+        <div className="mt-6 text-center text-xs font-mono text-ink-muted space-x-1">
+          <span>Already registered with mohPA?</span>
           <Link to="/login" className="text-cyan-400 hover:underline font-semibold">
             Operator Login →
           </Link>

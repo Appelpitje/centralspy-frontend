@@ -141,15 +141,15 @@ export const AccountSettings: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in max-w-6xl">
       {/* Page Header */}
-      <div className="border-b border-carbon-800 pb-4">
+      <div className="border-b border-sand-200 pb-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
-            <h1 className="font-hud font-bold text-2xl uppercase tracking-wider text-gray-100 flex items-center gap-2.5">
-              <span>MASTER ACCOUNT & SECURITY CENTER</span>
-              {currentUser?.isAdmin && <Badge variant="ADMIN">ADMIN</Badge>}
+            <h1 className="text-2xl font-semibold tracking-tight text-ink flex items-center gap-2.5">
+              <span>Account</span>
+              {currentUser?.isAdmin && <Badge variant="ADMIN">Admin</Badge>}
             </h1>
-            <p className="text-xs font-mono text-gray-400 mt-1">
-              EA Nucleus profile credentials, game entitlements, and security authorization.
+            <p className="text-sm text-ink-muted mt-1">
+              Profile, licenses, and security.
             </p>
           </div>
 
@@ -178,8 +178,8 @@ export const AccountSettings: React.FC = () => {
                 accent="cyan"
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs">
-                  <div className="p-3 bg-carbon-950/70 border border-carbon-800 rounded-sm">
-                    <span className="text-[10px] text-gray-500 uppercase block mb-0.5">
+                  <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm">
+                    <span className="text-[10px] text-ink-muted uppercase block mb-0.5">
                       Master Username
                     </span>
                     <span className="text-cyan-400 font-bold text-sm">
@@ -187,26 +187,26 @@ export const AccountSettings: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="p-3 bg-carbon-950/70 border border-carbon-800 rounded-sm">
-                    <span className="text-[10px] text-gray-500 uppercase block mb-0.5">
+                  <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm">
+                    <span className="text-[10px] text-ink-muted uppercase block mb-0.5">
                       Linked Contact Email
                     </span>
-                    <span className="text-gray-200 font-semibold text-xs truncate block">
+                    <span className="text-ink font-semibold text-xs truncate block">
                       {currentUser?.email || '—'}
                     </span>
                   </div>
 
-                  <div className="p-3 bg-carbon-950/70 border border-carbon-800 rounded-sm">
-                    <span className="text-[10px] text-gray-500 uppercase block mb-0.5">
+                  <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm">
+                    <span className="text-[10px] text-ink-muted uppercase block mb-0.5">
                       Nucleus Account UUID
                     </span>
-                    <span className="text-gray-400 text-[11px] font-mono truncate block">
+                    <span className="text-ink-muted text-[11px] font-mono truncate block">
                       {currentUser?.id || '—'}
                     </span>
                   </div>
 
-                  <div className="p-3 bg-carbon-950/70 border border-carbon-800 rounded-sm">
-                    <span className="text-[10px] text-gray-500 uppercase block mb-0.5">
+                  <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm">
+                    <span className="text-[10px] text-ink-muted uppercase block mb-0.5">
                       Country / Region Code
                     </span>
                     <span className="text-emerald-400 font-bold text-xs flex items-center gap-1.5">
@@ -215,22 +215,22 @@ export const AccountSettings: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="p-3 bg-carbon-950/70 border border-carbon-800 rounded-sm">
-                    <span className="text-[10px] text-gray-500 uppercase block mb-0.5">
+                  <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm">
+                    <span className="text-[10px] text-ink-muted uppercase block mb-0.5">
                       Date of Birth
                     </span>
-                    <span className="text-gray-300 font-semibold text-xs flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-gray-500" />
+                    <span className="text-ink font-semibold text-xs flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-ink-muted" />
                       {currentUser?.dob || '2000-01-01'}
                     </span>
                   </div>
 
-                  <div className="p-3 bg-carbon-950/70 border border-carbon-800 rounded-sm">
-                    <span className="text-[10px] text-gray-500 uppercase block mb-0.5">
+                  <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm">
+                    <span className="text-[10px] text-ink-muted uppercase block mb-0.5">
                       Account Enlistment Date
                     </span>
-                    <span className="text-gray-300 font-semibold text-xs flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-gray-500" />
+                    <span className="text-ink font-semibold text-xs flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-ink-muted" />
                       {currentUser?.createdAt
                         ? new Date(currentUser.createdAt).toLocaleDateString()
                         : '—'}
@@ -249,9 +249,9 @@ export const AccountSettings: React.FC = () => {
                 accent="emerald"
               >
                 <div className="space-y-4 font-mono text-xs">
-                  <div className="p-3 bg-carbon-950 border border-carbon-800 rounded-sm space-y-2">
+                  <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-400 flex items-center gap-1.5">
+                      <span className="text-ink-muted flex items-center gap-1.5">
                         <Laptop className="w-3.5 h-3.5 text-cyan-400" />
                         Current Web Session:
                       </span>
@@ -259,25 +259,25 @@ export const AccountSettings: React.FC = () => {
                         ACTIVE
                       </Badge>
                     </div>
-                    <div className="text-[11px] text-gray-400">
+                    <div className="text-[11px] text-ink-muted">
                       Browser client authorized via JSON Web Token.
                     </div>
                   </div>
 
-                  <div className="p-3 bg-carbon-950 border border-carbon-800 rounded-sm space-y-2">
+                  <div className="p-3 bg-sand-50 border border-sand-200 rounded-sm space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-400 flex items-center gap-1.5">
+                      <span className="text-ink-muted flex items-center gap-1.5">
                         <Activity className="w-3.5 h-3.5 text-emerald-400" />
                         FESL Sub-Account Auth:
                       </span>
                       <span className="text-emerald-400 font-bold text-[11px]">READY</span>
                     </div>
-                    <div className="text-[11px] text-gray-400">
+                    <div className="text-[11px] text-ink-muted">
                       Credentials encrypted for in-game legacy Theater handshake.
                     </div>
                   </div>
 
-                  <div className="p-2.5 bg-carbon-950/50 border border-carbon-800 rounded-sm text-[11px] text-gray-500">
+                  <div className="p-2.5 bg-sand-50 border border-sand-200 rounded-sm text-[11px] text-ink-muted">
                     Never share your password or auth tokens with unauthorized servers.
                   </div>
                 </div>
@@ -295,20 +295,20 @@ export const AccountSettings: React.FC = () => {
             >
               <form onSubmit={handleUpdateEmail} className="space-y-4">
                 {emailError && (
-                  <div className="p-2.5 bg-crimson-950/80 border border-crimson-700/80 rounded-sm text-crimson-300 font-mono text-xs flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-crimson-400 shrink-0" />
+                  <div className="p-2.5 bg-stamp-50 border border-stamp-500/30 rounded-lg text-stamp-700 text-sm flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 text-stamp-500 shrink-0" />
                     <span>{emailError}</span>
                   </div>
                 )}
 
-                <div className="text-xs font-mono text-gray-400">
-                  Current Email: <span className="text-gray-200 font-bold">{currentUser?.email}</span>
+                <div className="text-xs font-mono text-ink-muted">
+                  Current Email: <span className="text-ink font-bold">{currentUser?.email}</span>
                 </div>
 
                 <Input
                   label="New Contact Email"
                   type="email"
-                  placeholder="e.g. new_commander@centralspy.net"
+                  placeholder="e.g. new_commander@mohpa.net"
                   value={newEmail}
                   onChange={(e) => {
                     setNewEmail(e.target.value);
@@ -338,8 +338,8 @@ export const AccountSettings: React.FC = () => {
             >
               <form onSubmit={handleUpdatePassword} className="space-y-3">
                 {passwordError && (
-                  <div className="p-2.5 bg-crimson-950/80 border border-crimson-700/80 rounded-sm text-crimson-300 font-mono text-xs flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-crimson-400 shrink-0" />
+                  <div className="p-2.5 bg-stamp-50 border border-stamp-500/30 rounded-lg text-stamp-700 text-sm flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 text-stamp-500 shrink-0" />
                     <span>{passwordError}</span>
                   </div>
                 )}

@@ -38,10 +38,10 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         {label && (
           <label
             htmlFor={selectId}
-            className="text-xs font-mono uppercase tracking-wider text-gray-300 flex items-center justify-between"
+            className="text-xs font-sans uppercase tracking-wide text-ink flex items-center justify-between"
           >
             <span>{label}</span>
-            {props.required && <span className="text-cyan-400 text-[10px]">*REQ</span>}
+            {props.required && <span className="text-stamp-500 text-[10px]">Required</span>}
           </label>
         )}
 
@@ -51,10 +51,10 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             ref={ref}
             disabled={disabled}
             className={cn(
-              'w-full bg-carbon-900 border border-carbon-700 text-gray-100 rounded-sm text-sm px-3 py-2 pr-9 transition-all duration-150 appearance-none cursor-pointer',
-              'focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50',
-              'disabled:bg-carbon-950 disabled:border-carbon-800 disabled:text-gray-600 disabled:cursor-not-allowed',
-              error ? 'border-crimson-500 focus:border-crimson-500' : '',
+              'w-full bg-paper-50 border border-olive-500 text-ink rounded-none text-sm px-3 py-2 pr-9 transition-colors duration-150 appearance-none cursor-pointer',
+              'focus:outline-none focus:border-stamp-500 focus:ring-1 focus:ring-stamp-500/40',
+              'disabled:bg-paper-300 disabled:border-olive-400 disabled:text-ink-faint disabled:cursor-not-allowed',
+              error ? 'border-stamp-500 focus:border-stamp-500' : '',
               className
             )}
             {...props}
@@ -64,22 +64,22 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 key={opt.value}
                 value={opt.value}
                 disabled={opt.disabled}
-                className="bg-carbon-900 text-gray-200"
+                className="bg-paper-50 text-ink"
               >
                 {opt.label}
               </option>
             ))}
           </select>
 
-          <div className="absolute right-3 pointer-events-none text-gray-400">
+          <div className="absolute right-3 pointer-events-none text-ink-muted">
             <ChevronDown className="w-4 h-4" />
           </div>
         </div>
 
         {error ? (
-          <p className="text-[11px] font-mono text-crimson-400 mt-0.5">{error}</p>
+          <p className="text-[11px] font-sans text-stamp-600 mt-0.5">{error}</p>
         ) : helperText ? (
-          <p className="text-[11px] font-mono text-gray-500 mt-0.5">{helperText}</p>
+          <p className="text-[11px] font-sans text-ink-faint mt-0.5">{helperText}</p>
         ) : null}
       </div>
     );

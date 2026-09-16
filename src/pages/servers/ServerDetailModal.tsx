@@ -86,7 +86,7 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
     30;
 
   const targetAddress = `${server.ipAddress}:${server.port}`;
-  const effectiveSoldier = user?.username || 'CentralSpyPlayer';
+  const effectiveSoldier = user?.username || 'mohPAPlayer';
   const joinArg = `+joinServer ${targetAddress} +playerName "${effectiveSoldier}"`;
   const formattedMap = formatMapName(server.mapName, server.gameSlug);
   const formattedMode = formatGameMode(server.gameMode, server.gameSlug);
@@ -132,9 +132,9 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
   const renderPlayerTable = (players: ScoreboardPlayer[]) => {
     if (players.length === 0) {
       return (
-        <div className="py-8 text-center text-gray-500 font-mono text-xs border border-carbon-800/60 rounded-sm bg-carbon-950/40">
-          <Users className="w-6 h-6 text-gray-600 mx-auto mb-1.5" />
-          <p>No active combatants in this theater sector.</p>
+        <div className="py-10 text-center border border-sand-200 rounded-lg bg-sand-50">
+          <Users className="w-6 h-6 text-olive-600 mx-auto mb-2" />
+          <p className="text-sm font-medium text-ink">No players on this server right now.</p>
         </div>
       );
     }
@@ -143,10 +143,10 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
     const sorted = [...players].sort((a, b) => (b.score || 0) - (a.score || 0));
 
     return (
-      <div className="overflow-x-auto rounded-sm border border-carbon-800 bg-carbon-950/70">
+      <div className="overflow-x-auto rounded-sm border border-sand-200 bg-sand-50">
         <table className="w-full text-left font-mono text-xs border-collapse">
           <thead>
-            <tr className="bg-carbon-900/90 border-b border-carbon-800 text-[10px] uppercase tracking-wider text-gray-400">
+            <tr className="bg-sand-50 border-b border-sand-200 text-[10px] uppercase tracking-wider text-ink-muted">
               <th className="px-3 py-2 w-12 text-center">POS</th>
               <th className="px-3 py-2">SOLDIER CALLSIGN</th>
               <th className="px-3 py-2 text-right">SCORE</th>
@@ -154,7 +154,7 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
               <th className="px-3 py-2 text-right">PING</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-carbon-800/50">
+          <tbody className="divide-y divide-sand-200/50">
             {sorted.map((player, idx) => {
               const ping = player.ping ?? player.pingMs ?? 35;
               const pingColor =
@@ -163,9 +163,9 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
               return (
                 <tr
                   key={`${player.name}-${idx}`}
-                  className="hover:bg-carbon-800/40 transition-colors"
+                  className="hover:bg-sand-200/40 transition-colors"
                 >
-                  <td className="px-3 py-2 text-center text-gray-500 font-bold">
+                  <td className="px-3 py-2 text-center text-ink-muted font-bold">
                     {idx === 0 ? (
                       <Crown className="w-3.5 h-3.5 text-amber-400 mx-auto" />
                     ) : (
@@ -176,11 +176,11 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                     <button
                       type="button"
                       onClick={() => onSelectPlayer && onSelectPlayer(player.name)}
-                      className="font-semibold text-gray-200 hover:text-cyan-400 text-left transition-colors flex items-center space-x-1.5"
+                      className="font-semibold text-ink hover:text-cyan-400 text-left transition-colors flex items-center space-x-1.5"
                     >
                       <span>{player.name}</span>
                       {player.rank && (
-                        <span className="text-[10px] px-1 py-0.2 rounded bg-carbon-800 text-cyan-400 border border-carbon-700">
+                        <span className="text-[10px] px-1 py-0.2 rounded bg-sand-200 text-cyan-400 border border-sand-300">
                           R{player.rank}
                         </span>
                       )}
@@ -189,9 +189,9 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                   <td className="px-3 py-2 text-right font-bold text-cyan-400">
                     {(player.score || 0).toLocaleString()}
                   </td>
-                  <td className="px-3 py-2 text-center text-gray-300">
+                  <td className="px-3 py-2 text-center text-ink">
                     <span className="text-emerald-400 font-semibold">{player.kills || 0}</span>
-                    <span className="text-gray-500 mx-1">/</span>
+                    <span className="text-ink-muted mx-1">/</span>
                     <span className="text-crimson-400">{player.deaths ?? 0}</span>
                   </td>
                   <td className={cn('px-3 py-2 text-right font-mono text-[11px] font-semibold', pingColor)}>
@@ -213,7 +213,7 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
         onClose={onClose}
         title={
           <div className="flex flex-wrap items-center gap-2">
-            <span className="font-hud font-bold text-lg uppercase tracking-wider text-gray-100 truncate">
+            <span className="font-hud font-bold text-lg uppercase tracking-wider text-ink truncate">
               {server.name}
             </span>
             <Badge variant="CYAN" size="sm">
@@ -241,7 +241,7 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
       >
         <div className="space-y-6 font-mono text-xs">
           {/* Top Quick Status & Actions Bar */}
-          <div className="p-4 bg-carbon-950/80 border border-carbon-800 rounded-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="p-4 bg-sand-50 border border-sand-200 rounded-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
               {/* Online Status */}
               <div className="flex items-center space-x-2">
@@ -262,28 +262,28 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
               </div>
 
               {/* IP / Port */}
-              <div className="flex items-center space-x-2 text-gray-300">
+              <div className="flex items-center space-x-2 text-ink">
                 <Signal className="w-4 h-4 text-cyan-400" />
                 <span>{targetAddress}</span>
                 <button
                   type="button"
                   onClick={copyIp}
-                  className="p-1 rounded bg-carbon-900 border border-carbon-700 hover:text-cyan-400 transition-colors"
+                  className="p-1 rounded bg-sand-50 border border-sand-300 hover:text-cyan-400 transition-colors"
                   title="Copy IP:Port"
                 >
-                  {copiedIp ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-gray-400" />}
+                  {copiedIp ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-ink-muted" />}
                 </button>
               </div>
 
               {/* Region */}
-              <div className="flex items-center space-x-1.5 text-gray-300">
+              <div className="flex items-center space-x-1.5 text-ink">
                 <span>{region.flag}</span>
-                <span className="text-gray-400 uppercase">{region.code.toUpperCase()}</span>
+                <span className="text-ink-muted uppercase">{region.code.toUpperCase()}</span>
                 <span className={cn('text-[11px] font-mono font-semibold', pingColor)}>({ping}ms)</span>
               </div>
 
               {/* Tick rate */}
-              <div className="flex items-center space-x-1.5 text-gray-400">
+              <div className="flex items-center space-x-1.5 text-ink-muted">
                 <Activity className="w-3.5 h-3.5 text-cyan-400" />
                 <span>{tickRate} Hz Tick</span>
               </div>
@@ -313,11 +313,11 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
           {/* Map Preview & Telemetry Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Map Preview Card */}
-            <div className="p-4 bg-carbon-900 border border-carbon-800 rounded-sm relative overflow-hidden flex flex-col justify-between space-y-3">
+            <div className="p-4 bg-sand-50 border border-sand-200 rounded-sm relative overflow-hidden flex flex-col justify-between space-y-3">
               <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl pointer-events-none" />
 
               <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase text-gray-400 tracking-wider flex items-center gap-1.5">
+                <span className="text-[10px] uppercase text-ink-muted tracking-wider flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-cyan-400" />
                   THEATER SECTOR
                 </span>
@@ -327,7 +327,7 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
               </div>
 
               <div>
-                <h4 className="font-hud font-bold text-lg text-gray-100 uppercase tracking-wide truncate" title={formattedMap}>
+                <h4 className="font-hud font-bold text-lg text-ink uppercase tracking-wide truncate" title={formattedMap}>
                   {formattedMap}
                 </h4>
                 <p className="text-[11px] text-cyan-400 mt-0.5 uppercase tracking-wider">
@@ -335,9 +335,9 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-carbon-800/80 flex items-center justify-between text-[11px] text-gray-400">
+              <div className="pt-2 border-t border-sand-200 flex items-center justify-between text-[11px] text-ink-muted">
                 <span>Heartbeat:</span>
-                <span className="text-gray-300">
+                <span className="text-ink">
                   {server.lastHeartbeat
                     ? new Date(server.lastHeartbeat).toLocaleTimeString()
                     : 'Active'}
@@ -346,23 +346,23 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
             </div>
 
             {/* Capacity & Occupancy Card */}
-            <div className="p-4 bg-carbon-900 border border-carbon-800 rounded-sm flex flex-col justify-between space-y-3">
+            <div className="p-4 bg-sand-50 border border-sand-200 rounded-sm flex flex-col justify-between space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase text-gray-400 tracking-wider flex items-center gap-1.5">
+                <span className="text-[10px] uppercase text-ink-muted tracking-wider flex items-center gap-1.5">
                   <Users className="w-3.5 h-3.5 text-cyan-400" />
                   SOLDIER CAPACITY
                 </span>
-                <span className="text-xs font-bold text-gray-200">
-                  {curPlayers} <span className="text-gray-500">/ {maxPlayers}</span>
+                <span className="text-xs font-bold text-ink">
+                  {curPlayers} <span className="text-ink-muted">/ {maxPlayers}</span>
                 </span>
               </div>
 
               <div className="space-y-1.5">
-                <div className="flex items-center justify-between text-[10px] text-gray-400">
+                <div className="flex items-center justify-between text-[10px] text-ink-muted">
                   <span>Occupancy</span>
                   <span className="text-cyan-400 font-bold">{capacityPercent}%</span>
                 </div>
-                <div className="w-full bg-carbon-950 h-2 rounded-full overflow-hidden border border-carbon-800">
+                <div className="w-full bg-sand-50 h-2 rounded-full overflow-hidden border border-sand-200">
                   <div
                     className={cn(
                       'h-full rounded-full transition-all duration-300',
@@ -377,28 +377,28 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-carbon-800/80 flex items-center justify-between text-[11px] text-gray-400">
+              <div className="pt-2 border-t border-sand-200 flex items-center justify-between text-[11px] text-ink-muted">
                 <span>Spectators / Slots:</span>
-                <span className="text-gray-300">
+                <span className="text-ink">
                   {Math.max(0, maxPlayers - curPlayers)} slots available
                 </span>
               </div>
             </div>
 
             {/* Direct Join Quick Arguments Card */}
-            <div className="p-4 bg-carbon-900 border border-carbon-800 rounded-sm flex flex-col justify-between space-y-3">
+            <div className="p-4 bg-sand-50 border border-sand-200 rounded-sm flex flex-col justify-between space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase text-gray-400 tracking-wider flex items-center gap-1.5">
+                <span className="text-[10px] uppercase text-ink-muted tracking-wider flex items-center gap-1.5">
                   <Zap className="w-3.5 h-3.5 text-cyan-400" />
                   DIRECT JOIN ARGUMENT
                 </span>
               </div>
 
-              <div className="bg-carbon-950 p-2 rounded border border-carbon-800 text-[10px] text-cyan-300 break-all select-all font-mono">
+              <div className="bg-sand-50 p-2 rounded border border-sand-200 text-[10px] text-cyan-300 break-all select-all font-mono">
                 {joinArg}
               </div>
 
-              <div className="flex items-center justify-between gap-2 pt-2 border-t border-carbon-800/80">
+              <div className="flex items-center justify-between gap-2 pt-2 border-t border-sand-200">
                 <Button
                   type="button"
                   variant="secondary"
@@ -425,10 +425,10 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
 
           {/* Live Scoreboard Section */}
           <div className="space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-carbon-800 pb-2">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-sand-200 pb-2">
               <div className="flex items-center space-x-2">
                 <Shield className="w-4 h-4 text-cyan-400" />
-                <h3 className="font-hud font-bold text-sm tracking-wider uppercase text-gray-100">
+                <h3 className="font-hud font-bold text-sm tracking-wider uppercase text-ink">
                   LIVE THEATER SCOREBOARD
                 </h3>
                 <Badge variant="CYAN" size="sm">
@@ -437,7 +437,7 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
               </div>
 
               {/* View Switcher Tabs */}
-              <div className="flex items-center space-x-1 bg-carbon-950 p-1 rounded-sm border border-carbon-800">
+              <div className="flex items-center space-x-1 bg-sand-50 p-1 rounded-sm border border-sand-200">
                 <button
                   type="button"
                   onClick={() => setActiveScoreboardTab('split')}
@@ -445,7 +445,7 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                     'px-2.5 py-1 text-[10px] uppercase font-mono rounded-sm transition-colors',
                     activeScoreboardTab === 'split'
                       ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/40 font-bold'
-                      : 'text-gray-400 hover:text-gray-200'
+                      : 'text-ink-muted hover:text-ink'
                   )}
                 >
                   Faction Split View
@@ -457,7 +457,7 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                     'px-2.5 py-1 text-[10px] uppercase font-mono rounded-sm transition-colors',
                     activeScoreboardTab === 'team1'
                       ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/40 font-bold'
-                      : 'text-gray-400 hover:text-gray-200'
+                      : 'text-ink-muted hover:text-ink'
                   )}
                 >
                   {team1Faction.shortName} ({team1Players.length})
@@ -469,7 +469,7 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                     'px-2.5 py-1 text-[10px] uppercase font-mono rounded-sm transition-colors',
                     activeScoreboardTab === 'team2'
                       ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/40 font-bold'
-                      : 'text-gray-400 hover:text-gray-200'
+                      : 'text-ink-muted hover:text-ink'
                   )}
                 >
                   {team2Faction.shortName} ({team2Players.length})
@@ -481,7 +481,7 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                     'px-2.5 py-1 text-[10px] uppercase font-mono rounded-sm transition-colors',
                     activeScoreboardTab === 'all'
                       ? 'bg-cyan-950 text-cyan-300 border border-cyan-500/40 font-bold'
-                      : 'text-gray-400 hover:text-gray-200'
+                      : 'text-ink-muted hover:text-ink'
                   )}
                 >
                   All Combatants
@@ -502,9 +502,9 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                       </span>
                     </div>
                     <div className="flex items-center space-x-3 text-xs">
-                      <span className="text-gray-400">Score: <b className="text-cyan-400">{team1Score}</b></span>
-                      <span className="text-gray-500">|</span>
-                      <span className="text-gray-300">{team1Players.length} Soldiers</span>
+                      <span className="text-ink-muted">Score: <b className="text-cyan-400">{team1Score}</b></span>
+                      <span className="text-ink-muted">|</span>
+                      <span className="text-ink">{team1Players.length} Soldiers</span>
                     </div>
                   </div>
                   {renderPlayerTable(team1Players)}
@@ -520,9 +520,9 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                       </span>
                     </div>
                     <div className="flex items-center space-x-3 text-xs">
-                      <span className="text-gray-400">Score: <b className="text-crimson-400">{team2Score}</b></span>
-                      <span className="text-gray-500">|</span>
-                      <span className="text-gray-300">{team2Players.length} Soldiers</span>
+                      <span className="text-ink-muted">Score: <b className="text-crimson-400">{team2Score}</b></span>
+                      <span className="text-ink-muted">|</span>
+                      <span className="text-ink">{team2Players.length} Soldiers</span>
                     </div>
                   </div>
                   {renderPlayerTable(team2Players)}
@@ -548,7 +548,7 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
               </div>
             ) : (
               <div className="space-y-2">
-                <div className="flex items-center justify-between p-2.5 bg-carbon-900 border border-carbon-800 rounded-sm text-gray-300 text-xs">
+                <div className="flex items-center justify-between p-2.5 bg-sand-50 border border-sand-200 rounded-sm text-ink text-xs">
                   <span>ALL ACTIVE COMBATANTS ({scoreboard.length})</span>
                 </div>
                 {renderPlayerTable(scoreboard)}
@@ -557,32 +557,32 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
           </div>
 
           {/* Telemetry & Rules Card (Collapsible) */}
-          <div className="border border-carbon-800 rounded-sm bg-carbon-900/60 overflow-hidden">
+          <div className="border border-sand-200 rounded-sm bg-sand-50 overflow-hidden">
             <button
               type="button"
               onClick={() => setRulesExpanded(!rulesExpanded)}
-              className="w-full px-4 py-3 flex items-center justify-between bg-carbon-900 hover:bg-carbon-800/80 transition-colors text-left"
+              className="w-full px-4 py-3 flex items-center justify-between bg-sand-50 hover:bg-sand-200 transition-colors text-left"
             >
               <div className="flex items-center space-x-2">
                 <Settings className="w-4 h-4 text-cyan-400" />
-                <span className="font-hud font-bold text-xs uppercase tracking-wider text-gray-200">
+                <span className="font-hud font-bold text-xs uppercase tracking-wider text-ink">
                   SERVER RULES & CVAR CONFIGURATION
                 </span>
-                <span className="text-[10px] text-gray-400">
+                <span className="text-[10px] text-ink-muted">
                   ({Object.keys(rules).length} parameters)
                 </span>
               </div>
               {rulesExpanded ? (
-                <ChevronUp className="w-4 h-4 text-gray-400" />
+                <ChevronUp className="w-4 h-4 text-ink-muted" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-gray-400" />
+                <ChevronDown className="w-4 h-4 text-ink-muted" />
               )}
             </button>
 
             {rulesExpanded && (
-              <div className="p-4 border-t border-carbon-800 space-y-3">
+              <div className="p-4 border-t border-sand-200 space-y-3">
                 {Object.keys(rules).length === 0 ? (
-                  <p className="text-gray-500 text-xs font-mono">
+                  <p className="text-ink-muted text-xs font-mono">
                     No custom cvar overrides or server rules broadcasted. Server is utilizing standard EA Theater defaults.
                   </p>
                 ) : (
@@ -590,9 +590,9 @@ export const ServerDetailModal: React.FC<ServerDetailModalProps> = ({
                     {Object.entries(rules).map(([k, v]) => (
                       <div
                         key={k}
-                        className="p-2 bg-carbon-950 border border-carbon-800/80 rounded-sm flex items-center justify-between text-xs"
+                        className="p-2 bg-sand-50 border border-sand-200 rounded-sm flex items-center justify-between text-xs"
                       >
-                        <span className="text-gray-400 font-mono text-[11px] truncate max-w-[140px]" title={k}>
+                        <span className="text-ink-muted font-mono text-[11px] truncate max-w-[140px]" title={k}>
                           {k}
                         </span>
                         <span className="text-cyan-300 font-mono font-bold text-[11px] ml-2">

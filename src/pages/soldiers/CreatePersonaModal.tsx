@@ -131,15 +131,15 @@ export const CreatePersonaModal: React.FC<CreatePersonaModalProps> = ({
     >
       <form onSubmit={handleSubmit} className="space-y-4 font-mono text-xs">
         {apiError && (
-          <div className="p-3 bg-crimson-950/90 border border-crimson-700/80 rounded-sm text-crimson-300 flex items-start space-x-2 animate-fade-in">
-            <AlertCircle className="w-4 h-4 text-crimson-400 shrink-0 mt-0.5" />
+          <div className="p-3 bg-stamp-50 border border-stamp-500/30 rounded-lg text-stamp-700 text-sm flex items-start space-x-2">
+            <AlertCircle className="w-4 h-4 text-stamp-500 shrink-0 mt-0.5" />
             <span className="flex-1">{apiError}</span>
           </div>
         )}
 
         {isLimitReached && (
-          <div className="p-3 bg-amber-950/80 border border-amber-600/80 rounded-sm text-amber-300 flex items-start space-x-2">
-            <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+          <div className="p-3 bg-sand-100 border border-sand-300 rounded-lg text-ink text-sm flex items-start space-x-2">
+            <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
             <span className="flex-1">
               Roster capacity reached ({maxPersonas}/{maxPersonas}). Discharge an inactive persona before enlisting a new soldier.
             </span>
@@ -171,14 +171,14 @@ export const CreatePersonaModal: React.FC<CreatePersonaModalProps> = ({
         </div>
 
         {/* Real-time regex validation guide */}
-        <div className="p-2.5 bg-carbon-950 border border-carbon-800 rounded-sm space-y-1 text-[11px] text-gray-400">
+        <div className="p-2.5 bg-sand-50 border border-sand-200 rounded-sm space-y-1 text-[11px] text-ink-muted">
           <div className="flex items-center justify-between">
             <span>Character Limit (3-24):</span>
             <span
               className={
                 personaName.trim().length >= 3 && personaName.trim().length <= 24
                   ? 'text-emerald-400 font-bold'
-                  : 'text-gray-500'
+                  : 'text-ink-muted'
               }
             >
               {personaName.trim().length} / 24
@@ -190,7 +190,7 @@ export const CreatePersonaModal: React.FC<CreatePersonaModalProps> = ({
               className={
                 personaName && !validationError
                   ? 'text-emerald-400 font-bold'
-                  : 'text-gray-500'
+                  : 'text-ink-muted'
               }
             >
               ^[a-zA-Z0-9_\-\[\]]+$
@@ -198,7 +198,7 @@ export const CreatePersonaModal: React.FC<CreatePersonaModalProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center justify-end space-x-3 pt-3 border-t border-carbon-800">
+        <div className="flex items-center justify-end space-x-3 pt-3 border-t border-sand-200">
           <Button type="button" variant="ghost" size="md" onClick={onClose}>
             Cancel
           </Button>
