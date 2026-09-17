@@ -6,7 +6,6 @@ import {
   Crosshair,
   Award,
   Clock,
-  Skull,
   UserPlus,
   GitCompare,
   ArrowLeft,
@@ -15,7 +14,6 @@ import {
   CheckCircle2,
   AlertCircle,
   Target,
-  Swords,
   Search,
 } from 'lucide-react';
 import { statsService } from '../../services/statsService';
@@ -67,13 +65,6 @@ export const PlayerProfile: React.FC = () => {
   const stats = profileData?.stats;
   const gameSlug = persona?.gameSlug || gameParam || 'mohpa';
   const gameConfig = GAMES.find((g) => g.slug === gameSlug) || GAMES[0];
-
-  // Fetch Match History for the game
-  const { data: matchHistoryData, isLoading: isMatchesLoading } = useQuery({
-    queryKey: ['matchHistory', gameSlug],
-    queryFn: () => statsService.getMatchHistory(gameSlug, 10),
-    enabled: !!persona,
-  });
 
   // Calculate Military Rank Grade
   const score = stats?.score || 0;
@@ -490,113 +481,6 @@ export const PlayerProfile: React.FC = () => {
               </div>
             );
           })}
-        </div>
-      </Card>
-
-      {/* Recent Match History Table */}
-      <Card
-        title="ENGAGEMENT LOG // RECENT MATCH HISTORY"
-        subtitle={`Combat events logged in sector ${gameConfig.name}`}
-        icon={<Swords className="w-4 h-4 text-emerald-400" />}
-        accent="emerald"
-      >
-        <div className="overflow-x-auto rounded-sm border border-sand-200 bg-sand-50">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b border-sand-200 bg-sand-50 font-mono text-[11px] uppercase tracking-wider text-ink-muted">
-                <th className="px-4 py-3">MAP / SECTOR</th>
-                <th className="px-4 py-3">GAME MODE</th>
-                <th className="px-4 py-3 text-center">DURATION</th>
-                <th className="px-4 py-3 text-center">OUTCOME</th>
-                <th className="px-4 py-3 text-right">DATE LOGGED</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-sand-200 font-mono text-xs">
-              {isMatchesLoading ? (
-                <tr>
-                  <td colSpan={5} className="px-4 py-16 text-center">
-                    <p className="text-sm font-medium text-ink">Loading match history…</p>
-                  </td>
-                </tr>
-              ) : matchHistoryData?.matches && matchHistoryData.matches.length > 0 ? (
-                matchHistoryData.matches.map((match, idx) => {
-                  const isVictory = (match.winnerTeam !== null ? match.winnerTeam === 1 : idx % 2 === 0);
-                  const durationMins = Math.floor(match.durationSeconds / 60);
-                  const durationSecs = match.durationSeconds % 60;
-                  const formattedDuration = `${durationMins}m ${durationSecs < 10 ? '0' : ''}${durationSecs}s`;
-                  const matchDate = new Date(match.createdAt).toLocaleDateString(undefined, {
-                    month: 'short',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  });
-
-                  return (
-                    <tr
-                      key={match.id || `match-${idx}`}
-                      className="hover:bg-sand-100 transition-colors"
-                    >
-                      <td className="px-4 py-3 font-semibold text-ink">
-                        {match.mapName || 'Suez Canal / Sector 4'}
-                      </td>
-                      <td className="px-4 py-3 text-ink-muted">
-                        <span className="px-2 py-0.5 rounded-full bg-olive-50 border border-olive-200 text-[11px] text-olive-800">
-                          {match.gameMode || 'Titan Conquest'}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-center text-ink-muted">
-                        {formattedDuration}
-                      </td>
-                      <td className="px-4 py-3 text-center">
-                        {isVictory ? (
-                          <span className="inline-flex items-center gap-1 font-medium text-olive-800 bg-olive-50 border border-olive-200 px-2 py-0.5 rounded-full text-[11px]">
-                            <CheckCircle2 className="w-3 h-3" /> Victory
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 font-medium text-stamp-700 bg-stamp-50 border border-stamp-500/30 px-2 py-0.5 rounded-full text-[11px]">
-                            <Skull className="w-3 h-3" /> Defeat
-                          </span>
-                        )}
-                      </td>
-                      <td className="px-4 py-3 text-right text-ink-muted">
-                        {matchDate}
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
-                // Sample simulated records for dossier visual completeness
-                [
-                  { map: 'Minsk Perimeter', mode: 'Titan Assault', duration: '18m 42s', victory: true, date: '2 hours ago' },
-                  { map: 'Suez Canal 2142', mode: 'Conquest 64', duration: '24m 10s', victory: true, date: 'Yesterday' },
-                  { map: 'Verdun Liberation', mode: 'Titan Assault', duration: '31m 05s', victory: false, date: '3 days ago' },
-                  { map: 'Camp Gibraltar', mode: 'Conquest 32', duration: '15m 19s', victory: true, date: '5 days ago' },
-                ].map((item, idx) => (
-                  <tr key={`sample-${idx}`} className="hover:bg-sand-100 transition-colors">
-                    <td className="px-4 py-3 font-semibold text-ink">{item.map}</td>
-                    <td className="px-4 py-3 text-ink-muted">
-                      <span className="px-2 py-0.5 rounded-full bg-olive-50 border border-olive-200 text-[11px] text-olive-800">
-                        {item.mode}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-center text-ink-muted">{item.duration}</td>
-                    <td className="px-4 py-3 text-center">
-                      {item.victory ? (
-                        <span className="inline-flex items-center gap-1 font-medium text-olive-800 bg-olive-50 border border-olive-200 px-2 py-0.5 rounded-full text-[11px]">
-                          <CheckCircle2 className="w-3 h-3" /> Victory
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 font-medium text-stamp-700 bg-stamp-50 border border-stamp-500/30 px-2 py-0.5 rounded-full text-[11px]">
-                          <Skull className="w-3 h-3" /> Defeat
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3 text-right text-ink-muted">{item.date}</td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
         </div>
       </Card>
 

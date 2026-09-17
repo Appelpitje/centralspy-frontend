@@ -380,7 +380,7 @@ describe('Module 5: PlayerProfile Dossier Component', () => {
     vi.clearAllMocks();
   });
 
-  it('renders full operative dossier with rank grade, metrics, class breakdown, and match history', async () => {
+  it('renders full operative dossier with rank grade, metrics, and class breakdown', async () => {
     const mockProfile = {
       persona: {
         id: 'p-999-guid',
@@ -401,26 +401,8 @@ describe('Module 5: PlayerProfile Dossier Component', () => {
       },
     };
 
-    const mockMatches = {
-      gameSlug: 'mohpa',
-      count: 1,
-      matches: [
-        {
-          id: 'm-101',
-          serverId: 'srv-1',
-          gameSlug: 'mohpa',
-          mapName: 'Verdun Liberation',
-          gameMode: 'Titan Conquest',
-          durationSeconds: 1420,
-          winnerTeam: 1,
-          createdAt: '2024-05-15T18:00:00.000Z',
-        },
-      ],
-    };
-
     (apiClient.get as any).mockImplementation((url: string) => {
       if (url.includes('/stats/players/')) return Promise.resolve({ data: mockProfile });
-      if (url.includes('/stats/matches/')) return Promise.resolve({ data: mockMatches });
       return Promise.resolve({ data: {} });
     });
 
@@ -449,11 +431,10 @@ describe('Module 5: PlayerProfile Dossier Component', () => {
     expect(screen.getByRole('heading', { level: 4, name: 'ASSAULT' })).toBeInTheDocument();
     expect(screen.getByText(/ENGINEER/i)).toBeInTheDocument();
 
-    // Match history
-    await waitFor(() => {
-      expect(screen.getByText('Verdun Liberation')).toBeInTheDocument();
-      expect(screen.getByText('Titan Conquest')).toBeInTheDocument();
-    });
+    // Match history is dummy placeholder data; keep it off the dossier until real logs exist
+    expect(screen.queryByText(/ENGAGEMENT LOG/i)).not.toBeInTheDocument();
+    expect(screen.queryByText('Verdun Liberation')).not.toBeInTheDocument();
+    expect(screen.queryByText('Minsk Perimeter')).not.toBeInTheDocument();
   });
 
   it('opens compare stats modal when clicking Compare Stats button', async () => {
