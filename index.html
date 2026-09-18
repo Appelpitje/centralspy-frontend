@@ -4,10 +4,30 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#f4f0e6" />
     <meta name="description" content="mohPA — Medal of Honor: Pacific Assault soldier roster, live Theater servers, and client setup." />
     <title>mohPA</title>
-
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('mohpa-theme') || localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark = stored ? stored === 'dark' : prefersDark;
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
+            var metaTheme = document.querySelector('meta[name="theme-color"]');
+            if (metaTheme) metaTheme.setAttribute('content', '#121511');
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.style.colorScheme = 'light';
+            var metaTheme = document.querySelector('meta[name="theme-color"]');
+            if (metaTheme) metaTheme.setAttribute('content', '#f4f0e6');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="bg-sand-100 text-ink antialiased">
     <div id="root"></div>

@@ -133,7 +133,7 @@ export const PlayerProfile: React.FC = () => {
       timePlayed: +(+combatHours * 0.18).toFixed(1),
       accuracy: 19.8,
       kills: Math.round(kills * 0.12),
-      color: 'from-purple-500 to-indigo-700',
+      color: 'from-stamp-500 to-stamp-700',
     },
   ];
 
@@ -251,7 +251,7 @@ export const PlayerProfile: React.FC = () => {
       </div>
 
       {/* Header Banner: Soldier Dossier Hero */}
-      <div className="hud-card p-6 rounded-sm border-l-4 border-l-cyan-500 shadow-glow-cyan bg-sand-50 relative overflow-hidden">
+      <div className="hud-card p-6 relative overflow-hidden">
         {/* Background Cyber Graphic Overlay */}
         <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-cyan-950/30 to-transparent pointer-events-none" />
         <div className="absolute -right-8 -top-8 w-40 h-40 rounded-full border border-cyan-500/10 pointer-events-none" />
@@ -334,13 +334,13 @@ export const PlayerProfile: React.FC = () => {
         />
 
         {/* K/D Ratio with Visual Bar */}
-        <div className="hud-card p-4 rounded-sm border-l-2 border-l-emerald-500 shadow-[inset_2px_0_10px_-2px_rgba(16,185,129,0.3)] flex flex-col justify-between">
+        <div className="hud-card p-4 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
               <span className="font-mono text-[11px] uppercase tracking-wider text-ink-muted font-medium">
                 KILL / DEATH EFFICIENCY
               </span>
-              <div className="p-2 rounded-sm border border-emerald-800/60 bg-emerald-950/50 text-emerald-400 shrink-0">
+              <div className="p-2 rounded-sm border border-olive-200 bg-olive-50 text-olive-700 shrink-0">
                 <Crosshair className="w-4 h-4" />
               </div>
             </div>
@@ -379,13 +379,13 @@ export const PlayerProfile: React.FC = () => {
         </div>
 
         {/* Win / Loss Record with Gauge */}
-        <div className="hud-card p-4 rounded-sm border-l-2 border-l-amber-500 shadow-[inset_2px_0_10px_-2px_rgba(245,158,11,0.3)] flex flex-col justify-between">
+        <div className="hud-card p-4 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
               <span className="font-mono text-[11px] uppercase tracking-wider text-ink-muted font-medium">
                 WIN / LOSS RECORD
               </span>
-              <div className="p-2 rounded-sm border border-amber-800/60 bg-amber-950/50 text-amber-400 shrink-0">
+              <div className="p-2 rounded-sm border border-sand-300 bg-sand-100 text-amber-600 shrink-0">
                 <Award className="w-4 h-4" />
               </div>
             </div>

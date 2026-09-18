@@ -9,7 +9,14 @@ import {
   ShieldAlert,
   ChevronLeft,
   ChevronRight,
+  Github,
 } from 'lucide-react';
+
+const GITHUB_REPOS = [
+  { href: 'https://github.com/Appelpitje/mohPA-frontend', label: 'Portal source' },
+  { href: 'https://github.com/Appelpitje/mohPA-backend', label: 'Master server source' },
+  { href: 'https://github.com/Appelpitje/mohPA-website', label: 'Website source' },
+] as const;
 import { useAuthStore } from '../../store/authStore';
 import { cn } from '../../utils/cn';
 
@@ -62,11 +69,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       <aside
         className={cn(
-          'fixed lg:sticky top-14 left-0 z-50 h-[calc(100vh-3.5rem)] border-r border-sand-200 transition-transform duration-200 flex flex-col justify-between shrink-0',
+          'fixed lg:sticky top-14 left-0 z-50 h-[calc(100vh-3.5rem)] border-r border-sand-200 bg-sand-50 transition-transform duration-200 flex flex-col justify-between shrink-0',
           isCollapsed ? 'w-56 lg:w-16' : 'w-56',
           isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         )}
-        style={{ backgroundColor: '#fbfaf6', isolation: 'isolate' }}
+        style={{ isolation: 'isolate' }}
       >
         <nav className="flex flex-col gap-0.5 p-3 overflow-y-auto overscroll-contain">
           {navItems.map((item) => {
@@ -96,7 +103,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
           })}
         </nav>
 
-        <div className="p-3 border-t border-sand-200">
+        <div className="p-3 border-t border-sand-200 space-y-1">
+          {isCollapsed && !isOpenMobile ? (
+            <a
+              href="https://github.com/Appelpitje/mohPA-frontend"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center rounded-lg px-3 py-2 text-sm text-ink-muted hover:bg-sand-100 hover:text-ink transition-colors"
+              title="Source on GitHub"
+              aria-label="Source on GitHub"
+            >
+              <Github className="w-4 h-4 shrink-0" />
+            </a>
+          ) : (
+            GITHUB_REPOS.map((repo) => (
+              <a
+                key={repo.href}
+                href={repo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-ink-muted hover:bg-sand-100 hover:text-ink transition-colors"
+              >
+                <Github className="w-4 h-4 shrink-0" />
+                <span>{repo.label}</span>
+              </a>
+            ))
+          )}
           <button
             onClick={onToggleCollapse}
             className="w-full hidden lg:flex items-center justify-center gap-2 p-2 rounded-lg text-ink-faint hover:text-ink hover:bg-sand-100 transition-colors text-sm"

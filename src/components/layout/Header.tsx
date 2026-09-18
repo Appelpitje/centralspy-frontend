@@ -7,10 +7,12 @@ import {
   Key,
   ChevronDown,
   Menu,
+  Github,
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
+import { ThemeToggle } from '../common/ThemeToggle';
 import { cn } from '../../utils/cn';
 
 interface HeaderProps {
@@ -50,8 +52,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
 
   return (
     <header
-      className="h-14 border-b border-sand-200 sticky top-0 z-50 px-4 sm:px-6 flex items-center justify-between"
-      style={{ backgroundColor: '#fbfaf6' }}
+      className="h-14 border-b border-sand-200 sticky top-0 z-50 px-4 sm:px-6 flex items-center justify-between bg-sand-50/95 backdrop-blur-sm"
     >
       <div className="flex items-center gap-3">
         {onToggleSidebar && (
@@ -72,6 +73,16 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
       </div>
 
       <div className="flex items-center gap-2">
+        <ThemeToggle />
+        <a
+          href="https://github.com/Appelpitje/mohPA-frontend"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-2 rounded-lg text-ink-muted hover:bg-sand-200 hover:text-ink transition-colors"
+          aria-label="Portal source on GitHub"
+        >
+          <Github className="w-4 h-4" />
+        </a>
         {isAuthenticated && user ? (
           <div className="relative" ref={dropdownRef}>
             <button

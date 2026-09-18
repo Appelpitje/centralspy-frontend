@@ -5,7 +5,7 @@ import { cn } from '../../utils/cn';
 import { countryCodeToFlag } from '../../utils/gameMaps';
 import { COUNTRIES, getCountry, searchCountries } from '../../utils/countries';
 
-const PANEL_BG = '#fbfaf6';
+const PANEL_BG = 'rgb(var(--color-sand-50))';
 
 export interface CountrySelectProps {
   label?: string;
@@ -281,7 +281,7 @@ export const CountrySelect: React.FC<CountrySelectProps> = ({
                 'flex items-center gap-2 px-3 sm:px-2.5 cursor-pointer text-sm min-h-11 sm:min-h-0 py-2.5 sm:py-1.5',
                 isActive ? 'bg-olive-100 text-ink' : isSelected ? 'bg-olive-50 text-ink' : 'text-ink'
               )}
-              style={{ backgroundColor: isActive ? '#dce3cc' : isSelected ? '#eef1e6' : PANEL_BG }}
+              style={{ backgroundColor: isActive ? 'rgb(var(--color-olive-100))' : isSelected ? 'rgb(var(--color-olive-50))' : PANEL_BG }}
             >
               <CountryFlag code={country.code} />
               <span className="flex-1 truncate">{country.name}</span>
@@ -431,7 +431,7 @@ export const CountrySelect: React.FC<CountrySelectProps> = ({
                   onChange={(event) => setQuery(event.target.value)}
                   onKeyDown={onKeyDown}
                   className="w-full border border-sand-300 rounded-lg text-sm py-2.5 pl-9 pr-3 text-ink placeholder-ink-faint focus:outline-none focus:border-olive-400 focus:ring-2 focus:ring-olive-500/20"
-                  style={{ backgroundColor: '#ffffff' }}
+                  style={{ backgroundColor: PANEL_BG }}
                 />
               </div>
             </div>

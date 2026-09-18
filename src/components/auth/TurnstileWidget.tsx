@@ -51,9 +51,10 @@ export const TurnstileWidget: React.FC<{
         window.turnstile.remove(widgetIdRef.current);
         widgetIdRef.current = null;
       }
+      const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
       widgetIdRef.current = window.turnstile.render(containerRef.current, {
         sitekey,
-        theme: 'light',
+        theme: isDark ? 'dark' : 'light',
         callback: (token: string) => onTokenRef.current(token),
         'expired-callback': () => onTokenRef.current(''),
         'error-callback': () => onTokenRef.current(''),

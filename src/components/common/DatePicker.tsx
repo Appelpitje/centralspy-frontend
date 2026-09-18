@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { Calendar, ChevronDown, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { cn } from '../../utils/cn';
 
-const PANEL_BG = '#fbfaf6';
+const PANEL_BG = 'rgb(var(--color-sand-50))';
 const WEEKDAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 const MONTHS = [
   'January',
@@ -333,7 +333,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                 disabledDay && 'opacity-30 cursor-not-allowed'
               )}
               style={{
-                backgroundColor: isSelected ? '#5a6840' : isToday && !isSelected ? '#eef1e6' : 'transparent',
+                backgroundColor: isSelected ? 'rgb(var(--color-olive-500))' : isToday && !isSelected ? 'rgb(var(--color-olive-50))' : 'transparent',
               }}
             >
               {cell.day}

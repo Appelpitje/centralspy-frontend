@@ -2,18 +2,116 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Sand / Base Canvas (Light Paper) */
+  --color-sand-50: 251 250 246;   /* #fbfaf6 */
+  --color-sand-100: 244 240 230;  /* #f4f0e6 */
+  --color-sand-200: 232 225 208;  /* #e8e1d0 */
+  --color-sand-300: 212 204 184;  /* #d4ccb8 */
+  --color-sand-400: 184 175 150;  /* #b8af96 */
+
+  /* Paper */
+  --color-paper-50: 251 250 246;
+  --color-paper-100: 244 240 230;
+  --color-paper-200: 232 225 208;
+  --color-paper-300: 212 204 184;
+  --color-paper-400: 184 175 150;
+  --color-paper-500: 154 145 120;
+
+  /* Olive (Light) */
+  --color-olive-50: 238 241 230;  /* #eef1e6 */
+  --color-olive-100: 220 227 204; /* #dce3cc */
+  --color-olive-200: 194 205 176; /* #c2cdb0 */
+  --color-olive-300: 154 171 120; /* #9aab78 */
+  --color-olive-400: 122 139 84;  /* #7a8b54 */
+  --color-olive-500: 90 104 64;   /* #5a6840 */
+  --color-olive-600: 74 86 52;    /* #4a5634 */
+  --color-olive-700: 58 68 40;    /* #3a4428 */
+  --color-olive-800: 44 52 30;    /* #2c341e */
+  --color-olive-900: 30 36 22;    /* #1e2416 */
+  --color-olive-950: 20 24 15;    /* #14180f */
+
+  /* Ink (Light) */
+  --color-ink: 31 33 28;          /* #1f211c */
+  --color-ink-muted: 92 90 82;    /* #5c5a52 */
+  --color-ink-faint: 138 134 122; /* #8a867a */
+  --color-ink-light: 163 159 147; /* #a39f93 */
+
+  /* Stamp (Light) */
+  --color-stamp-50: 246 238 232;  /* #f6eee8 */
+  --color-stamp-100: 234 217 206; /* #ead9ce */
+  --color-stamp-500: 139 74 50;   /* #8b4a32 */
+  --color-stamp-600: 110 58 39;   /* #6e3a27 */
+  --color-stamp-700: 84 44 30;    /* #542c1e */
+  --color-stamp-800: 58 18 12;    /* #3a120c */
+  --color-stamp-accent: 155 45 31;/* #9b2d1f */
+
+  --shadow-hud-card: 0 1px 2px rgba(31, 33, 28, 0.06), 0 8px 24px rgba(31, 33, 28, 0.06);
+
+  color-scheme: light;
+}
+
+.dark {
+  /* Sand / Base Canvas (Dark Military Bunker / Blackout) */
+  --color-sand-50: 24 28 22;      /* #181c16 elevated card/panel */
+  --color-sand-100: 18 21 17;     /* #121511 page background */
+  --color-sand-200: 42 49 37;     /* #2a3125 border / dividers */
+  --color-sand-300: 56 65 49;     /* #384131 border hover / secondary */
+  --color-sand-400: 80 93 70;     /* #505d46 muted accents */
+
+  /* Paper */
+  --color-paper-50: 24 28 22;
+  --color-paper-100: 18 21 17;
+  --color-paper-200: 42 49 37;
+  --color-paper-300: 56 65 49;
+  --color-paper-400: 80 93 70;
+  --color-paper-500: 110 126 98;
+
+  /* Olive (Dark) */
+  --color-olive-50: 28 36 24;     /* #1c2418 active item / subtle row highlight */
+  --color-olive-100: 36 48 31;    /* #24301f badge background */
+  --color-olive-200: 56 75 49;    /* #384b31 badge border */
+  --color-olive-300: 95 124 81;   /* #5f7c51 */
+  --color-olive-400: 122 153 103; /* #7a9967 */
+  --color-olive-500: 142 173 120; /* #8ead78 */
+  --color-olive-600: 84 109 62;   /* #546d3e button background */
+  --color-olive-700: 97 125 71;   /* #617d47 button hover */
+  --color-olive-800: 202 221 183; /* #cadcb7 luminous sage text on badges */
+  --color-olive-900: 226 238 215; /* #e2eed7 text hover */
+  --color-olive-950: 236 244 228;
+
+  /* Ink (Dark) - warm off-white typewriter/stencil lettering */
+  --color-ink: 236 232 222;       /* #ece8de primary text */
+  --color-ink-muted: 165 160 148; /* #a5a094 secondary text */
+  --color-ink-faint: 116 112 102; /* #747066 tertiary / placeholder */
+  --color-ink-light: 85 82 74;    /* #55524a */
+
+  /* Stamp (Dark) */
+  --color-stamp-50: 42 23 20;     /* #2a1714 */
+  --color-stamp-100: 66 32 27;    /* #42201b */
+  --color-stamp-500: 179 72 50;   /* #b34832 high-visibility rust */
+  --color-stamp-600: 203 87 61;   /* #cb573d */
+  --color-stamp-700: 145 51 30;   /* #91331e */
+  --color-stamp-800: 105 34 18;
+  --color-stamp-accent: 219 78 61;
+
+  --shadow-hud-card: 0 1px 3px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.45);
+
+  color-scheme: dark;
+}
+
 @layer base {
   html,
   body {
-    background-color: #f4f0e6;
-    color: #1f211c;
+    background-color: rgb(var(--color-sand-100));
+    color: rgb(var(--color-ink));
     font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
     min-height: 100vh;
   }
 
   ::selection {
-    background: #dce3cc;
-    color: #1f211c;
+    background: rgb(var(--color-olive-100));
+    color: rgb(var(--color-ink));
   }
 
   ::-webkit-scrollbar {
@@ -22,21 +120,21 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #f4f0e6;
+    background: rgb(var(--color-sand-100));
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #d4ccb8;
+    background: rgb(var(--color-sand-300));
     border-radius: 999px;
-    border: 2px solid #f4f0e6;
+    border: 2px solid rgb(var(--color-sand-100));
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #b8af96;
+    background: rgb(var(--color-sand-400));
   }
 
   :focus-visible {
-    outline: 2px solid #5a6840;
+    outline: 2px solid rgb(var(--color-olive-500));
     outline-offset: 2px;
   }
 }
@@ -47,13 +145,13 @@
   }
 
   .hud-card {
-    background: #fbfaf6;
-    border: 1px solid #e8e1d0;
+    background: rgb(var(--color-sand-50));
+    border: 1px solid rgb(var(--color-sand-200));
     border-radius: 12px;
-    box-shadow: 0 1px 2px rgba(31, 33, 28, 0.06), 0 8px 24px rgba(31, 33, 28, 0.06);
+    box-shadow: var(--shadow-hud-card);
   }
 
   .hud-card-accent {
-    border-top: 1px solid #e8e1d0;
+    border-top: 1px solid rgb(var(--color-sand-200));
   }
 }
